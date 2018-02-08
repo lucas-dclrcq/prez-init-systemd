@@ -890,7 +890,7 @@ ExecStart=/usr/bin/bundle exec "unicorn_rails -D -c /home/git/gitlab/config/unic
 WantedBy=multi-user.target</code></pre>
             </section>
             <section>
-                <h3>Parallélisation</h3>
+                <h3>III. La Parallélisation</h3>
                 <p>
                     Un des gros avantage de systemD sur init c'est
                     sa capacité à lancer des processus en parallèle
@@ -903,7 +903,7 @@ WantedBy=multi-user.target</code></pre>
                 </p>
             </section>
             <section>
-                <h3>Contrôle tes logs!</h3>
+                <h3>IV. Contrôle tes logs!</h3>
                 <p>
                     Dans systemd logs sont associé à un groupe afin de réduire les chances
                     de corruptions lors d'un piratage, ils sont portables,
@@ -915,7 +915,7 @@ WantedBy=multi-user.target</code></pre>
                 </p>
             </section>
             <section>
-                <h3>Control groups</h3>
+                <h3>V. Les Control Groups</h3>
                 <p> Systemd utilise le module cgroup du kernel linux pour organiser les processus.
                     Il permet de contrôler et de surveiller l'usage des ressources 
                     physiques du système pour un ensemble de PID.
@@ -934,8 +934,8 @@ WantedBy=multi-user.target</code></pre>
                 <img src="img/cgroup_schema.png">
             </section>
             <section>
-                <h3>Les Timers</h3>
-                <p>Un timer est un fichier permettant de controller les services,
+                <h3>VI. Les Timers</h3>
+                <p>Un timer est un fichier permettant de contrôler les services,
                 ainsi que les events</p>
                 <p>Les timers peuvent être utilisés en remplacement de cron.</p>
                 <video playsinline src="https://media.giphy.com/media/Emg9qPKR5hquI/giphy.mp4" loop="loop"></video>
@@ -946,7 +946,7 @@ WantedBy=multi-user.target</code></pre>
                 <p>Ex : foo.timer est associé a foo.service.</p>
             </section>
             <section>
-                <h3>SystemD Galaxy</h3>
+                <h3>VII. SystemD Galaxy</h3>
                 <p>systemd-bood, udev, networkd, logind, timedated</p>
                 <p>TODO</p>
             </section>

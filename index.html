@@ -220,6 +220,7 @@ httpd 0:off 1:off 2:off 3:on 4:off 5:on 6:off
             </section>
         </section>
         <section data-background-color="#3d85c6">
+
             <section>
                 <h1>SystemD</h1>
                 <img src="img/systemd_gandalf.jpg">
@@ -349,13 +350,21 @@ WantedBy=multi-user.target</code></pre>
                 <img src="img/cgroup_schema.png">
             </section>
             <section>
-                <h3>Timer TODO</h3>
+                <h3>Les Timers</h3>
+                <p>Un timer est un fichier permettant de controller les services,
+                ainsi que les events</p>
+                <p>Les timers peuvent être utilisés en remplacement de cron.</p>
+                <video playsinline src="https://media.giphy.com/media/Emg9qPKR5hquI/giphy.mp4" loop="loop"></video>
+            </section>
+            <section>
+                <p>C'est un fichier spécifique à systemd, qui est obligatoirement associé à un service existant.<br>
+                    Par défaut, un timer est associé au service ayant le même nom que lui.</p>
+                <p>Ex : foo.timer est associé a foo.service.</p>
             </section>
             <section>
                 <h3>SystemD Galaxy</h3>
                 <p>systemd-bood, udev, networkd, logind, timedated</p>
                 <p>TODO</p>
-            </section>
             </section>
         </section>
         <section data-background-color="#6aa84f"><h1>Travaux Pratiques</h1></section>

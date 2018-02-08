@@ -41,6 +41,10 @@
                     faits, ce processus prend le PID 1 sur le système. Il est toujours lancé par le kernel de Linux,
                     après les premières étapes de boot réalisées par le BIOS et le bootloader.
                 </p>
+                <p>
+                    Pour avoir un résumé de tout ce que fait le pid 1 : 
+                    <pre><code>$ systemd-analyse plot > boostpid.svg </code></pre>
+                </p>
             </section>
             <section class="concave">
                 <p>
@@ -235,7 +239,7 @@ httpd 0:off 1:off 2:off 3:on 4:off 5:on 6:off
             <section>
                 <h3>KISS</h3>
                 <i>"Keep it simple stupid"</i>
-                <img scr="./img/linux.jpg" alt=retarded/>
+                <img id="torvald" src="images/retarded.gif">
             </section>
             <section>
                 <h3>Configuration</h3>
@@ -290,6 +294,16 @@ WantedBy=multi-user.target</code></pre>
             </section>
             <section>
                 <h3>Contrôle tes logs!</h3>
+                <p>
+                    Dans systemd logs sont associé à un groupe afin de réduire les chances 
+                    de corruptions lors d'un piratage, ils sont portables,
+                    et l'outil comporte une gestion de saturation de l'espace. 
+                </p>
+                <p>
+                    Tout service géré par systemd est automatiquement logué, 
+                    sauf si celui-ci demande à ne pas l'être.
+                    On accède au logs via la commande journalctl.
+                </p> 
             </section>
         </section>
         <section data-background-color="#6aa84f"><h1>Travaux Pratiques</h1></section>

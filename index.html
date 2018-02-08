@@ -194,7 +194,103 @@ httpd 0:off 1:off 2:off 3:on 4:off 5:on 6:off
 	            </code></pre>
             </section>
         </section>
-        <section data-background-color="#3d85c6"><h1>SystemD</h1></section>
+        <section data-background-color="#3d85c6">
+            <section><h1>SystemD</h1></section>
+            <section>
+                <p>
+                    "systemd est un système d’initialisation et un daemon qui a été spécifiquement 
+                    conçu pour le noyau Linux comme alternative à System V. Il a pour but d'offrir un
+                    meilleur cadre pour la gestion des dépendances entre services, de permettre le chargement
+                    en parallèle des services au démarrage, et de réduire les appels aux scripts shell."
+                </p>
+            </section>
+            <section>
+                <p>
+                    SystemD a été créé en 2010 par Lennart Poettering et Kay Sievers, 
+                    et a été à l’origine d’intenses débats au sein de la communauté UNIX.
+                </p>
+                <img scr=""/>
+                <quote>
+                    "I don't actually have any particularly strong opinions on systemd itself. 
+                    I've had issues with some of the core developers that I think are much too 
+                    cavalier about bugs and compatibility, and I think some of the design details 
+                    are insane (I dislike the binary logs, for example), 
+                    but those are details, not big issues."
+                    L. Torvalds
+                </quote>
+            </section>
+            <section>
+                <h3>Les différences avec Init</h3>
+                <ul>
+                    <li>KISS</li>
+                    <li>orienté configuration</li>
+                    <li>parallélisation</li>
+                    <li>cgroups</li>
+                    <li>"The Journal"</li>
+                    <li>Timer</li>
+                    <li>la galaxie systemD</li>
+                </ul> 
+            </section>
+            <section>
+                <h3>KISS</h3>
+                <i>"Keep it simple stupid"</i>
+                <img scr="./img/linux.jpg" alt=retarded/>
+            </section>
+            <section>
+                <h3>Configuration</h3>
+                <p>
+                    On reprend l'exemple
+                    de Gitlab avec systemd.
+                    La syntaxe des fichiers de
+                    configuration systemd
+                    est inspirée des standards du X Desktop 
+                    Group qui eux même s'inspirent 
+                    des fichiers Microsoft .ini
+                </p>
+        <pre style="width: 50%; margin-left : 0%;"><code>
+#####################################################
+#
+# GitLab version    : 5.x - 7.x
+# Contributors      : davispuh, mtorromeo, axilleas, boeserwolf91, Stefan Tatschner (rumpelsepp)
+# Downloaded from   : https://gitlab.com/gitlab-org/gitlab-recipes/tree/master/init/systemd
+#
+####################################################
+
+[Unit]
+Description=GitLab Unicorn Server
+Requires=redis.service
+Wants=mysqld.service postgresql.service
+After=redis.service mysqld.service postgresql.service
+
+[Service]
+User=git
+WorkingDirectory=/home/git/gitlab
+Environment=RAILS_ENV=production
+SyslogIdentifier=gitlab-unicorn
+PIDFile=/home/git/gitlab/tmp/pids/unicorn.pid
+
+ExecStart=/usr/bin/bundle exec "unicorn_rails -D -c /home/git/gitlab/config/unicorn.rb -E production"
+
+[Install]
+WantedBy=multi-user.target</code></pre>
+            </section>
+            <section>
+                <h3>Parallélisation</h3>
+                <p>
+                    Un des gros avantage de systemD sur init c'est
+                    sa capacité à lancer des processus en parallèle
+                    via utilisation de sockets et D-bus.
+                </p>
+                <p>
+                    Socket et D-bus sont deux ensembles normalisées 
+                    de fonctions qui permettent au processus de 
+                    parager des données et d'échanger des messages
+                </p>
+            </section>
+            <section>
+                <h3>Contrôle tes logs!</h3>
+            </section>
+        </section>
         <section data-background-color="#6aa84f"><h1>Travaux Pratiques</h1></section>
         <section data-background-color="#8e7cc3"><h1>Questions ?</h1></section>
     </div>

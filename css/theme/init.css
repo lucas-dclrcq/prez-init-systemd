@@ -11,10 +11,8 @@ html * {
   color-profile: sRGB;
   rendering-intent: auto; }
 
-#cnam-logo {
-  border: none;
-  background: #c1002a;
-  padding: 0.2em; }
+.cnam .fragment0 {
+  font-family: maplelight; }
 
 /*********************************************
  * GLOBAL STYLES

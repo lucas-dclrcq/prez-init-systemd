@@ -49,12 +49,7 @@
                     <li class="fragment">Il est toujours lancé par le kernel de Linux,
                         après les premières étapes de boot réalisées par le BIOS et le bootloader.
                     </li>
-                    <li>
-                    Pour avoir un résumé de tout ce que fait le pid 1 au moment du boot : 
-                    <pre><code>$ systemd-analyse plot > boostpid.svg </code></pre>
-                    </li>
-                </ul>
-            </section>
+                    </section>
             <section class="concave">
                 <p>
                     Ce processus
@@ -70,20 +65,29 @@
                 <h3>Pourquoi ce processus est-il si vital ?</h3>
                 <ul>
                     <li class="fragment">Un processus est toujours créé par un autre, appelé son processus père.</li>
-                    <li class="fragment">Exception faite du processus initial qui est <u>le père de tous les autres !</u></li>
+                    <li class="fragment">Exception faite du processus initial qui est <u>le père de tous les autres
+                        !</u></li>
                 </ul>
             </section>
             <section>
                 I AM YOUR FATHER GIF
             </section>
             <section>
+                <p>Pour avoir un résumé de tout ce que fait le <b>PID 1</b> au démarrage :</p>
+                        <pre><code>$ systemd-analyse plot > boostpid.svg </code></pre>
+            </section>
+            <section data-background-color="white" data-background-size="contain" data-background="img/pid_background.png">
+
+            </section>
+            <section>
                 <h3>Les roles d'un système d'initialisation :</h3>
                 <ul>
-                <li class="fragment">Il démarre le reste des processus nécessaire au lancement du système
-                    d'exploitation</li>
-                <li class="fragment">Il gère le cycle de vie des autres processus</li>
-                <li class="fragment">Il gère le nettoyage des processus orphelins (processus zombies)</li>
-                <li class="fragment">Il a aussi un rôle de monitoring</li>
+                    <li class="fragment">Il démarre le reste des processus nécessaire au lancement du système
+                        d'exploitation
+                    </li>
+                    <li class="fragment">Il gère le cycle de vie des autres processus</li>
+                    <li class="fragment">Il gère le nettoyage des processus orphelins (processus zombies)</li>
+                    <li class="fragment">Il a aussi un rôle de monitoring</li>
                 </ul>
             </section>
         </section>
@@ -93,16 +97,19 @@
             <section>
                 <h3>Un peu d'histoire ...</h3>
                 <ul>
-                <li class="fragment">Init fait référence à SysV int, le système d’initialisation de SystemV le premier
-                    système d’exploitation Unix commercial.</li>
-                <li class="fragment">SysV a connu 4 versions majeures depuis la première en 1983, dont la quatrième
-                    (SRV4) a été le principal succès commercial, soutenu par les principaux vendeurs de systèmes
-                    Unix.</li>
+                    <li class="fragment">Init fait référence à SysV int, le système d’initialisation de SystemV le
+                        premier
+                        système d’exploitation Unix commercial.
+                    </li>
+                    <li class="fragment">SysV a connu 4 versions majeures depuis la première en 1983, dont la quatrième
+                        (SRV4) a été le principal succès commercial, soutenu par les principaux vendeurs de systèmes
+                        Unix.
+                    </li>
                 </ul>
             </section>
             <section>
                 <p>Init est donc un très vieux système !</p>
-                OLD GIF
+                <img src="img/oldlady.jpg">
             </section>
             <section>
                 <h3>On peut découper Init en deux composants principaux :</h3>
@@ -114,29 +121,35 @@
             <section>
                 <h3>Les Runlevels</h3>
                 <ul>
-                <li class="fragment">Un runlevel est un des modes dans lequel un système Unix s'exécute. Chaque runlevel
-                    possède un
-                    certain nombre de processus actifs ou stoppés.</li>
-                <li class="fragment">Après que le kernel a démarré, init lit le fichier /etc/inittab pour déterminer le
-                    comportement de
-                    chaque runlevel ainsi que le runlevel par défaut.</li>
-                <li class="fragment">
-                    À moins que l'utilisateur ait spécifié un paramètre spécial au démarrage, le système va essayer de
-                    démarrer au runlevel par défaut (ex : 3 pour les systèmes Red Hat)
-                </li>
+                    <li class="fragment">Un runlevel est un des modes dans lequel un système Unix s'exécute. Chaque
+                        runlevel
+                        possède un
+                        certain nombre de processus actifs ou stoppés.
+                    </li>
+                    <li class="fragment">Après que le kernel a démarré, init lit le fichier /etc/inittab pour déterminer
+                        le
+                        comportement de
+                        chaque runlevel ainsi que le runlevel par défaut.
+                    </li>
+                    <li class="fragment">
+                        À moins que l'utilisateur ait spécifié un paramètre spécial au démarrage, le système va essayer
+                        de
+                        démarrer au runlevel par défaut (ex : 3 pour les systèmes Red Hat)
+                    </li>
                 </ul>
             </section>
             <section>
                 <h3>
-                    Il existe 8 runlevels : 0 à 7 :
+                    Il existe 8 runlevels :
                 </h3>
                 <table class="reveal">
-                    <thead></thead>
+                    <thead>
                     <tr>
                         <th>Runlevel</th>
                         <th>Mode</th>
                         <th>Actions</th>
                     </tr>
+                    </thead>
                     <tbody>
                     <tr>
                         <td>0</td>
@@ -152,27 +165,39 @@
                         <td>2</td>
                         <td>Multi-User Mode</td>
                         <td>Ne configure pas le réseau ou les daemons</td>
+                    </tbody>
+                </table>
+            </section>
+            <section>
+                <p>(Suite)</p>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Runlevel</th>
+                        <th>Mode</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
                     <tr>
                         <td>3</td>
                         <td>Multi-User Mode with Networking</td>
                         <td>Démarre le système normalement</td>
                     </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Undefined</td>
-                        <td>Pas utilisé</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>X11</td>
-                        <td>Comme le runlevel 3 + interface graphique</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>Reboot</td>
-                        <td>Redémarre le système</td>
-                    </tr>
-                    </tbody>
+                <tr>
+                    <td>4</td>
+                    <td>Undefined</td>
+                    <td>Pas utilisé</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>X11</td>
+                    <td>Comme le runlevel 3 + interface graphique</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Reboot</td>
+                    <td>Redémarre le système</td>
+                </tr>
                 </table>
             </section>
             <section>
@@ -188,11 +213,11 @@
             </section>
             <section>
                 <h3>Gérer tous ces dossiers, fichiers et liens symboliques parait compliqué...</h3>
-                GIF CABLE MESS
+                <img style="he: 70%;" src="img/cables.jpg">
             </section>
             <section>
                 <h3>Rassurez vous, on peu simplifier !</h3>
-                GIF BABY IDEA
+                <img src="img/baby.gif">
             </section>
             <section>
                 <p>Grâce à <b>chkconfig</b> on peut visualiser l'activation ou non des scripts pour chaque
@@ -217,6 +242,559 @@ xfs 0:off 1:off 2:on 3:on 4:on 5:on 6:off
 xinetd 0:off 1:off 2:off 3:on 4:on 5:on 6:off
 httpd 0:off 1:off 2:off 3:on 4:off 5:on 6:off
 	            </code></pre>
+                <small class="fragment">Et on peut aussi activer un script avec la commande <i>chkconfig on
+                    /chemin/du/script</i></small>
+            </section>
+            <section>
+                <h3>Pour résumer, voici ce qui se passe quand on démarre Linux :</h3>
+                <ol>
+                    <li class="fragment">Le BIOS ou le bootloader (lilo, grub, etc) charge le kernel du disque vers la
+                        mémoire. Le fichier du Kernel reste dans le dossier /boot, il n'est lu qu'a ce moment la.
+                    </li>
+                    <li class="fragment">En mémoire, le code du Kernel s'exécute, et détecte divers éléments : disques,
+                        partitions, etc...
+                    </li>
+                    <li class="fragment">Le Kernel monte le système de fichier qui doit obligatoirement contenir
+                        certains dossiers : /etc, /bin, /lib...
+                    </li>
+                </ol>
+            </section>
+            <section>
+                <ol start="4">
+                    <li>Immédiatement après, le Kernel appelle la commande init  (/sbin/init) et lui passe la main</li>
+                    <li class="fragment">La commande init  lit le fichier /etc/inittab qui définit le runlevel du système, et les scripts système à exécuter</li>
+                    <li class="fragment">Ces scripts vont finir la mise en place des parties vitales du système (systèmes de fichier, SWAP,  mémoire virtuelle...)</li>
+                    <li class="fragment">Et enfin, init va lancer les scripts présents dans /etc/rc.d</li>
+                </ol>
+            </section>
+            <section>
+                <h3>Mais qu'est-ce qu'un script d'initialisation ?</h3>
+                <p class="fragment">C'est un script bash !</p>
+            </section>
+            <section>
+                <p style="color: red;">EXPLICATIONS SUR COMMENT EST FOUTU UN SCRIPT BASH</p>
+            </section>
+            <section>
+                <h3>Exemple : le script d'init de Gitlab (500 lignes)</h3>
+                <pre><code>
+    #! /bin/sh
+
+# GITLAB
+# Maintainer: @randx
+# Authors: rovanion.luckey@gmail.com, @randx
+
+### BEGIN INIT INFO
+# Provides:          gitlab
+# Required-Start:    $local_fs $remote_fs $network $syslog redis-server
+# Required-Stop:     $local_fs $remote_fs $network $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: GitLab git repository management
+# Description:       GitLab git repository management
+# chkconfig: - 85 14
+### END INIT INFO
+
+
+###
+# DO NOT EDIT THIS FILE!
+# This file will be overwritten on update.
+# Instead add/change your variables in /etc/default/gitlab
+# An example defaults file can be found in lib/support/init.d/gitlab.default.example
+###
+
+
+### Environment variables
+RAILS_ENV="production"
+
+# Script variable names should be lower-case not to conflict with
+# internal /bin/sh variables such as PATH, EDITOR or SHELL.
+app_user="git"
+app_root="/home/$app_user/gitlab"
+pid_path="$app_root/tmp/pids"
+socket_path="$app_root/tmp/sockets"
+rails_socket="$socket_path/gitlab.socket"
+web_server_pid_path="$pid_path/unicorn.pid"
+sidekiq_pid_path="$pid_path/sidekiq.pid"
+mail_room_enabled=false
+mail_room_pid_path="$pid_path/mail_room.pid"
+gitlab_workhorse_dir=$(cd $app_root/../gitlab-workhorse 2> /dev/null && pwd)
+gitlab_workhorse_pid_path="$pid_path/gitlab-workhorse.pid"
+gitlab_workhorse_options="-listenUmask 0 -listenNetwork unix -listenAddr $socket_path/gitlab-workhorse.socket -authBackend http://127.0.0.1:8080 -authSocket $rails_socket -documentRoot $app_root/public"
+gitlab_workhorse_log="$app_root/log/gitlab-workhorse.log"
+gitlab_pages_enabled=false
+gitlab_pages_dir=$(cd $app_root/../gitlab-pages 2> /dev/null && pwd)
+gitlab_pages_pid_path="$pid_path/gitlab-pages.pid"
+gitlab_pages_options="-pages-domain example.com -pages-root $app_root/shared/pages -listen-proxy 127.0.0.1:8090"
+gitlab_pages_log="$app_root/log/gitlab-pages.log"
+shell_path="/bin/bash"
+gitaly_enabled=true
+gitaly_dir=$(cd $app_root/../gitaly 2> /dev/null && pwd)
+gitaly_pid_path="$pid_path/gitaly.pid"
+gitaly_log="$app_root/log/gitaly.log"
+
+# Read configuration variable file if it is present
+test -f /etc/default/gitlab && . /etc/default/gitlab
+
+# Switch to the app_user if it is not he/she who is running the script.
+if [ `whoami` != "$app_user" ]; then
+  eval su - "$app_user" -c $(echo \")$shell_path -l -c \'$0 "$@"\'$(echo \"); exit;
+fi
+
+# Switch to the gitlab path, exit on failure.
+if ! cd "$app_root" ; then
+ echo "Failed to cd into $app_root, exiting!";  exit 1
+fi
+
+
+### Init Script functions
+
+## Gets the pids from the files
+check_pids(){
+  if ! mkdir -p "$pid_path"; then
+    echo "Could not create the path $pid_path needed to store the pids."
+    exit 1
+  fi
+  # If there exists a file which should hold the value of the Unicorn pid: read it.
+  if [ -f "$web_server_pid_path" ]; then
+    wpid=$(cat "$web_server_pid_path")
+  else
+    wpid=0
+  fi
+  if [ -f "$sidekiq_pid_path" ]; then
+    spid=$(cat "$sidekiq_pid_path")
+  else
+    spid=0
+  fi
+  if [ -f "$gitlab_workhorse_pid_path" ]; then
+    hpid=$(cat "$gitlab_workhorse_pid_path")
+  else
+    hpid=0
+  fi
+  if [ "$mail_room_enabled" = true ]; then
+    if [ -f "$mail_room_pid_path" ]; then
+      mpid=$(cat "$mail_room_pid_path")
+    else
+      mpid=0
+    fi
+  fi
+  if [ "$gitlab_pages_enabled" = true ]; then
+    if [ -f "$gitlab_pages_pid_path" ]; then
+      gppid=$(cat "$gitlab_pages_pid_path")
+    else
+      gppid=0
+    fi
+  fi
+  if [ "$gitaly_enabled" = true ]; then
+    if [ -f "$gitaly_pid_path" ]; then
+      gapid=$(cat "$gitaly_pid_path")
+    else
+      gapid=0
+    fi
+  fi
+}
+
+## Called when we have started the two processes and are waiting for their pid files.
+wait_for_pids(){
+  # We are sleeping a bit here mostly because sidekiq is slow at writing its pid
+  i=0;
+  while [ ! -f $web_server_pid_path ] || [ ! -f $sidekiq_pid_path ] || [ ! -f $gitlab_workhorse_pid_path ] || { [ "$mail_room_enabled" = true ] && [ ! -f $mail_room_pid_path ]; } || { [ "$gitlab_pages_enabled" = true ] && [ ! -f $gitlab_pages_pid_path ]; } || { [ "$gitaly_enabled" = true ] && [ ! -f $gitaly_pid_path ]; }; do
+    sleep 0.1;
+    i=$((i+1))
+    if [ $((i%10)) = 0 ]; then
+      echo -n "."
+    elif [ $((i)) = 301 ]; then
+      echo "Waited 30s for the processes to write their pids, something probably went wrong."
+      exit 1;
+    fi
+  done
+  echo
+}
+
+# We use the pids in so many parts of the script it makes sense to always check them.
+# Only after start() is run should the pids change. Sidekiq sets its own pid.
+check_pids
+
+
+## Checks whether the different parts of the service are already running or not.
+check_status(){
+  check_pids
+  # If the web server is running kill -0 $wpid returns true, or rather 0.
+  # Checks of *_status should only check for == 0 or != 0, never anything else.
+  if [ $wpid -ne 0 ]; then
+    kill -0 "$wpid" 2>/dev/null
+    web_status="$?"
+  else
+    web_status="-1"
+  fi
+  if [ $spid -ne 0 ]; then
+    kill -0 "$spid" 2>/dev/null
+    sidekiq_status="$?"
+  else
+    sidekiq_status="-1"
+  fi
+  if [ $hpid -ne 0 ]; then
+    kill -0 "$hpid" 2>/dev/null
+    gitlab_workhorse_status="$?"
+  else
+    gitlab_workhorse_status="-1"
+  fi
+  if [ "$mail_room_enabled" = true ]; then
+    if [ $mpid -ne 0 ]; then
+      kill -0 "$mpid" 2>/dev/null
+      mail_room_status="$?"
+    else
+      mail_room_status="-1"
+    fi
+  fi
+  if [ "$gitlab_pages_enabled" = true ]; then
+    if [ $gppid -ne 0 ]; then
+      kill -0 "$gppid" 2>/dev/null
+      gitlab_pages_status="$?"
+    else
+      gitlab_pages_status="-1"
+    fi
+  fi
+  if [ "$gitaly_enabled" = true ]; then
+    if [ $gapid -ne 0 ]; then
+      kill -0 "$gapid" 2>/dev/null
+      gitaly_status="$?"
+    else
+      gitaly_status="-1"
+    fi
+  fi
+  if [ $web_status = 0 ] && [ $sidekiq_status = 0 ] && [ $gitlab_workhorse_status = 0 ] && { [ "$mail_room_enabled" != true ] || [ $mail_room_status = 0 ]; } && { [ "$gitlab_pages_enabled" != true ] || [ $gitlab_pages_status = 0 ]; } && { [ "$gitaly_enabled" != true ] || [ $gitaly_status = 0 ]; }; then
+    gitlab_status=0
+  else
+    # http://refspecs.linuxbase.org/LSB_4.1.0/LSB-Core-generic/LSB-Core-generic/iniscrptact.html
+    # code 3 means 'program is not running'
+    gitlab_status=3
+  fi
+}
+
+## Check for stale pids and remove them if necessary.
+check_stale_pids(){
+  check_status
+  # If there is a pid it is something else than 0, the service is running if
+  # *_status is == 0.
+  if [ "$wpid" != "0" ] && [ "$web_status" != "0" ]; then
+    echo "Removing stale Unicorn web server pid. This is most likely caused by the web server crashing the last time it ran."
+    if ! rm "$web_server_pid_path"; then
+      echo "Unable to remove stale pid, exiting."
+      exit 1
+    fi
+  fi
+  if [ "$spid" != "0" ] && [ "$sidekiq_status" != "0" ]; then
+    echo "Removing stale Sidekiq job dispatcher pid. This is most likely caused by Sidekiq crashing the last time it ran."
+    if ! rm "$sidekiq_pid_path"; then
+      echo "Unable to remove stale pid, exiting"
+      exit 1
+    fi
+  fi
+  if [ "$hpid" != "0" ] && [ "$gitlab_workhorse_status" != "0" ]; then
+    echo "Removing stale GitLab Workhorse pid. This is most likely caused by GitLab Workhorse crashing the last time it ran."
+    if ! rm "$gitlab_workhorse_pid_path"; then
+      echo "Unable to remove stale pid, exiting"
+      exit 1
+    fi
+  fi
+  if [ "$mail_room_enabled" = true ] && [ "$mpid" != "0" ] && [ "$mail_room_status" != "0" ]; then
+    echo "Removing stale MailRoom job dispatcher pid. This is most likely caused by MailRoom crashing the last time it ran."
+    if ! rm "$mail_room_pid_path"; then
+      echo "Unable to remove stale pid, exiting"
+      exit 1
+    fi
+  fi
+  if [ "$gitlab_pages_enabled" = true ] && [ "$gppid" != "0" ] && [ "$gitlab_pages_status" != "0" ]; then
+    echo "Removing stale GitLab Pages job dispatcher pid. This is most likely caused by GitLab Pages crashing the last time it ran."
+    if ! rm "$gitlab_pages_pid_path"; then
+      echo "Unable to remove stale pid, exiting"
+      exit 1
+    fi
+  fi
+  if [ "$gitaly_enabled" = true ] && [ "$gapid" != "0" ] && [ "$gitaly_status" != "0" ]; then
+    echo "Removing stale Gitaly pid. This is most likely caused by Gitaly crashing the last time it ran."
+    if ! rm "$gitaly_pid_path"; then
+      echo "Unable to remove stale pid, exiting"
+      exit 1
+    fi
+  fi
+}
+
+## If no parts of the service is running, bail out.
+exit_if_not_running(){
+  check_stale_pids
+  if [ "$web_status" != "0" ] && [ "$sidekiq_status" != "0" ] && [ "$gitlab_workhorse_status" != "0" ] && { [ "$mail_room_enabled" != true ] || [ "$mail_room_status" != "0" ]; } && { [ "$gitlab_pages_enabled" != true ] || [ "$gitlab_pages_status" != "0" ]; } && { [ "$gitaly_enabled" != true ] || [ "$gitaly_status" != "0" ]; }; then
+    echo "GitLab is not running."
+    exit
+  fi
+}
+
+## Starts Unicorn and Sidekiq if they're not running.
+start_gitlab() {
+  check_stale_pids
+
+  if [ "$web_status" != "0" ]; then
+    echo "Starting GitLab Unicorn"
+  fi
+  if [ "$sidekiq_status" != "0" ]; then
+    echo "Starting GitLab Sidekiq"
+  fi
+  if [ "$gitlab_workhorse_status" != "0" ]; then
+    echo "Starting GitLab Workhorse"
+  fi
+  if [ "$mail_room_enabled" = true ] && [ "$mail_room_status" != "0" ]; then
+    echo "Starting GitLab MailRoom"
+  fi
+  if [ "$gitlab_pages_enabled" = true ] && [ "$gitlab_pages_status" != "0" ]; then
+    echo "Starting GitLab Pages"
+  fi
+  if [ "$gitaly_enabled" = true ] && [ "$gitaly_status" != "0" ]; then
+    echo "Starting Gitaly"
+  fi
+
+  # Then check if the service is running. If it is: don't start again.
+  if [ "$web_status" = "0" ]; then
+    echo "The Unicorn web server already running with pid $wpid, not restarting."
+  else
+    # Remove old socket if it exists
+    rm -f "$rails_socket" 2>/dev/null
+    # Start the web server
+    RAILS_ENV=$RAILS_ENV bin/web start
+  fi
+
+  # If sidekiq is already running, don't start it again.
+  if [ "$sidekiq_status" = "0" ]; then
+    echo "The Sidekiq job dispatcher is already running with pid $spid, not restarting"
+  else
+    RAILS_ENV=$RAILS_ENV bin/background_jobs start &
+  fi
+
+  if [ "$gitlab_workhorse_status" = "0" ]; then
+    echo "The GitLab Workhorse is already running with pid $hpid, not restarting"
+  else
+    # No need to remove a socket, gitlab-workhorse does this itself.
+    # Because gitlab-workhorse has multiple executables we need to fix
+    # the PATH.
+    $app_root/bin/daemon_with_pidfile $gitlab_workhorse_pid_path  \
+      /usr/bin/env PATH=$gitlab_workhorse_dir:$PATH \
+        gitlab-workhorse $gitlab_workhorse_options \
+      >> $gitlab_workhorse_log 2>&1 &
+  fi
+
+  if [ "$mail_room_enabled" = true ]; then
+    # If MailRoom is already running, don't start it again.
+    if [ "$mail_room_status" = "0" ]; then
+      echo "The MailRoom email processor is already running with pid $mpid, not restarting"
+    else
+      RAILS_ENV=$RAILS_ENV bin/mail_room start &
+    fi
+  fi
+
+  if [ "$gitlab_pages_enabled" = true ]; then
+    if [ "$gitlab_pages_status" = "0" ]; then
+      echo "The GitLab Pages is already running with pid $gppid, not restarting"
+    else
+      $app_root/bin/daemon_with_pidfile $gitlab_pages_pid_path  \
+          $gitlab_pages_dir/gitlab-pages $gitlab_pages_options \
+        >> $gitlab_pages_log 2>&1 &
+    fi
+  fi
+
+  if [ "$gitaly_enabled" = true ]; then
+    if [ "$gitaly_status" = "0" ]; then
+      echo "Gitaly is already running with pid $gapid, not restarting"
+    else
+      $app_root/bin/daemon_with_pidfile $gitaly_pid_path \
+          $gitaly_dir/gitaly $gitaly_dir/config.toml >> $gitaly_log 2>&1 &
+    fi
+  fi
+
+  # Wait for the pids to be planted
+  wait_for_pids
+  # Finally check the status to tell wether or not GitLab is running
+  print_status
+}
+
+## Asks Unicorn, Sidekiq and MailRoom if they would be so kind as to stop, if not kills them.
+stop_gitlab() {
+  exit_if_not_running
+
+  if [ "$web_status" = "0" ]; then
+    echo "Shutting down GitLab Unicorn"
+    RAILS_ENV=$RAILS_ENV bin/web stop
+  fi
+  if [ "$sidekiq_status" = "0" ]; then
+    echo "Shutting down GitLab Sidekiq"
+    RAILS_ENV=$RAILS_ENV bin/background_jobs stop
+  fi
+  if [ "$gitlab_workhorse_status" = "0" ]; then
+    echo "Shutting down GitLab Workhorse"
+    kill -- $(cat $gitlab_workhorse_pid_path)
+  fi
+  if [ "$mail_room_enabled" = true ] && [ "$mail_room_status" = "0" ]; then
+    echo "Shutting down GitLab MailRoom"
+    RAILS_ENV=$RAILS_ENV bin/mail_room stop
+  fi
+  if [ "$gitlab_pages_status" = "0" ]; then
+    echo "Shutting down gitlab-pages"
+    kill -- $(cat $gitlab_pages_pid_path)
+  fi
+  if [ "$gitaly_status" = "0" ]; then
+    echo "Shutting down Gitaly"
+    kill -- $(cat $gitaly_pid_path)
+  fi
+
+  # If something needs to be stopped, lets wait for it to stop. Never use SIGKILL in a script.
+  while [ "$web_status" = "0" ] || [ "$sidekiq_status" = "0" ] || [ "$gitlab_workhorse_status" = "0" ] || { [ "$mail_room_enabled" = true ] && [ "$mail_room_status" = "0" ]; } || { [ "$gitlab_pages_enabled" = true ] && [ "$gitlab_pages_status" = "0" ]; } || { [ "$gitaly_enabled" = true ] && [ "$gitaly_status" = "0" ]; }; do
+    sleep 1
+    check_status
+    printf "."
+    if [ "$web_status" != "0" ] && [ "$sidekiq_status" != "0" ] && [ "$gitlab_workhorse_status" != "0" ] && { [ "$mail_room_enabled" != true ] || [ "$mail_room_status" != "0" ]; } && { [ "$gitlab_pages_enabled" != true ] || [ "$gitlab_pages_status" != "0" ]; } && { [ "$gitaly_enabled" != true ] || [ "$gitaly_status" != "0" ]; }; then
+      printf "\n"
+      break
+    fi
+  done
+
+  sleep 1
+  # Cleaning up unused pids
+  rm "$web_server_pid_path" 2>/dev/null
+  # rm "$sidekiq_pid_path" 2>/dev/null # Sidekiq seems to be cleaning up its own pid.
+  rm -f "$gitlab_workhorse_pid_path"
+  if [ "$mail_room_enabled" = true ]; then
+    rm "$mail_room_pid_path" 2>/dev/null
+  fi
+  rm -f "$gitlab_pages_pid_path"
+  rm -f "$gitaly_pid_path"
+
+  print_status
+}
+
+## Prints the status of GitLab and its components.
+print_status() {
+  check_status
+  if [ "$web_status" != "0" ] && [ "$sidekiq_status" != "0" ] && [ "$gitlab_workhorse_status" != "0" ] && { [ "$mail_room_enabled" != true ] || [ "$mail_room_status" != "0" ]; } && { [ "$gitlab_pages_enabled" != true ] || [ "$gitlab_pages_status" != "0" ]; } && { [ "$gitaly_enabled" != true ] || [ "$gitaly_status" != "0" ]; }; then
+    echo "GitLab is not running."
+    return
+  fi
+  if [ "$web_status" = "0" ]; then
+      echo "The GitLab Unicorn web server with pid $wpid is running."
+  else
+      printf "The GitLab Unicorn web server is \033[31mnot running\033[0m.\n"
+  fi
+  if [ "$sidekiq_status" = "0" ]; then
+      echo "The GitLab Sidekiq job dispatcher with pid $spid is running."
+  else
+      printf "The GitLab Sidekiq job dispatcher is \033[31mnot running\033[0m.\n"
+  fi
+  if [ "$gitlab_workhorse_status" = "0" ]; then
+      echo "The GitLab Workhorse with pid $hpid is running."
+  else
+      printf "The GitLab Workhorse is \033[31mnot running\033[0m.\n"
+  fi
+  if [ "$mail_room_enabled" = true ]; then
+    if [ "$mail_room_status" = "0" ]; then
+        echo "The GitLab MailRoom email processor with pid $mpid is running."
+    else
+        printf "The GitLab MailRoom email processor is \033[31mnot running\033[0m.\n"
+    fi
+  fi
+  if [ "$gitlab_pages_enabled" = true ]; then
+    if [ "$gitlab_pages_status" = "0" ]; then
+        echo "The GitLab Pages with pid $gppid is running."
+    else
+        printf "The GitLab Pages is \033[31mnot running\033[0m.\n"
+    fi
+  fi
+  if [ "$gitaly_enabled" = true ]; then
+    if [ "$gitaly_status" = "0" ]; then
+        echo "Gitaly with pid $gapid is running."
+    else
+        printf "Gitaly is \033[31mnot running\033[0m.\n"
+    fi
+  fi
+  if [ "$web_status" = "0" ] && [ "$sidekiq_status" = "0" ] && [ "$gitlab_workhorse_status" = "0" ] && { [ "$mail_room_enabled" != true ] || [ "$mail_room_status" = "0" ]; } && { [ "$gitlab_pages_enabled" != true ] || [ "$gitlab_pages_status" = "0" ]; } && { [ "$gitaly_enabled" != true ] || [ "$gitaly_status" = "0" ]; }; then
+    printf "GitLab and all its components are \033[32mup and running\033[0m.\n"
+  fi
+}
+
+## Tells unicorn to reload its config and Sidekiq to restart
+reload_gitlab(){
+  exit_if_not_running
+  if [ "$wpid" = "0" ];then
+    echo "The GitLab Unicorn Web server is not running thus its configuration can't be reloaded."
+    exit 1
+  fi
+  printf "Reloading GitLab Unicorn configuration... "
+  RAILS_ENV=$RAILS_ENV bin/web reload
+  echo "Done."
+
+  echo "Restarting GitLab Sidekiq since it isn't capable of reloading its config..."
+  RAILS_ENV=$RAILS_ENV bin/background_jobs restart
+
+  if [ "$mail_room_enabled" != true ]; then
+    echo "Restarting GitLab MailRoom since it isn't capable of reloading its config..."
+    RAILS_ENV=$RAILS_ENV bin/mail_room restart
+  fi
+
+  wait_for_pids
+  print_status
+}
+
+## Restarts Sidekiq and Unicorn.
+restart_gitlab(){
+  check_status
+  if [ "$web_status" = "0" ] || [ "$sidekiq_status" = "0" ] || [ "$gitlab_workhorse" = "0" ] || { [ "$mail_room_enabled" = true ] && [ "$mail_room_status" = "0" ]; } || { [ "$gitlab_pages_enabled" = true ] && [ "$gitlab_pages_status" = "0" ]; } || { [ "$gitaly_enabled" = true ] && [ "$gitaly_status" = "0" ]; }; then
+    stop_gitlab
+  fi
+  start_gitlab
+}
+
+
+### Finally the input handling.
+
+case "$1" in
+  start)
+        start_gitlab
+        ;;
+  stop)
+        stop_gitlab
+        ;;
+  restart)
+        restart_gitlab
+        ;;
+  reload|force-reload)
+	reload_gitlab
+        ;;
+  status)
+        print_status
+        exit $gitlab_status
+        ;;
+  *)
+        echo "Usage: service gitlab {start|stop|restart|reload|status}"
+        exit 1
+        ;;
+esac
+
+exit
+                </code></pre>
+                <small><a href="https://github.com/gitlabhq/gitlabhq/blob/master/lib/support/init.d/gitlab">https://github.com/gitlabhq/gitlabhq/blob/master/lib/support/init.d/gitlab</a></small>
+            </section>
+            <section>
+                <h3>On peut déja voir plusieurs problèmes potentiels :</h3>
+                <dl>
+                    <dt class="fragment">La complexité :</dt>
+                    <dd class="fragment"> un très gros projet (comme Gitlab) avec beaucoup de dépendances et de modules entrainera un script d'init très complexe et indigeste.</dd>
+                    <dt class="fragment">L'absence de norme : </dt>
+                    <dd class="fragment">chaque développeur à sa manière de programmer. Reprendre le script d'un autre développeur entrainera une phase de compréhension plus ou moins longue.</dd>
+                </dl>
+            </section>
+            <section>
+                <h3>Autre problème majeur d'Init :</h3>
+                <ul style="margin-bottom: 1em;">
+                <li class="fragment">Il démarre les processus les uns après les autres, en attendant que le lancement soit terminé avant de passer au suivant.</li>
+                <li class="fragment">Quand le lancement d'un processus est ralenti (par exemple à cause d'un disque dur ancien et lent) cela entraine des temps de démarrage du système d'exploitation très lents.</li>
+                </ul>
+                    <small class="fragment">(On peut toutefois améliorer ce temps de démarrage en utilisant un SSD comme disque dur.)</small>
             </section>
         </section>
         <section data-background-color="#3d85c6">
@@ -225,57 +803,69 @@ httpd 0:off 1:off 2:off 3:on 4:off 5:on 6:off
                 <img src="img/systemd_gandalf.jpg">
             </section>
             <section>
-                <p>
-                    "systemd est un système d’initialisation et un daemon qui a été spécifiquement
-                    conçu pour le noyau Linux comme alternative à System V. Il a pour but d'offrir un
-                    meilleur cadre pour la gestion des dépendances entre services, de permettre le chargement
-                    en parallèle des services au démarrage, et de réduire les appels aux scripts shell."
-                </p>
-            </section>
-            <section>
-                <p>
-                    SystemD a été créé en 2010 par Lennart Poettering et Kay Sievers,
-                    et a été à l’origine d’intenses débats au sein de la communauté UNIX.
-                </p>
-                <img scr=""/>
-                <quote>
-                    "I don't actually have any particularly strong opinions on systemd itself.
-                    I've had issues with some of the core developers that I think are much too
-                    cavalier about bugs and compatibility, and I think some of the design details
-                    are insane (I dislike the binary logs, for example),
-                    but those are details, not big issues."
-                    L. Torvalds
-                </quote>
-            </section>
-            <section>
-                <h3>Les différences avec Init :</h3>
+                <h3>Définition :</h3>
                 <ul>
-                    <li class="fragment">KISS</li>
-                    <li class="fragment">orienté configuration</li>
-                    <li class="fragment">parallélisation</li>
-                    <li class="fragment">cgroups</li>
-                    <li class="fragment">"The Journal"</li>
-                    <li class="fragment">Timer</li>
-                    <li class="fragment">la galaxie systemD</li>
+                    <li>SystemD est un système d’initialisation et un daemon qui a été spécifiquement
+                        conçu pour le noyau Linux comme alternative à System V. </li>
+
+                    <li>Il a pour but d'offrir un
+                    meilleur cadre pour la gestion des dépendances entre services, de permettre le chargement
+                        en parallèle des services au démarrage, et de réduire les appels aux scripts shell."</li>
                 </ul>
             </section>
             <section>
-                <h3>KISS</h3>
-                <i>"Keep it simple stupid"</i>
-                <img id="torvald" src="images/retarded.gif">
+                <h3>Une naissance mouvementée :</h3>
+                <p>
+                    <b>SystemD</b> a été créé en 2010 par Lennart Poettering et Kay Sievers,
+                    et a été à l’origine d’intenses débats au sein de la communauté UNIX.
+                </p>
+                <pre style="padding: 10px; background: #1a6091">
+"I don't actually have any particularly strong opinions on systemd
+itself. I've had issues with some of the core developers that
+I think are much too cavalier about bugs and compatibility, and
+I think some of the design details are insane (I dislike the
+binary logs, for example), but those are details, not big issues."
+
+                                      L. Torvalds
+</pre>
             </section>
             <section>
-                <h3>Configuration</h3>
-                <p>
-                    On reprend l'exemple
-                    de Gitlab avec systemd.
-                    La syntaxe des fichiers de
-                    configuration systemd
+                UN BREF RAPPEL DU BORDEL CHEZ DEBIAN
+            </section>
+            <section>
+                <h3>Les différences avec Init :</h3>
+                <ol type="I">
+                    <li class="fragment">Le principe KISS</li>
+                    <li class="fragment">Un système orienté configuration</li>
+                    <li class="fragment">La parallélisation</li>
+                    <li class="fragment">Les "control groups"</li>
+                    <li class="fragment">"The Journal"</li>
+                    <li class="fragment">Les Timers</li>
+                    <li class="fragment">La galaxie systemD</li>
+                </ol>
+            </section>
+            <section>
+                <h3>I. Le principe KISS</h3>
+                <i>"Keep It Simple Stupid"</i>
+                <div style="width: 100%; align-content: center">
+                <img src="images/retarded.gif">
+                </div>
+            </section>
+            <section>
+                <h3>II. Un système orienté Configuration</h3>
+                <p style="color: red;">EXPLICATIONS DE COMMENT LA CONF REMPLACE LES SCRIPTS INIT DEGEUS</p>
+            </section>
+            <section>
+                <p>La syntaxe des fichiers de
+                    configuration <b>systemd</b>
                     est inspirée des standards du X Desktop
                     Group qui eux même s'inspirent
-                    des fichiers Microsoft .ini
+                    des fichiers Microsoft .ini</p>
+                <div>
+                <p style="width: 50%; display: block;">
+                    Exemple : la configuration de Gitlab (à comparer avec les 500 lignes du script Init)
                 </p>
-                <pre style="width: 50%; margin-left : 0%;"><code>
+                <pre style="width: 50%; display: block;"><code>
 #####################################################
 #
 # GitLab version    : 5.x - 7.x
@@ -301,6 +891,7 @@ ExecStart=/usr/bin/bundle exec "unicorn_rails -D -c /home/git/gitlab/config/unic
 
 [Install]
 WantedBy=multi-user.target</code></pre>
+                </div>
             </section>
             <section>
                 <h3>Parallélisation</h3>
@@ -318,15 +909,15 @@ WantedBy=multi-user.target</code></pre>
             <section>
                 <h3>Contrôle tes logs!</h3>
                 <p>
-                    Dans systemd logs sont associé à un groupe afin de réduire les chances 
+                    Dans systemd logs sont associé à un groupe afin de réduire les chances
                     de corruptions lors d'un piratage, ils sont portables,
-                    et l'outil comporte une gestion de saturation de l'espace. 
+                    et l'outil comporte une gestion de saturation de l'espace.
                 </p>
                 <p>
-                    Tout service géré par systemd est automatiquement logué, 
+                    Tout service géré par systemd est automatiquement logué,
                     sauf si celui-ci demande à ne pas l'être.
                     On accède au logs via la commande journalctl.
-                </p> 
+                </p>
             </section>
         </section>
         <section data-background-color="#6aa84f"><h1>Travaux Pratiques</h1></section>
@@ -355,7 +946,8 @@ WantedBy=multi-user.target</code></pre>
   });
 
   Reveal.configure({
-    slideNumber: 'c/t'
+    slideNumber: 'c/t',
+    history: 'true'
   });
 </script>
 </body>

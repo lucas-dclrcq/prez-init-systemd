@@ -1,7 +1,7 @@
 {
-  "name": "reveal.js",
+  "name": "sysvinitvssystemd",
   "version": "3.6.0",
-  "description": "The HTML Presentation Framework",
+  "description": "La petite histoire des système d'initialisation",
   "homepage": "http://revealjs.com",
   "subdomain": "revealjs",
   "main": "js/reveal.js",
@@ -11,7 +11,7 @@
     "build": "grunt"
   },
   "author": {
-    "name": "Hakim El Hattab",
+    "name": "Lucas Declercq, Thibaut Strecker & Paul Delafosse",
     "email": "hakim.elhattab@gmail.com",
     "web": "http://hakim.se"
   },

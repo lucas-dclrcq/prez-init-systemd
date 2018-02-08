@@ -853,19 +853,15 @@ binary logs, for example), but those are details, not big issues."
             </section>
             <section>
                 <h3>II. Un système orienté Configuration</h3>
-                <p style="color: red;">EXPLICATIONS DE COMMENT LA CONF REMPLACE LES SCRIPTS INIT DEGEUS</p>
+                <p class="stretch">EXPLICATIONS DE COMMENT LA CONF REMPLACE LES SCRIPTS INIT DEGEUS</p>
             </section>
             <section>
-                <p>La syntaxe des fichiers de
+                <small>La syntaxe des fichiers de
                     configuration <b>systemd</b>
                     est inspirée des standards du X Desktop
                     Group qui eux même s'inspirent
-                    des fichiers Microsoft .ini</p>
-                <div>
-                <p style="width: 50%; display: block;">
-                    Exemple : la configuration de Gitlab (à comparer avec les 500 lignes du script Init)
-                </p>
-                <pre style="width: 50%; display: block;"><code>
+                    des fichiers Microsoft .ini</small>
+                <pre style="width: 120%; height: 100%;"><code>
 #####################################################
 #
 # GitLab version    : 5.x - 7.x
@@ -891,7 +887,6 @@ ExecStart=/usr/bin/bundle exec "unicorn_rails -D -c /home/git/gitlab/config/unic
 
 [Install]
 WantedBy=multi-user.target</code></pre>
-                </div>
             </section>
             <section>
                 <h3>Parallélisation</h3>

@@ -32,8 +32,20 @@
         </section>
         <section data-background-color="#a64d79">
             <section class="concave">
-                <h1>Qu'est ce qu'un système d'initialisation ?</h1>
-                <img src="img/obama.gif">
+                <h1>Le système d'initialisation</h1>
+            </section>
+            <section>
+                <h3>À quoi ça sert ?</h3>
+                <img class="stretch" src="img/obama.gif">
+            </section>
+            <section>
+                <h3>Le système d'initialisation est le logiciel qui initialise votre système lors du démarrage :</h3>
+                <ul>
+                    <li>il charge les pilotes du matériel</li>
+                    <li>il active la connexion au réseau</li>
+                    <li>il lance divers services systèmes</li>
+                    <li>et enfin il charge l'environnement graphique qui vous permet d'utiliser votre ordinateur</li>
+                </ul>
             </section>
             <section>
                 <h3>Le système d'initialisation : </h3>
@@ -70,7 +82,7 @@
                 </ul>
             </section>
             <section>
-                I AM YOUR FATHER GIF
+                <video class="stretch" data-autoplay="" loop="loop" src="img/vador.mp4"></video>
             </section>
             <section>
                 <p>Pour avoir un résumé de tout ce que fait le <b>PID 1</b> au démarrage :</p>
@@ -89,6 +101,9 @@
                     <li class="fragment">Il gère le nettoyage des processus orphelins (processus zombies)</li>
                     <li class="fragment">Il a aussi un rôle de monitoring</li>
                 </ul>
+            </section>
+            <section>
+                <h3 style="color: red;">SLIDE DE TRANSITION VERS SYSVINIT</h3>
             </section>
         </section>
         <section data-background-color="#783f04">
@@ -109,17 +124,17 @@
             </section>
             <section>
                 <p>Init est donc un très vieux système !</p>
-                <img src="img/oldlady.jpg">
+                <img class="stretch" src="img/oldlady.jpg">
             </section>
             <section>
                 <h3>On peut découper Init en deux composants principaux :</h3>
                 <ul>
-                    <li class="fragment">Les runlevels</li>
-                    <li class="fragment">Les scripts d'initialisation</li>
+                    <li class="fragment">I. Les runlevels</li>
+                    <li class="fragment">II. Les scripts d'initialisation</li>
                 </ul>
             </section>
             <section>
-                <h3>Les Runlevels</h3>
+                <h3>I. Les Runlevels</h3>
                 <ul>
                     <li class="fragment">Un runlevel est un des modes dans lequel un système Unix s'exécute. Chaque
                         runlevel
@@ -266,6 +281,9 @@ httpd 0:off 1:off 2:off 3:on 4:off 5:on 6:off
                     <li class="fragment">Ces scripts vont finir la mise en place des parties vitales du système (systèmes de fichier, SWAP,  mémoire virtuelle...)</li>
                     <li class="fragment">Et enfin, init va lancer les scripts présents dans /etc/rc.d</li>
                 </ol>
+            </section>
+            <section>
+                <h3>II. Les scripts d'initialisations</h3>
             </section>
             <section>
                 <h3>Mais qu'est-ce qu'un script d'initialisation ?</h3>
@@ -796,12 +814,17 @@ exit
                 </ul>
                     <small class="fragment">(On peut toutefois améliorer ce temps de démarrage en utilisant un SSD comme disque dur.)</small>
             </section>
+            <section>
+                <h3 style="color: red;">SLIDE DE TRANSITION VERS SYSTEMD</h3>
+            </section>
         </section>
         <section data-background-color="#3d85c6">
 
             <section>
                 <h1>SystemD</h1>
-                <img src="img/systemd_gandalf.jpg">
+            </section>
+            <section>
+                <img class="stretch" src="img/systemd_gandalf.jpg">
             </section>
             <section>
                 <h3>Définition :</h3>
@@ -827,11 +850,11 @@ I think are much too cavalier about bugs and compatibility, and
 I think some of the design details are insane (I dislike the
 binary logs, for example), but those are details, not big issues."
 
-                                      L. Torvalds
+                                      Linus Torvalds
 </pre>
             </section>
             <section>
-                UN BREF RAPPEL DU BORDEL CHEZ DEBIAN
+                <p style="color: red;">UN BREF RAPPEL DU BORDEL CHEZ DEBIAN</p>
             </section>
             <section>
                 <h3>Les différences avec Init :</h3>
@@ -952,7 +975,9 @@ WantedBy=multi-user.target</code></pre>
             </section>
         </section>
         <section data-background-color="#6aa84f"><h1>Travaux Pratiques</h1></section>
-        <section data-background-color="#8e7cc3"><h1>Questions ?</h1></section>
+        <section data-background-color="#8e7cc3">
+            <img class="stretch" src="img/thatsall.gif">
+        </section>
     </div>
 </div>
 

@@ -24,27 +24,36 @@
 <body>
 <div class="reveal">
     <div class="slides">
-        <section class="intro" data-transition="zoom">
+        <section data-background="img/space_background.jpg" class="intro" data-transition="zoom">
             <h1>SysVinit vs. SystemD</h1>
             <h2>La petite histoire des systèmes d'initialisation</h2>
             <h4>Par</h4>
-                <h5 style="font-size: 0.8em;">Paul Delafosse, Thibaut Strecker et Lucas Declercq</h5>
-            <img id="cnam-logo" src="images/logo_cnam.png">
+            <h5 style="font-size: 0.8em;">Paul Delafosse, Thibaut Strecker et Lucas Declercq</h5>
         </section>
         <section data-background-color="#a64d79">
             <section class="concave">
                 <h1>Qu'est ce qu'un système d'initialisation ?</h1>
+                <img src="img/obama.gif">
             </section>
             <section>
-                <p>
-                    Le système d'initialisation est le premier processus démarré après le démarrage du kernel. Dans les
-                    faits, ce processus prend le PID 1 sur le système. Il est toujours lancé par le kernel de Linux,
-                    après les premières étapes de boot réalisées par le BIOS et le bootloader.
-                </p>
-                <p>
-                    Pour avoir un résumé de tout ce que fait le pid 1 : 
+                <h3>Le système d'initialisation : </h3>
+                <ul>
+                    <li class="fragment">
+                        C'est le premier processus démarré après le démarrage du kernel.
+                    </li>
+
+                    <li class="fragment">Dans les
+                        faits, ce processus prend le PID 1 sur le système.
+                    </li>
+
+                    <li class="fragment">Il est toujours lancé par le kernel de Linux,
+                        après les premières étapes de boot réalisées par le BIOS et le bootloader.
+                    </li>
+                    <li>
+                    Pour avoir un résumé de tout ce que fait le pid 1 au moment du boot : 
                     <pre><code>$ systemd-analyse plot > boostpid.svg </code></pre>
-                </p>
+                    </li>
+                </ul>
             </section>
             <section class="concave">
                 <p>
@@ -54,23 +63,28 @@
                 </p>
             </section>
             <section>
-                BOMB GIF
+                <video data-autoplay="" loop="loop" src="img/bomb.mp4">
+                </video>
             </section>
             <section>
-                <h4>Pourquoi ce processus est-il si vital ?</h4>
-                <p class="fragment">Un processus est toujours créé par un autre, appelé son processus père.</p>
-                <p class="fragment">Exception faite du processus initial qui est le père de tous les autres !</p>
+                <h3>Pourquoi ce processus est-il si vital ?</h3>
+                <ul>
+                    <li class="fragment">Un processus est toujours créé par un autre, appelé son processus père.</li>
+                    <li class="fragment">Exception faite du processus initial qui est <u>le père de tous les autres !</u></li>
+                </ul>
             </section>
             <section>
                 I AM YOUR FATHER GIF
             </section>
             <section>
                 <h3>Les roles d'un système d'initialisation :</h3>
-                <p class="fragment">Il démarre le reste des processus nécessaire au lancement du système
-                    d'exploitation</p>
-                <p class="fragment">Il gère le cycle de vie des autres processus</p>
-                <p class="fragment">Il gère le nettoyage des processus orphelins (processus zombies)</p>
-                <p class="fragment">Il a aussi un rôle de monitoring</p>
+                <ul>
+                <li class="fragment">Il démarre le reste des processus nécessaire au lancement du système
+                    d'exploitation</li>
+                <li class="fragment">Il gère le cycle de vie des autres processus</li>
+                <li class="fragment">Il gère le nettoyage des processus orphelins (processus zombies)</li>
+                <li class="fragment">Il a aussi un rôle de monitoring</li>
+                </ul>
             </section>
         </section>
         <section data-background-color="#783f04">
@@ -78,18 +92,20 @@
                 <h1>SysVinit</h1></section>
             <section>
                 <h3>Un peu d'histoire ...</h3>
-                <p class="fragment">Init fait référence à SysV int, le système d’initialisation de SystemV le premier
-                    système d’exploitation Unix commercial.</p>
-                <p class="fragment">SysV a connu 4 versions majeures depuis la première en 1983, dont la quatrième
+                <ul>
+                <li class="fragment">Init fait référence à SysV int, le système d’initialisation de SystemV le premier
+                    système d’exploitation Unix commercial.</li>
+                <li class="fragment">SysV a connu 4 versions majeures depuis la première en 1983, dont la quatrième
                     (SRV4) a été le principal succès commercial, soutenu par les principaux vendeurs de systèmes
-                    Unix.</p>
+                    Unix.</li>
+                </ul>
             </section>
             <section>
                 <p>Init est donc un très vieux système !</p>
                 OLD GIF
             </section>
             <section>
-                <p>On peut découper Init en deux composants principaux :</p>
+                <h3>On peut découper Init en deux composants principaux :</h3>
                 <ul>
                     <li class="fragment">Les runlevels</li>
                     <li class="fragment">Les scripts d'initialisation</li>
@@ -97,16 +113,18 @@
             </section>
             <section>
                 <h3>Les Runlevels</h3>
-                <p class="fragment">Un runlevel est un des modes dans lequel un système Unix s'exécute. Chaque runlevel
+                <ul>
+                <li class="fragment">Un runlevel est un des modes dans lequel un système Unix s'exécute. Chaque runlevel
                     possède un
-                    certain nombre de processus actifs ou stoppés.</p>
-                <p class="fragment">Après que le kernel a démarré, init lit le fichier /etc/inittab pour déterminer le
+                    certain nombre de processus actifs ou stoppés.</li>
+                <li class="fragment">Après que le kernel a démarré, init lit le fichier /etc/inittab pour déterminer le
                     comportement de
-                    chaque runlevel ainsi que le runlevel par défaut.</p>
-                <p class="fragment">
+                    chaque runlevel ainsi que le runlevel par défaut.</li>
+                <li class="fragment">
                     À moins que l'utilisateur ait spécifié un paramètre spécial au démarrage, le système va essayer de
                     démarrer au runlevel par défaut (ex : 3 pour les systèmes Red Hat)
-                </p>
+                </li>
+                </ul>
             </section>
             <section>
                 <h3>
@@ -159,10 +177,12 @@
             </section>
             <section>
                 <h3>Comment démarrent nos applications ?</h3>
-                <p class="fragment">Les applications qui sont démarrés par init ont leur scripts placés dans le dossier /etc/rc.d. Dans
+                <p class="fragment">Les applications qui sont démarrés par init ont leur scripts placés dans le dossier
+                    /etc/rc.d. Dans
                     ce dossier il y a un dossier pour chaque runlevel : rc0.d, rc1.d etc..
                     Comment lancer des applications au démarrage avec init ?</p>
-                <p class="fragment">Si le système démarre par défaut au niveau 3, il faut donc que le script de notre application soit
+                <p class="fragment">Si le système démarre par défaut au niveau 3, il faut donc que le script de notre
+                    application soit
                     présent dans le dossier rc3.d.</p>
                 <small class="fragment">(On peut aussi utiliser un lien symbolique)</small>
             </section>
@@ -200,10 +220,13 @@ httpd 0:off 1:off 2:off 3:on 4:off 5:on 6:off
             </section>
         </section>
         <section data-background-color="#3d85c6">
-            <section><h1>SystemD</h1></section>
+            <section>
+                <h1>SystemD</h1>
+                <img src="img/systemd_gandalf.jpg">
+            </section>
             <section>
                 <p>
-                    "systemd est un système d’initialisation et un daemon qui a été spécifiquement 
+                    "systemd est un système d’initialisation et un daemon qui a été spécifiquement
                     conçu pour le noyau Linux comme alternative à System V. Il a pour but d'offrir un
                     meilleur cadre pour la gestion des dépendances entre services, de permettre le chargement
                     en parallèle des services au démarrage, et de réduire les appels aux scripts shell."
@@ -211,30 +234,30 @@ httpd 0:off 1:off 2:off 3:on 4:off 5:on 6:off
             </section>
             <section>
                 <p>
-                    SystemD a été créé en 2010 par Lennart Poettering et Kay Sievers, 
+                    SystemD a été créé en 2010 par Lennart Poettering et Kay Sievers,
                     et a été à l’origine d’intenses débats au sein de la communauté UNIX.
                 </p>
                 <img scr=""/>
                 <quote>
-                    "I don't actually have any particularly strong opinions on systemd itself. 
-                    I've had issues with some of the core developers that I think are much too 
-                    cavalier about bugs and compatibility, and I think some of the design details 
-                    are insane (I dislike the binary logs, for example), 
+                    "I don't actually have any particularly strong opinions on systemd itself.
+                    I've had issues with some of the core developers that I think are much too
+                    cavalier about bugs and compatibility, and I think some of the design details
+                    are insane (I dislike the binary logs, for example),
                     but those are details, not big issues."
                     L. Torvalds
                 </quote>
             </section>
             <section>
-                <h3>Les différences avec Init</h3>
+                <h3>Les différences avec Init :</h3>
                 <ul>
-                    <li>KISS</li>
-                    <li>orienté configuration</li>
-                    <li>parallélisation</li>
-                    <li>cgroups</li>
-                    <li>"The Journal"</li>
-                    <li>Timer</li>
-                    <li>la galaxie systemD</li>
-                </ul> 
+                    <li class="fragment">KISS</li>
+                    <li class="fragment">orienté configuration</li>
+                    <li class="fragment">parallélisation</li>
+                    <li class="fragment">cgroups</li>
+                    <li class="fragment">"The Journal"</li>
+                    <li class="fragment">Timer</li>
+                    <li class="fragment">la galaxie systemD</li>
+                </ul>
             </section>
             <section>
                 <h3>KISS</h3>
@@ -248,11 +271,11 @@ httpd 0:off 1:off 2:off 3:on 4:off 5:on 6:off
                     de Gitlab avec systemd.
                     La syntaxe des fichiers de
                     configuration systemd
-                    est inspirée des standards du X Desktop 
-                    Group qui eux même s'inspirent 
+                    est inspirée des standards du X Desktop
+                    Group qui eux même s'inspirent
                     des fichiers Microsoft .ini
                 </p>
-        <pre style="width: 50%; margin-left : 0%;"><code>
+                <pre style="width: 50%; margin-left : 0%;"><code>
 #####################################################
 #
 # GitLab version    : 5.x - 7.x
@@ -287,8 +310,8 @@ WantedBy=multi-user.target</code></pre>
                     via utilisation de sockets et D-bus.
                 </p>
                 <p>
-                    Socket et D-bus sont deux ensembles normalisées 
-                    de fonctions qui permettent au processus de 
+                    Socket et D-bus sont deux ensembles normalisées
+                    de fonctions qui permettent au processus de
                     parager des données et d'échanger des messages
                 </p>
             </section>

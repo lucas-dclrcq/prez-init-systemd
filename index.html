@@ -798,6 +798,7 @@ exit
             </section>
         </section>
         <section data-background-color="#3d85c6">
+
             <section>
                 <h1>SystemD</h1>
                 <img src="img/systemd_gandalf.jpg">
@@ -909,10 +910,45 @@ WantedBy=multi-user.target</code></pre>
                     et l'outil comporte une gestion de saturation de l'espace.
                 </p>
                 <p>
-                    Tout service géré par systemd est automatiquement logué,
-                    sauf si celui-ci demande à ne pas l'être.
-                    On accède au logs via la commande journalctl.
+                    Tout service géré par systemd est automatiquement logué
+                    dans la base de donnée de journald, on accède au logs via la commande journalctl.
                 </p>
+            </section>
+            <section>
+                <h3>Control groups</h3>
+                <p> Systemd utilise le module cgroup du kernel linux pour organiser les processus.
+                    Il permet de contrôler et de surveiller l'usage des ressources 
+                    physiques du système pour un ensemble de PID.
+                    les cgroups permettent par example de lancer des 
+                    des processus avec un accès limité à la mémoire. 
+                </p>
+                <p>Les ressources physiques sont allouées à des groupes de contrôle : 
+                   blkio, cpu, devices, memory...etc. 
+                   (cf. <a style="color: deeppink;" href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/resource_management_guide/ch01#sec-How_Control_Groups_Are_Organized">redhat.com/docummentation</a>) 
+                </p>
+            </section>
+            <section>
+                <p> Pour vous faire une idée sur cgroups :</p>
+                <pre><code>$ systemd-cgls</code></pre>
+                <pre><code>$ ps xawf -eo pid,user,cgroup,args</code></pre>
+                <img src="img/cgroup_schema.png">
+            </section>
+            <section>
+                <h3>Les Timers</h3>
+                <p>Un timer est un fichier permettant de controller les services,
+                ainsi que les events</p>
+                <p>Les timers peuvent être utilisés en remplacement de cron.</p>
+                <video playsinline src="https://media.giphy.com/media/Emg9qPKR5hquI/giphy.mp4" loop="loop"></video>
+            </section>
+            <section>
+                <p>C'est un fichier spécifique à systemd, qui est obligatoirement associé à un service existant.<br>
+                    Par défaut, un timer est associé au service ayant le même nom que lui.</p>
+                <p>Ex : foo.timer est associé a foo.service.</p>
+            </section>
+            <section>
+                <h3>SystemD Galaxy</h3>
+                <p>systemd-bood, udev, networkd, logind, timedated</p>
+                <p>TODO</p>
             </section>
         </section>
         <section data-background-color="#6aa84f"><h1>Travaux Pratiques</h1></section>

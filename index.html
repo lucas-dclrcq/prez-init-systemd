@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>reveal.js</title>
+    <title>SysVinit vs. SystemD</title>
 
     <link rel="stylesheet" href="css/reveal.css">
-    <link rel="stylesheet" href="css/theme/moon.css">
+    <link rel="stylesheet" href="css/theme/init.css">
 
     <!-- Theme used for syntax highlighting of code -->
     <link rel="stylesheet" href="lib/css/zenburn.css">
@@ -24,15 +24,15 @@
 <body>
 <div class="reveal">
     <div class="slides">
-        <section>
+        <section class="intro" data-transition="zoom">
             <h1>SysVinit vs. SystemD</h1>
-            <h2>Une présentation des deux principaux systèmes d'initialisation de Linux</h2>
+            <h2>La petite histoire des systèmes d'initialisation</h2>
             <h4>Par</h4>
-                <h5>Par Paul Delafosse, Thibaut Strecker et Lucas Declercq</h5>
+                <h5 style="font-size: 0.8em;">Paul Delafosse, Thibaut Strecker et Lucas Declercq</h5>
         </section>
         <section data-background-color="#a64d79">
-            <section>
-                <p>Qu'est ce qu'un système d'initialisation ?</p>
+            <section class="concave">
+                <h1>Qu'est ce qu'un système d'initialisation ?</h1>
             </section>
             <section>
                 <p>
@@ -41,7 +41,7 @@
                     après les premières étapes de boot réalisées par le BIOS et le bootloader.
                 </p>
             </section>
-            <section>
+            <section class="concave">
                 <p>
                     Ce processus
                     doit toujours être actif.

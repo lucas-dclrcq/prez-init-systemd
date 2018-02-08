@@ -41,10 +41,10 @@
             <section>
                 <h3>Le système d'initialisation est le logiciel qui initialise votre système lors du démarrage :</h3>
                 <ul>
-                    <li>il charge les pilotes du matériel</li>
-                    <li>il active la connexion au réseau</li>
-                    <li>il lance divers services systèmes</li>
-                    <li>et enfin il charge l'environnement graphique qui vous permet d'utiliser votre ordinateur</li>
+                    <li class="fragment">il charge les pilotes du matériel</li>
+                    <li class="fragment">il active la connexion au réseau</li>
+                    <li class="fragment">il lance divers services systèmes</li>
+                    <li class="fragment">et enfin il charge l'environnement graphique qui vous permet d'utiliser votre ordinateur</li>
                 </ul>
             </section>
             <section>
@@ -72,6 +72,11 @@
             <section>
                 <video data-autoplay="" loop="loop" src="img/bomb.mp4">
                 </video>
+            </section>
+            <section>
+                <p>Vous pouvez d'ailleurs essayer :</p>
+                <pre class="fragment"><code>sudo kill -9 1</code></pre>
+                <small class="fragment">À vos risques et périls... :)</small>
             </section>
             <section>
                 <h3>Pourquoi ce processus est-il si vital ?</h3>
@@ -136,20 +141,20 @@
             <section>
                 <h3>I. Les Runlevels</h3>
                 <ul>
-                    <li class="fragment">Un runlevel est un des modes dans lequel un système Unix s'exécute. Chaque
-                        runlevel
+                    <li class="fragment">Un <b>runlevel</b> est un des modes dans lequel un système Unix s'exécute. Chaque
+                        <b>runlevel</b>
                         possède un
                         certain nombre de processus actifs ou stoppés.
                     </li>
-                    <li class="fragment">Après que le kernel a démarré, init lit le fichier /etc/inittab pour déterminer
+                    <li class="fragment">Après que le kernel a démarré, <b>init</b> lit le fichier <i>/etc/inittab</i> pour déterminer
                         le
                         comportement de
-                        chaque runlevel ainsi que le runlevel par défaut.
+                        chaque <b>runlevel</b> ainsi que le <b>runlevel</b> par défaut.
                     </li>
                     <li class="fragment">
                         À moins que l'utilisateur ait spécifié un paramètre spécial au démarrage, le système va essayer
                         de
-                        démarrer au runlevel par défaut (ex : 3 pour les systèmes Red Hat)
+                        démarrer au <b>runlevel</b> par défaut (ex : 3 pour les systèmes Red Hat)
                     </li>
                 </ul>
             </section>
@@ -839,11 +844,11 @@ exit
             </section>
             <section>
                 <h3>Une naissance mouvementée :</h3>
-                <p>
+                <p class="fragment">
                     <b>SystemD</b> a été créé en 2010 par Lennart Poettering et Kay Sievers,
                     et a été à l’origine d’intenses débats au sein de la communauté UNIX.
                 </p>
-                <pre style="padding: 10px; background: #1a6091">
+                <pre class="fragment" style="padding: 10px; background: #1a6091">
 "I don't actually have any particularly strong opinions on systemd
 itself. I've had issues with some of the core developers that
 I think are much too cavalier about bugs and compatibility, and

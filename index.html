@@ -1,58 +1,86 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+    <title>reveal.js</title>
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>
-					<h1>SysVinit vs. SystemD</h1>
-					<h3>Une présentation des deux principaux systèmes d'initialisation de Linux</h3>
-					<p>
-						<small>Par Paul Delafosse, Thibaut Strecker et Lucas Declercq</small>
-					</p>
-				</section>
-				<section>
-					<p>Qu'est ce qu'un système d'initialisation ?</p>
-				</section>
-				<section>Slide 3</section>
-			</div>
-		</div>
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h1>SysVinit vs. SystemD</h1>
+            <h3>Une présentation des deux principaux systèmes d'initialisation de Linux</h3>
+            <p>
+                <small>Par Paul Delafosse, Thibaut Strecker et Lucas Declercq</small>
+            </p>
+        </section>
+        <section>
+            <section>
+                <p>Qu'est ce qu'un système d'initialisation ?</p>
+            </section>
+            <section>
+                <p>
+                    Le système d'initialisation est le premier processus démarré après le démarrage du kernel. Dans les
+                    faits, ce processus prend le PID 1 sur le système. Il est toujours lancé par le kernel de Linux,
+                    après les premières étapes de boot réalisées par le BIOS et le bootloader.
+                </p>
+            </section>
+            <section>
+                <p>
+                    Ce processus
+                    doit toujours être actif.
+                    Si jamais PID 1 est interrompu on entre alors en Kernel Panic !
+                </p>
+            </section>
+            <section>
+                BOMB GIF
+            </section>
+        </section>
+        <section>
+            <h1>SysVinit</h1>
+        </section>
+        <section>SystemD</section>
+        <section>Travaux Pratiques</section>
+        <section>Questions ?</section>
+    </div>
+</div>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
 
-		<script>
-			// More info about config & dependencies:
-			// - https://github.com/hakimel/reveal.js#configuration
-			// - https://github.com/hakimel/reveal.js#dependencies
-			Reveal.initialize({
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
-			});
-		</script>
-	</body>
+<script>
+  // More info about config & dependencies:
+  // - https://github.com/hakimel/reveal.js#configuration
+  // - https://github.com/hakimel/reveal.js#dependencies
+  Reveal.initialize({
+    dependencies: [
+      {src: 'plugin/markdown/marked.js'},
+      {src: 'plugin/markdown/markdown.js'},
+      {src: 'plugin/notes/notes.js', async: true},
+      {
+        src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+          hljs.initHighlightingOnLoad();
+        }
+      }
+    ]
+  });
+</script>
+</body>
 </html>

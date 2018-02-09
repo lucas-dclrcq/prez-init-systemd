@@ -46,6 +46,7 @@
                     <li class="fragment">il lance divers services systèmes</li>
                     <li class="fragment">et enfin il charge l'environnement graphique qui vous permet d'utiliser votre ordinateur</li>
                 </ul>
+                <aside class="notes">test notes</aside>
             </section>
             <section>
                 <h3>Le système d'initialisation : </h3>
@@ -117,7 +118,7 @@
             <section>
                 <h3>Un peu d'histoire ...</h3>
                 <ul>
-                    <li class="fragment">Init fait référence à SysV int, le système d’initialisation de SystemV le
+                    <li class="fragment">Init fait référence à SysV Init, le système d’initialisation de System V le
                         premier
                         système d’exploitation Unix commercial.
                     </li>
@@ -141,21 +142,25 @@
             <section>
                 <h3>I. Les Runlevels</h3>
                 <ul>
-                    <li class="fragment">Un <b>runlevel</b> est un des modes dans lequel un système Unix s'exécute. Chaque
+                    <li class="fragment">Un <b>runlevel</b> est un des modes dans lequel un système Unix s'exécute.
+                    </li>
+                    <li class="fragment">
+                        Chaque
                         <b>runlevel</b>
                         possède un
                         certain nombre de processus actifs ou stoppés.
                     </li>
-                    <li class="fragment">Après que le kernel a démarré, <b>init</b> lit le fichier <i>/etc/inittab</i> pour déterminer
+                    <li class="fragment">Après que le kernel a démarré, <b>init</b> lit le fichier
+                        <span style="padding-right: 10px; padding-left: 10px; background-color: #3f3f3f; font-family: monospace; font-size: 0.8em; box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);">/etc/inittab</span> pour déterminer
                         le
                         comportement de
                         chaque <b>runlevel</b> ainsi que le <b>runlevel</b> par défaut.
                     </li>
-                    <li class="fragment">
+                    <aside class="notes">
                         À moins que l'utilisateur ait spécifié un paramètre spécial au démarrage, le système va essayer
                         de
                         démarrer au <b>runlevel</b> par défaut (ex : 3 pour les systèmes Red Hat)
-                    </li>
+                    </aside>
                 </ul>
             </section>
             <section>
@@ -863,15 +868,15 @@ binary logs, for example), but those are details, not big issues."
             </section>
             <section>
                 <h3>Les différences avec Init :</h3>
-                <ol type="I">
-                    <li class="fragment">Le principe KISS</li>
-                    <li class="fragment">Un système orienté configuration</li>
-                    <li class="fragment">La parallélisation</li>
-                    <li class="fragment">Les "control groups"</li>
-                    <li class="fragment">"The Journal"</li>
-                    <li class="fragment">Les Timers</li>
-                    <li class="fragment">La galaxie systemD</li>
-                </ol>
+                <ul>
+                    <li class="fragment">I. Le principe KISS</li>
+                    <li class="fragment">II. Un système orienté configuration</li>
+                    <li class="fragment">III. La parallélisation</li>
+                    <li class="fragment">IV. Les "control groups"</li>
+                    <li class="fragment">V. "The Journal"</li>
+                    <li class="fragment">VI. Les Timers</li>
+                    <li class="fragment">VII. La galaxie <b>SystemD</b></li>
+                </ul>
             </section>
             <section>
                 <h3>I. Le principe KISS</h3>
@@ -879,6 +884,17 @@ binary logs, for example), but those are details, not big issues."
                 <div style="width: 100%; align-content: center">
                 <img src="images/retarded.gif">
                 </div>
+            </section>
+            <section>
+                <h3>Stupide ? Au contraire !</h3>
+                <ul>
+                    <li class="fragment">Le principe <b>KISS</b> est habituellement associé à des systemes qui peuvent paraitre stupide à cause de leur conception simple.</li>
+                    <li class="fragment">Ce principe est une règle de conception qui établi qu'un système est plus performant quand il a un design simple plutôt
+                    que complexe.</li>
+                </ul>
+                <aside class="notes">
+                    Parler d'un autre exemple que systemd pour illustrer
+                </aside>
             </section>
             <section>
                 <h3>II. Un système orienté Configuration</h3>

@@ -44,7 +44,9 @@
                     <li class="fragment">il charge les pilotes du matériel</li>
                     <li class="fragment">il active la connexion au réseau</li>
                     <li class="fragment">il lance divers services systèmes</li>
-                    <li class="fragment">et enfin il charge l'environnement graphique qui vous permet d'utiliser votre ordinateur</li>
+                    <li class="fragment">et enfin il charge l'environnement graphique qui vous permet d'utiliser votre
+                        ordinateur
+                    </li>
                 </ul>
                 <aside class="notes">test notes</aside>
             </section>
@@ -62,7 +64,7 @@
                     <li class="fragment">Il est toujours lancé par le kernel de Linux,
                         après les premières étapes de boot réalisées par le BIOS et le bootloader.
                     </li>
-                    </section>
+            </section>
             <section class="concave">
                 <p>
                     Ce processus
@@ -92,9 +94,10 @@
             </section>
             <section>
                 <p>Pour avoir un résumé de tout ce que fait le <b>PID 1</b> au démarrage :</p>
-                        <pre><code>$ systemd-analyse plot > boostpid.svg </code></pre>
+                <pre><code>$ systemd-analyse plot > boostpid.svg </code></pre>
             </section>
-            <section data-background-color="white" data-background-size="contain" data-background="img/pid_background.png">
+            <section data-background-color="white" data-background-size="contain"
+                     data-background="img/pid_background.png">
 
             </section>
             <section>
@@ -151,7 +154,8 @@
                         certain nombre de processus actifs ou stoppés.
                     </li>
                     <li class="fragment">Après que le kernel a démarré, <b>init</b> lit le fichier
-                        <span style="padding-right: 10px; padding-left: 10px; background-color: #3f3f3f; font-family: monospace; font-size: 0.8em; box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);">/etc/inittab</span> pour déterminer
+                        <span style="padding-right: 10px; padding-left: 10px; background-color: #3f3f3f; font-family: monospace; font-size: 0.8em; box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);">/etc/inittab</span>
+                        pour déterminer
                         le
                         comportement de
                         chaque <b>runlevel</b> ainsi que le <b>runlevel</b> par défaut.
@@ -208,21 +212,21 @@
                         <td>Multi-User Mode with Networking</td>
                         <td>Démarre le système normalement</td>
                     </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Undefined</td>
-                    <td>Pas utilisé</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>X11</td>
-                    <td>Comme le runlevel 3 + interface graphique</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>Reboot</td>
-                    <td>Redémarre le système</td>
-                </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Undefined</td>
+                        <td>Pas utilisé</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>X11</td>
+                        <td>Comme le runlevel 3 + interface graphique</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Reboot</td>
+                        <td>Redémarre le système</td>
+                    </tr>
                 </table>
             </section>
             <section>
@@ -286,9 +290,13 @@ httpd 0:off 1:off 2:off 3:on 4:off 5:on 6:off
             </section>
             <section>
                 <ol start="4">
-                    <li>Immédiatement après, le Kernel appelle la commande init  (/sbin/init) et lui passe la main</li>
-                    <li class="fragment">La commande init  lit le fichier /etc/inittab qui définit le runlevel du système, et les scripts système à exécuter</li>
-                    <li class="fragment">Ces scripts vont finir la mise en place des parties vitales du système (systèmes de fichier, SWAP,  mémoire virtuelle...)</li>
+                    <li>Immédiatement après, le Kernel appelle la commande init (/sbin/init) et lui passe la main</li>
+                    <li class="fragment">La commande init lit le fichier /etc/inittab qui définit le runlevel du
+                        système, et les scripts système à exécuter
+                    </li>
+                    <li class="fragment">Ces scripts vont finir la mise en place des parties vitales du système
+                        (systèmes de fichier, SWAP, mémoire virtuelle...)
+                    </li>
                     <li class="fragment">Et enfin, init va lancer les scripts présents dans /etc/rc.d</li>
                 </ol>
             </section>
@@ -805,24 +813,34 @@ esac
 
 exit
                 </code></pre>
-                <small><a href="https://github.com/gitlabhq/gitlabhq/blob/master/lib/support/init.d/gitlab">https://github.com/gitlabhq/gitlabhq/blob/master/lib/support/init.d/gitlab</a></small>
+                <small><a href="https://github.com/gitlabhq/gitlabhq/blob/master/lib/support/init.d/gitlab">https://github.com/gitlabhq/gitlabhq/blob/master/lib/support/init.d/gitlab</a>
+                </small>
             </section>
             <section>
                 <h3>On peut déja voir plusieurs problèmes potentiels :</h3>
                 <dl>
                     <dt class="fragment">La complexité :</dt>
-                    <dd class="fragment"> un très gros projet (comme Gitlab) avec beaucoup de dépendances et de modules entrainera un script d'init très complexe et indigeste.</dd>
-                    <dt class="fragment">L'absence de norme : </dt>
-                    <dd class="fragment">chaque développeur à sa manière de programmer. Reprendre le script d'un autre développeur entrainera une phase de compréhension plus ou moins longue.</dd>
+                    <dd class="fragment"> un très gros projet (comme Gitlab) avec beaucoup de dépendances et de modules
+                        entrainera un script d'init très complexe et indigeste.
+                    </dd>
+                    <dt class="fragment">L'absence de norme :</dt>
+                    <dd class="fragment">chaque développeur à sa manière de programmer. Reprendre le script d'un autre
+                        développeur entrainera une phase de compréhension plus ou moins longue.
+                    </dd>
                 </dl>
             </section>
             <section>
                 <h3>Autre problème majeur d'Init :</h3>
-                <ul style="margin-bottom: 1em;">
-                <li class="fragment">Il démarre les processus les uns après les autres, en attendant que le lancement soit terminé avant de passer au suivant.</li>
-                <li class="fragment">Quand le lancement d'un processus est ralenti (par exemple à cause d'un disque dur ancien et lent) cela entraine des temps de démarrage du système d'exploitation très lents.</li>
-                </ul>
-                    <small class="fragment">(On peut toutefois améliorer ce temps de démarrage en utilisant un SSD comme disque dur.)</small>
+                <p>Il démarre les processus les uns après les autres, en attendant que le lancement
+                    soit terminé avant de passer au suivant.</p>
+                <video data-autoplay="" loop="loop" src="img/queue.mp4"></video>
+            </section>
+            <section>
+                <p>Quand le lancement d'un processus est ralenti (par exemple à cause d'un disque dur ancien et lent)
+                    cela entraine un très lent temps de démarrage du système d'exploitation.</p>
+                <small class="fragment">(On peut toutefois améliorer ce temps de démarrage en utilisant un SSD comme
+                    disque dur.)
+                </small>
             </section>
             <section>
                 <h3 style="color: red;">SLIDE DE TRANSITION VERS SYSTEMD</h3>
@@ -840,11 +858,13 @@ exit
                 <h3>Définition :</h3>
                 <ul>
                     <li>SystemD est un système d’initialisation et un daemon qui a été spécifiquement
-                        conçu pour le noyau Linux comme alternative à System V. </li>
+                        conçu pour le noyau Linux comme alternative à System V.
+                    </li>
 
                     <li>Il a pour but d'offrir un
-                    meilleur cadre pour la gestion des dépendances entre services, de permettre le chargement
-                        en parallèle des services au démarrage, et de réduire les appels aux scripts shell."</li>
+                        meilleur cadre pour la gestion des dépendances entre services, de permettre le chargement
+                        en parallèle des services au démarrage, et de réduire les appels aux scripts shell."
+                    </li>
                 </ul>
             </section>
             <section>
@@ -882,15 +902,19 @@ binary logs, for example), but those are details, not big issues."
                 <h3>I. Le principe KISS</h3>
                 <i>"Keep It Simple Stupid"</i>
                 <div style="width: 100%; align-content: center">
-                <img src="images/retarded.gif">
+                    <img src="images/retarded.gif">
                 </div>
             </section>
             <section>
                 <h3>Stupide ? Au contraire !</h3>
                 <ul>
-                    <li class="fragment">Le principe <b>KISS</b> est habituellement associé à des systemes qui peuvent paraitre stupide à cause de leur conception simple.</li>
-                    <li class="fragment">Ce principe est une règle de conception qui établi qu'un système est plus performant quand il a un design simple plutôt
-                    que complexe.</li>
+                    <li class="fragment">Le principe <b>KISS</b> est habituellement associé à des systemes qui peuvent
+                        paraitre stupide à cause de leur conception simple.
+                    </li>
+                    <li class="fragment">Ce principe est une règle de conception qui établi qu'un système est plus
+                        performant quand il a un design simple plutôt
+                        que complexe.
+                    </li>
                 </ul>
                 <aside class="notes">
                     Parler d'un autre exemple que systemd pour illustrer
@@ -904,7 +928,8 @@ binary logs, for example), but those are details, not big issues."
 
                                               Albert Einstein
                 </pre>
-                <video class="fragment" style="height: 11em;" data-autoplay="" loop="loop" src="img/einstein.mp4"></video>
+                <video class="fragment" style="height: 11em;" data-autoplay="" loop="loop"
+                       src="img/einstein.mp4"></video>
             </section>
             <section>
                 <h3>II. Un système orienté Configuration</h3>
@@ -915,7 +940,8 @@ binary logs, for example), but those are details, not big issues."
                     configuration <b>systemd</b>
                     est inspirée des standards du X Desktop
                     Group qui eux même s'inspirent
-                    des fichiers Microsoft .ini</small>
+                    des fichiers Microsoft .ini
+                </small>
                 <pre class="stretch"><code>
 #####################################################
 #
@@ -972,14 +998,15 @@ WantedBy=multi-user.target</code></pre>
             <section>
                 <h3>V. Les Control Groups</h3>
                 <p> Systemd utilise le module cgroup du kernel linux pour organiser les processus.
-                    Il permet de contrôler et de surveiller l'usage des ressources 
+                    Il permet de contrôler et de surveiller l'usage des ressources
                     physiques du système pour un ensemble de PID.
-                    les cgroups permettent par example de lancer des 
-                    des processus avec un accès limité à la mémoire. 
+                    les cgroups permettent par example de lancer des
+                    des processus avec un accès limité à la mémoire.
                 </p>
-                <p>Les ressources physiques sont allouées à des groupes de contrôle : 
-                   blkio, cpu, devices, memory...etc. 
-                   (cf. <a style="color: deeppink;" href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/resource_management_guide/ch01#sec-How_Control_Groups_Are_Organized">redhat.com/docummentation</a>) 
+                <p>Les ressources physiques sont allouées à des groupes de contrôle :
+                    blkio, cpu, devices, memory...etc.
+                    (cf. <a style="color: deeppink;"
+                            href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/resource_management_guide/ch01#sec-How_Control_Groups_Are_Organized">redhat.com/docummentation</a>)
                 </p>
             </section>
             <section>
@@ -991,7 +1018,7 @@ WantedBy=multi-user.target</code></pre>
             <section>
                 <h3>VI. Les Timers</h3>
                 <p>Un timer est un fichier permettant de contrôler les services,
-                ainsi que les events</p>
+                    ainsi que les events</p>
                 <p>Les timers peuvent être utilisés en remplacement de cron.</p>
                 <video playsinline src="https://media.giphy.com/media/Emg9qPKR5hquI/giphy.mp4" loop="loop"></video>
             </section>

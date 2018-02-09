@@ -231,7 +231,7 @@
             <section>
                 <h3>Comment démarrent nos applications ?</h3>
                 <p class="fragment">Les applications qui sont démarrés par init ont leur scripts placés dans le dossier
-                    /etc/rc.d. Dans
+                    <span class="inline-path">/etc/rc.d</span> Dans
                     ce dossier il y a un dossier pour chaque runlevel : rc0.d, rc1.d etc..
                     Comment lancer des applications au démarrage avec init ?</p>
                 <p class="fragment">Si le système démarre par défaut au niveau 3, il faut donc que le script de notre
@@ -277,26 +277,26 @@ httpd 0:off 1:off 2:off 3:on 4:off 5:on 6:off
                 <h3>Pour résumer, voici ce qui se passe quand on démarre Linux :</h3>
                 <ol>
                     <li class="fragment">Le BIOS ou le bootloader (lilo, grub, etc) charge le kernel du disque vers la
-                        mémoire. Le fichier du Kernel reste dans le dossier /boot, il n'est lu qu'a ce moment la.
+                        mémoire. Le fichier du Kernel reste dans le dossier <span class="inline-path">/boot</span>, il n'est lu qu'a ce moment la.
                     </li>
                     <li class="fragment">En mémoire, le code du Kernel s'exécute, et détecte divers éléments : disques,
                         partitions, etc...
                     </li>
                     <li class="fragment">Le Kernel monte le système de fichier qui doit obligatoirement contenir
-                        certains dossiers : /etc, /bin, /lib...
+                        certains dossiers : <span class="inline-path">/etc</span>, <span class="inline-path">/bin</span>, <span class="inline-path">/lib</span>...
                     </li>
                 </ol>
             </section>
             <section>
                 <ol start="4">
-                    <li>Immédiatement après, le Kernel appelle la commande init (/sbin/init) et lui passe la main</li>
-                    <li class="fragment">La commande init lit le fichier /etc/inittab qui définit le runlevel du
+                    <li>Immédiatement après, le Kernel appelle la commande init (<span class="inline-path">/sbin/init</span>) et lui passe la main</li>
+                    <li class="fragment">La commande init lit le fichier <span class="inline-path">/etc/inittab</span> qui définit le runlevel du
                         système, et les scripts système à exécuter
                     </li>
                     <li class="fragment">Ces scripts vont finir la mise en place des parties vitales du système
                         (systèmes de fichier, SWAP, mémoire virtuelle...)
                     </li>
-                    <li class="fragment">Et enfin, init va lancer les scripts présents dans /etc/rc.d</li>
+                    <li class="fragment">Et enfin, init va lancer les scripts présents dans <span class="inline-path">/etc/rc.d</span></li>
                 </ol>
             </section>
             <section>
@@ -886,7 +886,7 @@ binary logs, for example), but those are details, not big issues."
                 <p style="color: red;">UN BREF RAPPEL DU BORDEL CHEZ DEBIAN</p>
             </section>
             <section>
-                <h3>Les différences avec Init :</h3>
+                <h3>Les particularités de systemd :</h3>
                 <ul>
                     <li class="fragment">I. Le principe KISS</li>
                     <li class="fragment">II. Un système orienté configuration</li>
@@ -1030,6 +1030,9 @@ WantedBy=multi-user.target</code></pre>
                 <h3>VII. SystemD Galaxy</h3>
                 <p>systemd-bood, udev, networkd, logind, timedated</p>
                 <p>TODO</p>
+            </section>
+            <section>
+                <h3>Et maintenant...</h3>
             </section>
         </section>
         <section data-background-color="#6aa84f"><h1>Travaux Pratiques</h1></section>

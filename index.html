@@ -11,6 +11,7 @@
 
     <!-- Theme used for syntax highlighting of code -->
     <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 
     <!-- Printing and PDF exports -->
     <script>
@@ -71,9 +72,7 @@
                     doit toujours être actif.
                     Si jamais PID 1 est interrompu on entre alors en Kernel Panic !
                 </p>
-            </section>
-            <section>
-                <video data-autoplay="" loop="loop" src="img/bomb.mp4">
+                <video class="fragment" data-autoplay="" loop="loop" src="img/bomb.mp4">
                 </video>
             </section>
             <section>
@@ -238,7 +237,7 @@
                 <p class="fragment">Si le système démarre par défaut au niveau 3, il faut donc que le script de notre
                     application soit
                     présent dans le dossier rc3.d.</p>
-                <small class="fragment">(On peut aussi utiliser un lien symbolique)</small>
+                <small class="fragment"><i class="fa fa-info-circle"></i> On peut aussi utiliser un lien symbolique</small>
             </section>
             <section>
                 <h3>Gérer tous ces dossiers, fichiers et liens symboliques parait compliqué...</h3>
@@ -271,7 +270,7 @@ xfs 0:off 1:off 2:on 3:on 4:on 5:on 6:off
 xinetd 0:off 1:off 2:off 3:on 4:on 5:on 6:off
 httpd 0:off 1:off 2:off 3:on 4:off 5:on 6:off
 	            </code></pre>
-                <small class="fragment">Et on peut aussi activer un script avec la commande <i>chkconfig on
+                <small class="fragment"><i class="fas fa-info-circle"></i> On peut activer un script avec la commande <i>chkconfig on
                     /chemin/du/script</i></small>
             </section>
             <section>
@@ -831,15 +830,15 @@ exit
             </section>
             <section>
                 <h3>Autre problème majeur d'Init :</h3>
-                <p>Il démarre les processus les uns après les autres, en attendant que le lancement
+                <p class="fragment">Il démarre les processus les uns après les autres, en attendant que le lancement
                     soit terminé avant de passer au suivant.</p>
-                <video data-autoplay="" loop="loop" src="img/queue.mp4"></video>
+                <video class="fragment" data-autoplay="" loop="loop" src="img/queue.mp4"></video>
             </section>
             <section>
                 <p>Quand le lancement d'un processus est ralenti (par exemple à cause d'un disque dur ancien et lent)
                     cela entraine un très lent temps de démarrage du système d'exploitation.</p>
-                <small class="fragment">(On peut toutefois améliorer ce temps de démarrage en utilisant un SSD comme
-                    disque dur.)
+                <small class="fragment"><i class="fas fa-info-circle"></i> On peut toutefois améliorer ce temps de démarrage en utilisant un SSD comme
+                    disque dur.
                 </small>
             </section>
             <section>

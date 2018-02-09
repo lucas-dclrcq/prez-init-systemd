@@ -11,6 +11,22 @@ html * {
   color-profile: sRGB;
   rendering-intent: auto; }
 
+.inline-code {
+  padding-right: 10px;
+  padding-left: 10px;
+  background-color: #3f3f3f;
+  font-family: monospace;
+  font-size: 0.8em;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3); }
+
+.inline-path {
+  padding-right: 10px;
+  padding-left: 10px;
+  background-color: #3f3f3f;
+  font-family: monospace;
+  font-size: 0.8em;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3); }
+
 /*********************************************
  * GLOBAL STYLES
  *********************************************/

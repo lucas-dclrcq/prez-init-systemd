@@ -1077,8 +1077,8 @@ Browse your hero collection add more heroes."}%
                     <li class="fragment">Comme on l'a vu dans la présentation systemd gère les PID avec des fichier de configuration.</li>
                     <li class="fragment">Pour commencer on va faire une configuration basique.</li>
                 </ul>
-                        <pre class="fragment">
-                            <code>
+                        <pre>
+                            <code class="fragment">
 [Service] 
 ExecStart= // ici on va placer la commande à executer 
 StandardOutput=syslog  // on redirige les log dans "The journal"
@@ -1099,6 +1099,33 @@ WantedBy=multi-user.target // dépendance à la target multi-user
                     <li class="fragment"><pre><code>$ cd systemd </code></pre></li>
                     <li class="fragment"><pre><code>$ vim tiny-api-1.service </code></pre></li>
                 </ul>
+            </section>
+             <section>
+                <p class="fragment">Vous avez terminé?</p>
+                <p class="fragment">Voilà à quoi ça ressemble chez moi </p>
+                <pre class="fragment"><code>
+[Service] 
+ExecStart=/usr/bin/node /home/okno/public_html/express-api/server.js
+StandardOutput=syslog 
+SyslogIdentifier=heroes-api
+    
+[Install] 
+WantedBy=multi-user.target
+                </code></pre>
+                <p class="fragment">Au fait je vous ai dis que j'utilisais <b>Arch linux</b>?</p>
+            </section>
+            <section>
+                <ul>
+                    <li class="fragment">maitenant on va copier notre fichier de configuration dans le path de systemd.</p>
+                    <li class="fragment">voilà le path pour ubuntu : </p>
+                    <li class="fragment"><pre><code>$ cp maconfig /etc/systemd/system/awesome-api.service </code></pre></li>
+                </ul>
+            </section>
+            <section>
+                <p class="fragment">Vous êtes prêt à lancer votre premier service avec systemd?</p>
+                <p class="fragment">La joie vous inonde?</p>
+                <pre class="fragment"><code>$ sudo systemctl start awesome-api.sevice</code></pre>
+                <p class="fragment">Vous pouvez maintenant faire un appel sur l'api!</p>
             </section>
         </section>
         <section data-background-color="#8e7cc3"><h1>Questions ?</h1></section>

@@ -1036,9 +1036,72 @@ WantedBy=multi-user.target</code></pre>
             </section>
         </section>
         <section data-background-color="#6aa84f">
+            <section>
             <h1>Travaux Pratiques</h1>
-            <video data-autoplay="" loop="loop" src="img/madscientist.mp4"></video>
+            </section>
+            <section>
+                <p>Mise en place d'un service http avec systemd :</p>
+                <ul>
+                    <li class="fragment">1. clonner le repo : <a href="https://github.com/oknozor/tiny-api">tiny-api</a></li>
+                    <li class="fragment">2. on installe nodejs npm et mongodb : 
+                        <pre class="fragment"><code>sudo apt-get install npm</code></pre>
+                        <pre class="fragment"><code>sudo apt-get install nodejs</code></pre>
+                        <pre class="fragment"><code>sudo apt-get install mongodb (a verifier)</code></pre>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h3> On passe à l'action ! </h3>
+                    <ul>
+                        <li class="fragment">Positioner vous dans le répertoire du projet!</li> 
+                        <li class="fragment">node server.js</li>
+                        <li class="fragment">ouvrez un second terminal</li>
+                        <li class="fragment"><pre><code>curl -X GET localhost:3000</code></pre></li>
+                        <li class="fragment">vous pouver également accéder à l'api par votre navigateur</li>
+                    </ul>
+            </section>
+            <section>
+                <p>Si tout c'est bien passer curl devrait vous renvoyer le resultat suivant : </p>
+                <br>
+               <pre><code>
+okno@FRL- ~ % curl -X GET localhost:3000
+{"message":"Welcome to Greatest Hero of all time application. 
+Browse your hero collection add more heroes."}%
+               </code></pre> 
+               <p class="fragment"> une petite surprise se cache dans la route /heroes</p>
+            </section>
+            <section>
+                <h3>Et systemd dans tout ça ? </h3>
+                <ul>
+                    <li class="fragment">Maintenant que notre service est opérationnel on va le lancer avec systemd.</li>
+                    <li class="fragment">Comme on l'a vu dans la présentation systemd gère les PID avec des fichier de configuration.</li>
+                    <li class="fragment">Pour commencer on va faire une configuration basique.</li>
+                </ul>
+                        <pre class="fragment">
+                            <code>
+[Service] 
+ExecStart= // ici on va placer la commande à executer 
+StandardOutput=syslog  // on redirige les log dans "The journal"
+SyslogIdentifier= // un identifiant pour rechercher les logs dans le journal 
+    
+[Install] 
+WantedBy=multi-user.target // dépendance à la target multi-user
+                                    </code>
+                        </pre>
+
+                
+            </section>
+            <section>
+                <ul>
+                    <li>Pour connaitre le path de nodeJS :</li>
+                    <li class="fragment"><pre><code>$ wich node</code></pre></li>
+                    <li class="fragment">Il ne reste plus qu'à éditer le fichier :</li>
+                    <li class="fragment"><pre><code>$ cd systemd </code></pre></li>
+                    <li class="fragment"><pre><code>$ vim tiny-api-1.service </code></pre></li>
+                </ul>
+            </section>
         </section>
+        <section data-background-color="#8e7cc3"><h1>Questions ?</h1></section>
         <section data-background-color="#8e7cc3">
             <img class="stretch" src="img/thatsall.gif">
         </section>

@@ -1124,8 +1124,49 @@ WantedBy=multi-user.target
             <section>
                 <p class="fragment">Vous êtes prêt à lancer votre premier service avec systemd?</p>
                 <p class="fragment">La joie vous inonde?</p>
+                <p class="fragment">Pour que l'API fonctionne on à besoin de mongodb :</p>
+                <pre class="fragment"><code>$ sudo systemctl mongodb.service</code></pre>
                 <pre class="fragment"><code>$ sudo systemctl start awesome-api.sevice</code></pre>
                 <p class="fragment">Vous pouvez maintenant faire un appel sur l'api!</p>
+            </section>
+            <section>
+                <h3>Les dépendances</h3>
+                <p class="fragment">C'est pas mal mais si mongodb n'est pas disponible quand on lance le service voila ce qui arrive: </p>
+                <pre class="fragment"><code>$ sudo systemctl stop mongodb.service</code></pre>
+                <pre class="fragment"><code>$ sudo systemctl restart tiny-api-1.service</code></pre>
+                <pre class="fragment"><code>$ sudo systemctl status tiny-api-1.service</code></pre>
+<pre class="fragment"><code>
+Feb 10 12:56:02 FRL- systemd[1]: Started tiny-api-1.service.
+Feb 10 12:56:03 FRL- heroes-api[19555]: 
+Server is listening on port 3000
+Feb 10 12:56:03 FRL- heroes-api[19555]: 
+Could not connect to the database. Exiting now...
+</code></pre>
+            </section>
+            <section>
+                <p class="framgment"> Pour règler le problème rien de plus simple. On va modifier la configuration de notre service</p>
+
+               <pre><code>
+[Unit]
+Description= My awesome API //une description du service pour le fun
+After= mongodb.service      // ici on ajoute la dépendance à mongo  
+
+[Service] 
+ExecStart=/usr/bin/node /home/okno/public_html/express-api/server.js
+Restart=always
+StandardOutput=syslog 
+SyslogIdentifier=heroes-api
+
+[Install] 
+WantedBy=multi-user.target
+                </code></pre>
+            </section>
+            <section>
+                <p class="fragment"> Et voilà le travail, on va pouvoir tester</p>
+                <pre class="fragment"><code>$ sudo systemctl daemon-reload</code></pre>
+                <pre class="fragment"><code>$ sudo systemctl stop mongodb</code></pre>
+                <pre class="fragment"><code>$ sudo systemctl start tiny-api.service</code></pre>
+                <pre class="fragment"><code>$ curl -X GET localhost:3000/heroes</code></pre>
             </section>
         </section>
         <section data-background-color="#8e7cc3"><h1>Questions ?</h1></section>

@@ -858,7 +858,8 @@ exit
                 <h3>Définition :</h3>
                 <ul>
                     <li>SystemD est un système d’initialisation et un daemon qui a été spécifiquement
-                        conçu pour le noyau Linux comme alternative à System V.
+                        conçu pour le noyau Linux comme alternative à System V. Il a été écrit dans le
+                        langage de programmation C.
                     </li>
 
                     <li>Il a pour but d'offrir un
@@ -915,10 +916,15 @@ binary logs, for example), but those are details, not big issues."
                         performant quand il a un design simple plutôt
                         que complexe.
                     </li>
+                    <li class="fragment">Ce principe a été inventé dans les années 60s par Kelly Johnson, un ingénieur
+                    qui travaillait chez Lockheed Martin.</li>
                 </ul>
-                <aside class="notes">
-                    Parler d'un autre exemple que systemd pour illustrer
-                </aside>
+            </section>
+            <section>
+                    <p>Selon Eric Raymond (aka ESR), célèbre hacker américain ayant popularisé le terme "open source", la
+                        philosophie de Unix se résume à ce principe.</p>
+                    <p>Pour un système d'exploitation de ce type, un shell propose une grande quantité de petits utilitaires
+                    ayant des fonctions simples (ls, grep, cd, find...) avec un moyen simple de les combiner, le pipe (|).</p>
             </section>
             <section>
                 <pre style="padding: 10px; background: #1a6091;">
@@ -933,7 +939,11 @@ binary logs, for example), but those are details, not big issues."
             </section>
             <section>
                 <h3>II. Un système orienté Configuration</h3>
-                <p class="stretch">EXPLICATIONS DE COMMENT LA CONF REMPLACE LES SCRIPTS INIT DEGEUS</p>
+                <p class="">A l'inverse de SysV, SystemD implémente de nombreux outils pour décourager
+                l'utisation de script de lancement.<p>
+                <p>Dans la pratique, un service géré par SystemD sera généralement piloté par un fichier d'une
+                dizaine de lignes.</p>
+                <img src="img/amazing.gif">
             </section>
             <section>
                 <small>La syntaxe des fichiers de

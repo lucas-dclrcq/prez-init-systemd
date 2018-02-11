@@ -1260,38 +1260,99 @@ WantedBy=multi-user.target
                 </ol>
                 <small class="fragment"><i class="fas fa-info-circle"></i> Ça marche ! Systemd s'est chargé de lancer mongodb pour nous</small>
             </section>
-        </section>
-        <section data-background-color="#8e7cc3"><h1>Questions ?</h1></section>
-        <section data-background-color="#8e7cc3">
-            <img class="stretch" src="img/thatsall.gif">
-        </section>
-    </div>
+            <section>
+                <h3>Socket d'activation</h3>
+                <p class="fragment">Le socket d'activation va nous permettre de lancer automatiquement le service à chaque fois qu'on fait un appel sur le port 3000. </p>
+                <img class="fragment" src="img/socket_diagram.png" style="background: none; border:0ch; padding: 2ch"> 
+            </section>
+            <section>
+                <ol>
+                    <li class="fragment">
+                        On se place dans le dossier de systemd :
+                        <pre><code>$ cd /etc/systemd/system/</code></pre>
+                    </li>
+                    <li class="fragment">
+                        On crée une nouvelle configuration pour le socket : 
+                        <pre><code>$ vim awesome-api.socket</code></pre> 
+                    </li>
+                    <li class="fragment"><pre><code>[Socket]
+ListenStream=3000
+
+[Install]
+WantedBy=sockets.target</code></pre></li>
+                </ol>
+            </section>
+            <section>
+                <p>On va éditer le service pour qu'il ne redémarre plus. Il va maintenant être activé sur demande par le socket.</p>
+                <pre class="fragment bash"><code>[Unit]
+Description= My awesome API
+Wants= mongodb.service
+
+//on a supprimé la ligne Restart=always ici 
+[Service] 
+ExecStart=/usr/bin/node /home/okno/public_html/express-api/server.js
+StandardOutput=syslog 
+SyslogIdentifier=tiny-api-socket
+
+[Install]
+WantedBy=multi-user.target</code></pre>
+    </section>
+    <section>
+        <ol>
+            <li class="fragment">
+                <p>On se replace dans le path du projet git puis on change de branche : </p>
+                <pre><code>$ git checkout socket
+$ npm install</code></pre>
+            </li>
+            <li class="fragment">
+                <p>On stoppe tous les services et on recharge la configuration :</p> 
+                <pre><code>$ sudo systemctl stop mongodb
+$ sudo systemctl stop awesome-api.service
+$ sudo systemctl daemon-reload</code></pre>
+            </li>
+            <li class="fragment">
+                <p>En avant pour le socket! </p>
+                <pre><code>$ sudo systemctl start awesome-api.socket</code></pre>
+            </li>
+        </ol>
+       <small class="fragment"><i class="fas fa-info-circle"></i> On peut maintenant faire des appels sur l'api.</small> 
+    </section>
+    <section>
+        <h3> Standing ovation!</h3>
+        <img src="img/applause.gif">
+    </section>
+</section>
+<section data-background-color="#8e7cc3"><h1>Questions ?</h1></section>
+<section data-background-color="#8e7cc3">
+    <img class="stretch" src="img/thatsall.gif">
+</section>
+</div>
 </div>
 
 <script src="lib/js/head.min.js"></script>
 <script src="js/reveal.js"></script>
 
 <script>
-  // More info about config & dependencies:
-  // - https://github.com/hakimel/reveal.js#configuration
-  // - https://github.com/hakimel/reveal.js#dependencies
-  Reveal.initialize({
-    dependencies: [
-      {src: 'plugin/markdown/marked.js'},
-      {src: 'plugin/markdown/markdown.js'},
-      {src: 'plugin/notes/notes.js', async: true},
-      {
-        src: 'plugin/highlight/highlight.js', async: true, callback: function () {
-          hljs.initHighlightingOnLoad();
-        }
-      }
-    ]
-  });
+// More info about config & dependencies:
+// - https://github.com/hakimel/reveal.js#configuration
+// - https://github.com/hakimel/reveal.js#dependencies
+Reveal.initialize({
+dependencies: [
+{src: 'plugin/markdown/marked.js'},
+{src: 'plugin/markdown/markdown.js'},
+{src: 'plugin/notes/notes.js', async: true},
+{
+src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+    hljs.initHighlightingOnLoad();
+}
+}
+]
+});
 
-  Reveal.configure({
-    slideNumber: 'c/t',
-    history: 'true'
-  });
+Reveal.configure({
+slideNumber: 'c/t',
+history: 'true'
+});
 </script>
 </body>
 </html>

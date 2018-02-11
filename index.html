@@ -884,7 +884,7 @@ binary logs, for example), but those are details, not big issues."
 </pre>
             </section>
             <section>
-                <p style="color: red;">UN BREF RAPPEL DU BORDEL CHEZ DEBIAN</p>
+                <p style="color: red;">Un rappel de la DEBIAN WAR</p>
             </section>
             <section>
                 <h3>Les particularités de systemd :</h3>
@@ -1019,7 +1019,6 @@ WantedBy=multi-user.target</code></pre>
                 <h3>VI. Les Timers</h3>
                 <p>Un timer est un fichier permettant de contrôler les services,
                     ainsi que les events</p>
-                <p>Les timers peuvent être utilisés en remplacement de cron.</p>
                 <video class="fragment" style="height: 11em;" data-autoplay="" loop="loop"
                        src="img/hurry.mp4"></video>
             </section>
@@ -1029,7 +1028,16 @@ WantedBy=multi-user.target</code></pre>
                 <p>Ex : foo.timer est associé a foo.service.</p>
             </section>
             <section>
-                <h3>Exemple d'un timer basique</h3>
+                <h3>Les timers sont définis en deux catégories :</h3>
+                <ul>
+                    <li>Les timers "monotones" (monotonic timer), qui s'activent après un temps donné.
+                        Ils s'arrêtent si le système est arrêté.</li>
+                    <li>Les timers de type temps réel (Realtime timer), qui s'activent à un instant donné,
+                    comme le font les cronjobs</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Exemple d'un timer monotone</h3>
                 <pre><code>
 /etc/systemd/system/foo.timer
 
@@ -1047,7 +1055,7 @@ WantedBy=timers.target
                     le système est actif.</p>
             </section>
             <section>
-                <h3>Exemple d'un timer en temps réel.</h3>
+                <h3>Exemple d'un timer type temps réel.</h3>
                 <pre><code>
 /etc/systemd/system/foo.timer
 
@@ -1063,6 +1071,18 @@ WantedBy=timers.target
                 </code></pre>
                 <p>Le timer se lance chaque lundi à minuit. Quand il est activé, il déclenche immédiatemment le service
                 si ce dernier a manqué le dernier démarrage (par exemple si le système était éteint).</p>
+            </section>
+            <section>
+                <h3>Les timers en remplacement de CRON</h3>
+                Les timers se posent en alternative solide à CRON.<br>
+                Les bénéfices sont multiples : </p>
+                <ul>
+                    <li>Les jobs peuvent être simplement lancés indépendement de leur timers, facilitant la maintenance.</li>
+                    <li>Chaque job peut être configuré pour fonctionner dans un environnement spécifique.</li>
+                    <li>Ils peuvent être liés à des cgroups.</li>
+                    <li>Ils peuvent être liés à d'autres units de systemd.</li>
+                    <li>Les jobs sont logués dans le journal de systemd.</li>
+                </ul>
             </section>
             <section>
                 <h3>VII. SystemD Galaxy</h3>

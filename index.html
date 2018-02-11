@@ -1043,20 +1043,19 @@ WantedBy=multi-user.target</code></pre>
             <section>
                 <p>Mise en place d'un service http avec systemd :</p>
                 <ul>
-                    <li class="fragment">1. clonner le repo : <a href="https://github.com/oknozor/tiny-api">tiny-api</a></li>
+                    <li class="fragment">1. Cloner le repo : <pre><code>git clone https://github.com/oknozor/tiny-api</code></pre></li>
                     <li class="fragment">2. on installe nodejs npm et mongodb : 
-                        <pre class="fragment"><code>sudo apt-get install npm</code></pre>
-                        <pre class="fragment"><code>sudo apt-get install nodejs</code></pre>
-                        <pre class="fragment"><code>sudo apt-get install mongodb (a verifier)</code></pre>
+                        <pre><code>sudo apt-get install npm nodejs mongodb</code></pre>
                     </li>
                 </ul>
             </section>
             <section>
                 <h3> On passe à l'action ! </h3>
                     <ul>
-                        <li class="fragment">Positioner vous dans le répertoire du projet!</li> 
-                        <li class="fragment">node server.js</li>
-                        <li class="fragment">ouvrez un second terminal</li>
+                        <li class="fragment">Positionner vous dans le répertoire du projet!</li>
+                        <li class="fragment">Installez les dépendances de l'application : npm install</li>
+                        <li class="fragment">Lancer l'application : nodejs server.js</li>
+                        <li class="fragment">Ouvrez un second terminal</li>
                         <li class="fragment"><pre><code>curl -X GET localhost:3000</code></pre></li>
                         <li class="fragment">vous pouver également accéder à l'api par votre navigateur</li>
                     </ul>
@@ -1103,7 +1102,7 @@ WantedBy=multi-user.target // dépendance à la target multi-user
             </section>
              <section>
                 <p class="fragment">Vous avez terminé?</p>
-                <p class="fragment">Voilà à quoi ça ressemble chez moi </p>
+                <p class="fragment">Voilà à quoi ça ressemble chez nous </p>
                 <pre class="fragment"><code>
 [Service] 
 ExecStart=/usr/bin/node /home/okno/public_html/express-api/server.js

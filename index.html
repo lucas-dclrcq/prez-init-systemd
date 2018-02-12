@@ -308,7 +308,44 @@ httpd 0:off 1:off 2:off 3:on 4:off 5:on 6:off
                 <p class="fragment">C'est un script bash !</p>
             </section>
             <section>
-                <p style="color: red;">EXPLICATIONS SUR COMMENT EST FOUTU UN SCRIPT BASH</p>
+                <p>Voilà à quoi ça ressemble : on a un block de fonctions qui correspondent aux paramètres start et stop.</p>
+<pre><code>start() {        
+    echo start
+    # commands to launch application
+}                 
+
+stop() {          
+    echo stop
+    # commands to kill application 
+}</code></pre>
+            </section>
+            <section>
+                <p>Et un switch/case pour gérer ces fonctions côté utilisateur :</p>
+                
+<pre><code>case "$1" in
+start)
+    start
+    ;;
+stop)
+    stop
+    ;;
+restart)
+    stop
+    start
+    ;;
+*)
+    echo "Usage: $0 {start|stop|restart|uninstall}"
+esac 
+</code></pre>
+            </section>
+            <section>
+                <h3>Le point de vu de Daniel et Daniel.</h3>
+    <pre style="padding:1ch;" class="fragment"><i> - Mais Daniel, c'est tout ???</i></pre>
+    <pre style="padding:1ch;" class="fragment"><i> - Et oui Daniel. C'est tout, on pourrait rajouter de la complexité 
+    en gérant les PID files, les utilisateurs 
+    et les logs mais le principe de base est là. 
+    Si tu trouves ça simple je te conseil de jetter un oeil
+    au script d'intialisation de Gitlab.</i> </pre>                
             </section>
             <section>
                 <h3>Exemple : le script d'init de Gitlab (500 lignes)</h3>
@@ -858,7 +895,8 @@ exit
                 <h3>Définition :</h3>
                 <ul>
                     <li>SystemD est un système d’initialisation et un daemon qui a été spécifiquement
-                        conçu pour le noyau Linux comme alternative à System V.
+                        conçu pour le noyau Linux comme alternative à System V. Il a été écrit dans le
+                        langage de programmation C.
                     </li>
 
                     <li>Il a pour but d'offrir un
@@ -884,7 +922,27 @@ binary logs, for example), but those are details, not big issues."
 </pre>
             </section>
             <section>
-                <p style="color: red;">UN BREF RAPPEL DU BORDEL CHEZ DEBIAN</p>
+                <p>Le principal reproche émis à l'encontre de SystemD est qu'il enfreint la philosiphie Unix, résumé par
+                Douglas Mcllroy :</p>
+                <pre class="fragment" style="padding: 10px; background: #1a6091">
+"Write programs that do one thing and do it well.
+Write programs to work together.
+Write programs to handle text streams, because that is
+a universal interface."
+                </pre>
+            </section>
+            <section>
+                <p>Bien que les projets open source soient habitués aux discussions et débats enflammés, celui-ci a
+                atteint des sommets.</p>
+                <p>Un des évènements les plus marquants de cette véritable guerre est l'intense débat mené entre octobre 2013
+                et février 2014 au sein de la communauté Debian, ayant pour objet le choix de l'init par défaut à implémenter
+                dans la version 8 "Jessie" de Debian.</p>
+            </section>
+            <section>
+                <p>SystemD sera finalement choisi, ce qui aura pour conséquence le départs de plusieurs contributeurs vétérans ,
+                    qui réaliseront un fork de Debian appelé Devuan.</p>
+                <video class="fragment" style="height: 11em;" data-autoplay="" loop="loop"
+                       src="img/war.mp4"></video>
             </section>
             <section>
                 <h3>Les particularités de systemd :</h3>
@@ -915,10 +973,15 @@ binary logs, for example), but those are details, not big issues."
                         performant quand il a un design simple plutôt
                         que complexe.
                     </li>
+                    <li class="fragment">Ce principe a été inventé dans les années 60s par Kelly Johnson, un ingénieur
+                    qui travaillait chez Lockheed Martin.</li>
                 </ul>
-                <aside class="notes">
-                    Parler d'un autre exemple que systemd pour illustrer
-                </aside>
+            </section>
+            <section>
+                    <p>Selon Eric Raymond (aka ESR), célèbre hacker américain ayant popularisé le terme "open source", la
+                        philosophie de Unix se résume à ce principe.</p>
+                    <p>Pour un système d'exploitation de ce type, un shell propose une grande quantité de petits utilitaires
+                    ayant des fonctions simples (ls, grep, cd, find...) avec un moyen simple de les combiner, le pipe (|).</p>
             </section>
             <section>
                 <pre style="padding: 10px; background: #1a6091;">
@@ -933,7 +996,11 @@ binary logs, for example), but those are details, not big issues."
             </section>
             <section>
                 <h3>II. Un système orienté Configuration</h3>
-                <p class="stretch">EXPLICATIONS DE COMMENT LA CONF REMPLACE LES SCRIPTS INIT DEGEUS</p>
+                <p class="">A l'inverse de SysV, SystemD implémente de nombreux outils pour décourager
+                l'utisation de script de lancement.<p>
+                <p>Dans la pratique, un service géré par SystemD sera généralement piloté par un fichier d'une
+                dizaine de lignes.</p>
+                <img src="img/amazing.gif">
             </section>
             <section>
                 <small>La syntaxe des fichiers de
@@ -1019,7 +1086,6 @@ WantedBy=multi-user.target</code></pre>
                 <h3>VI. Les Timers</h3>
                 <p>Un timer est un fichier permettant de contrôler les services,
                     ainsi que les events</p>
-                <p>Les timers peuvent être utilisés en remplacement de cron.</p>
                 <video class="fragment" style="height: 11em;" data-autoplay="" loop="loop"
                        src="img/hurry.mp4"></video>
             </section>
@@ -1029,9 +1095,17 @@ WantedBy=multi-user.target</code></pre>
                 <p>Ex : foo.timer est associé a foo.service.</p>
             </section>
             <section>
-                <h3>Exemple d'un timer basique</h3>
-                <pre><code>
-/etc/systemd/system/foo.timer
+                <h3>Les timers sont définis en deux catégories :</h3>
+                <ul>
+                    <li>Les timers "monotones" (monotonic timer), qui s'activent après un temps donné.
+                        Ils s'arrêtent si le système est arrêté.</li>
+                    <li>Les timers de type temps réel (Realtime timer), qui s'activent à un instant donné,
+                    comme le font les cronjobs</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Exemple d'un timer monotone</h3>
+                <pre><code>/etc/systemd/system/foo.timer
 
 [Unit]
 Description=Run foo weekly and on boot
@@ -1041,15 +1115,13 @@ OnBootSec=15min
 OnUnitActiveSec=1w
 
 [Install]
-WantedBy=timers.target
-                </code></pre>
+WantedBy=timers.target</code></pre>
                 <p>Ici, le timer se lance 15 minutes après le démarrage du système, ainsi que toutes les semaines tant que
                     le système est actif.</p>
             </section>
             <section>
-                <h3>Exemple d'un timer en temps réel.</h3>
-                <pre><code>
-/etc/systemd/system/foo.timer
+                <h3>Exemple d'un timer type temps réel.</h3>
+                <pre><code>/etc/systemd/system/foo.timer
 
 [Unit]
 Description=Run foo weekly
@@ -1059,10 +1131,21 @@ OnCalendar=weekly
 Persistent=true
 
 [Install]
-WantedBy=timers.target
-                </code></pre>
+WantedBy=timers.target</code></pre>
                 <p>Le timer se lance chaque lundi à minuit. Quand il est activé, il déclenche immédiatemment le service
                 si ce dernier a manqué le dernier démarrage (par exemple si le système était éteint).</p>
+            </section>
+            <section>
+                <h3>Les timers en remplacement de CRON</h3>
+                Les timers se posent en alternative solide à CRON.<br>
+                Les bénéfices sont multiples : </p>
+                <ul>
+                    <li>Les jobs peuvent être simplement lancés indépendement de leur timers, facilitant la maintenance.</li>
+                    <li>Chaque job peut être configuré pour fonctionner dans un environnement spécifique.</li>
+                    <li>Ils peuvent être liés à des cgroups.</li>
+                    <li>Ils peuvent être liés à d'autres units de systemd.</li>
+                    <li>Les jobs sont logués dans le journal de systemd.</li>
+                </ul>
             </section>
             <section>
                 <h3>VII. SystemD Galaxy</h3>
@@ -1240,38 +1323,99 @@ WantedBy=multi-user.target
                 </ol>
                 <small class="fragment"><i class="fas fa-info-circle"></i> Ça marche ! Systemd s'est chargé de lancer mongodb pour nous</small>
             </section>
-        </section>
-        <section data-background-color="#8e7cc3"><h1>Questions ?</h1></section>
-        <section data-background-color="#8e7cc3">
-            <img class="stretch" src="img/thatsall.gif">
-        </section>
-    </div>
+            <section>
+                <h3>Socket d'activation</h3>
+                <p class="fragment">Le socket d'activation va nous permettre de lancer automatiquement le service à chaque fois qu'on fait un appel sur le port 3000. </p>
+                <img class="fragment" src="img/socket_diagram.png" style="background: none; border:0ch; padding: 2ch"> 
+            </section>
+            <section>
+                <ol>
+                    <li class="fragment">
+                        On se place dans le dossier de systemd :
+                        <pre><code>$ cd /etc/systemd/system/</code></pre>
+                    </li>
+                    <li class="fragment">
+                        On crée une nouvelle configuration pour le socket : 
+                        <pre><code>$ vim awesome-api.socket</code></pre> 
+                    </li>
+                    <li class="fragment"><pre><code>[Socket]
+ListenStream=3000
+
+[Install]
+WantedBy=sockets.target</code></pre></li>
+                </ol>
+            </section>
+            <section>
+                <p>On va éditer le service pour qu'il ne redémarre plus. Il va maintenant être activé sur demande par le socket.</p>
+                <pre class="fragment bash"><code>[Unit]
+Description= My awesome API
+Wants= mongodb.service
+
+//on a supprimé la ligne Restart=always ici 
+[Service] 
+ExecStart=/usr/bin/node /home/okno/public_html/express-api/server.js
+StandardOutput=syslog 
+SyslogIdentifier=tiny-api-socket
+
+[Install]
+WantedBy=multi-user.target</code></pre>
+    </section>
+    <section>
+        <ol>
+            <li class="fragment">
+                <p>On se replace dans le path du projet git puis on change de branche : </p>
+                <pre><code>$ git checkout socket
+$ npm install</code></pre>
+            </li>
+            <li class="fragment">
+                <p>On stoppe tous les services et on recharge la configuration :</p> 
+                <pre><code>$ sudo systemctl stop mongodb
+$ sudo systemctl stop awesome-api.service
+$ sudo systemctl daemon-reload</code></pre>
+            </li>
+            <li class="fragment">
+                <p>En avant pour le socket! </p>
+                <pre><code>$ sudo systemctl start awesome-api.socket</code></pre>
+            </li>
+        </ol>
+       <small class="fragment"><i class="fas fa-info-circle"></i> On peut maintenant faire des appels sur l'api.</small> 
+    </section>
+    <section>
+        <h3> Standing ovation!</h3>
+        <img src="img/applause.gif">
+    </section>
+</section>
+<section data-background-color="#8e7cc3"><h1>Questions ?</h1></section>
+<section data-background-color="#8e7cc3">
+    <img class="stretch" src="img/thatsall.gif">
+</section>
+</div>
 </div>
 
 <script src="lib/js/head.min.js"></script>
 <script src="js/reveal.js"></script>
 
 <script>
-  // More info about config & dependencies:
-  // - https://github.com/hakimel/reveal.js#configuration
-  // - https://github.com/hakimel/reveal.js#dependencies
-  Reveal.initialize({
-    dependencies: [
-      {src: 'plugin/markdown/marked.js'},
-      {src: 'plugin/markdown/markdown.js'},
-      {src: 'plugin/notes/notes.js', async: true},
-      {
-        src: 'plugin/highlight/highlight.js', async: true, callback: function () {
-          hljs.initHighlightingOnLoad();
-        }
-      }
-    ]
-  });
+// More info about config & dependencies:
+// - https://github.com/hakimel/reveal.js#configuration
+// - https://github.com/hakimel/reveal.js#dependencies
+Reveal.initialize({
+dependencies: [
+{src: 'plugin/markdown/marked.js'},
+{src: 'plugin/markdown/markdown.js'},
+{src: 'plugin/notes/notes.js', async: true},
+{
+src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+    hljs.initHighlightingOnLoad();
+}
+}
+]
+});
 
-  Reveal.configure({
-    slideNumber: 'c/t',
-    history: 'true'
-  });
+Reveal.configure({
+slideNumber: 'c/t',
+history: 'true'
+});
 </script>
 </body>
 </html>

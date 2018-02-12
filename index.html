@@ -885,7 +885,27 @@ binary logs, for example), but those are details, not big issues."
 </pre>
             </section>
             <section>
-                <p style="color: red;">Un rappel de la DEBIAN WAR</p>
+                <p>Le principal reproche émis à l'encontre de SystemD est qu'il enfreint la philosiphie Unix, résumé par
+                Douglas Mcllroy :</p>
+                <pre class="fragment" style="padding: 10px; background: #1a6091">
+"Write programs that do one thing and do it well.
+Write programs to work together.
+Write programs to handle text streams, because that is
+a universal interface."
+                </pre>
+            </section>
+            <section>
+                <p>Bien que les projets open source soient habitués aux discussions et débats enflammés, celui-ci a
+                atteint des sommets.</p>
+                <p>Un des évènements les plus marquants de cette véritable guerre est l'intense débat mené entre octobre 2013
+                et février 2014 au sein de la communauté Debian, ayant pour objet le choix de l'init par défaut à implémenter
+                dans la version 8 "Jessie" de Debian.</p>
+            </section>
+            <section>
+                <p>SystemD sera finalement choisi, ce qui aura pour conséquence le départs de plusieurs contributeurs vétérans ,
+                    qui réaliseront un fork de Debian appelé Devuan.</p>
+                <video class="fragment" style="height: 11em;" data-autoplay="" loop="loop"
+                       src="img/war.mp4"></video>
             </section>
             <section>
                 <h3>Les particularités de systemd :</h3>
@@ -1048,8 +1068,7 @@ WantedBy=multi-user.target</code></pre>
             </section>
             <section>
                 <h3>Exemple d'un timer monotone</h3>
-                <pre><code>
-/etc/systemd/system/foo.timer
+                <pre><code>/etc/systemd/system/foo.timer
 
 [Unit]
 Description=Run foo weekly and on boot
@@ -1059,15 +1078,13 @@ OnBootSec=15min
 OnUnitActiveSec=1w
 
 [Install]
-WantedBy=timers.target
-                </code></pre>
+WantedBy=timers.target</code></pre>
                 <p>Ici, le timer se lance 15 minutes après le démarrage du système, ainsi que toutes les semaines tant que
                     le système est actif.</p>
             </section>
             <section>
                 <h3>Exemple d'un timer type temps réel.</h3>
-                <pre><code>
-/etc/systemd/system/foo.timer
+                <pre><code>/etc/systemd/system/foo.timer
 
 [Unit]
 Description=Run foo weekly
@@ -1077,8 +1094,7 @@ OnCalendar=weekly
 Persistent=true
 
 [Install]
-WantedBy=timers.target
-                </code></pre>
+WantedBy=timers.target</code></pre>
                 <p>Le timer se lance chaque lundi à minuit. Quand il est activé, il déclenche immédiatemment le service
                 si ce dernier a manqué le dernier démarrage (par exemple si le système était éteint).</p>
             </section>

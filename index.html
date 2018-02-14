@@ -71,7 +71,7 @@
                 <p>
                     Ce processus
                     doit toujours être actif.
-                    Si jamais PID 1 est interrompu on entre alors en Kernel Panic !
+                    Si jamais PID 1 est interrompu on entre alors en kernel Panic !
                 </p>
                 <video class="fragment" data-autoplay="" loop="loop" src="img/bomb.mp4">
                 </video>
@@ -103,7 +103,7 @@
             <section>
                 <h3>Les roles d'un système d'initialisation :</h3>
                 <ul>
-                    <li class="fragment">Il démarre le reste des processus nécessaire au lancement du système
+                    <li class="fragment">Il démarre le reste des processus nécessaires au lancement du système
                         d'exploitation
                     </li>
                     <li class="fragment">Il gère le cycle de vie des autres processus</li>
@@ -121,12 +121,12 @@
             <section>
                 <h3>Un peu d'histoire ...</h3>
                 <ul>
-                    <li class="fragment">Init fait référence à SysV Init, le système d’initialisation de System V le
+                    <li class="fragment">Init fait référence à <span style="text-transform: capitalize;">SysVInit</span>, le système d’initialisation de <span style="text-transform: capitalize;">SystemV</span>, le
                         premier
                         système d’exploitation Unix commercial.
                     </li>
                     <li class="fragment">SysV a connu 4 versions majeures depuis la première en 1983, dont la quatrième
-                        (SRV4) a été le principal succès commercial, soutenu par les principaux vendeurs de systèmes
+                        (SRV4), succés majeur, à été soutenu par les principaux vendeurs de systèmes
                         Unix.
                     </li>
                 </ul>
@@ -153,7 +153,7 @@
                         possède un
                         certain nombre de processus actifs ou stoppés.
                     </li>
-                    <li class="fragment">Après que le kernel a démarré, <b>init</b> lit le fichier
+                    <li class="fragment">Une fois le kernel démarré, <b>init</b> lit le fichier
                         <span style="padding-right: 10px; padding-left: 10px; background-color: #3f3f3f; font-family: monospace; font-size: 0.8em; box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);">/etc/inittab</span>
                         pour déterminer
                         le
@@ -231,25 +231,26 @@
             </section>
             <section>
                 <h3>Comment démarrent nos applications ?</h3>
-                <p class="fragment">Les applications qui sont démarrés par init ont leur scripts placés dans le dossier
+                <ul>
+                <li class="fragment">Les applications démarrées par init ont leur script placé dans le dossier
                     <span class="inline-path">/etc/rc.d</span> Dans
-                    ce dossier il y a un dossier pour chaque runlevel : rc0.d, rc1.d etc..
-                    Comment lancer des applications au démarrage avec init ?</p>
-                <p class="fragment">Si le système démarre par défaut au niveau 3, il faut donc que le script de notre
+                    ce dossier il y a un dossier pour chaque runlevel : rc0.d, rc1.d etc..</li>
+                <li class="fragment">Si le système démarre par défaut au niveau 3, il faut donc que le script de notre
                     application soit
-                    présent dans le dossier rc3.d.</p>
+                    présent dans le dossier rc3.d.</li>
+                </ul>
                 <small class="fragment"><i class="fa fa-info-circle"></i> On peut aussi utiliser un lien symbolique</small>
             </section>
             <section>
                 <h3>Gérer tous ces dossiers, fichiers et liens symboliques parait compliqué...</h3>
-                <img src="img/cables.jpg">
+                <img style="height: 12em;" src="img/cables.jpg">
             </section>
             <section>
-                <h3>Rassurez vous, on peu simplifier !</h3>
+                <h3>Rassurez vous, on peut simplifier !</h3>
                 <img src="img/baby.gif">
             </section>
             <section>
-                <p>Grâce à <b>chkconfig</b> on peut visualiser l'activation ou non des scripts pour chaque
+                <p>Grâce à <b>chkconfig</b> on peut visualiser l'activation des scripts pour chaque
                     <b>runlevel</b> :</p>
                 <pre><code data-trim data-noescape>root@host:~ # chkconfig --list
 filelimits 0:off 1:off 2:on 3:on 4:on 5:on 6:off
@@ -277,25 +278,25 @@ httpd 0:off 1:off 2:off 3:on 4:off 5:on 6:off
             <section>
                 <h3>Pour résumer, voici ce qui se passe quand on démarre Linux :</h3>
                 <ol>
-                    <li class="fragment">Le BIOS ou le bootloader (lilo, grub, etc) charge le kernel du disque vers la
-                        mémoire. Le fichier du Kernel reste dans le dossier <span class="inline-path">/boot</span>, il n'est lu qu'a ce moment la.
+                    <li class="fragment">Le BIOS ou le bootloader (lilo, grub, etc) charge le kernel, du disque vers la
+                        mémoire. Le fichier du kernel reste dans le dossier <span class="inline-path">/boot</span>, il n'est lu qu'à ce moment précis.
                     </li>
-                    <li class="fragment">En mémoire, le code du Kernel s'exécute, et détecte divers éléments : disques,
+                    <li class="fragment">En mémoire, le code du kernel s'exécute, et détecte divers éléments : disques,
                         partitions, etc...
                     </li>
-                    <li class="fragment">Le Kernel monte le système de fichier qui doit obligatoirement contenir
+                    <li class="fragment">Le kernel monte le système de fichier qui doit obligatoirement contenir
                         certains dossiers : <span class="inline-path">/etc</span>, <span class="inline-path">/bin</span>, <span class="inline-path">/lib</span>...
                     </li>
                 </ol>
             </section>
             <section>
                 <ol start="4">
-                    <li>Immédiatement après, le Kernel appelle la commande init (<span class="inline-path">/sbin/init</span>) et lui passe la main</li>
+                    <li>Immédiatement après, le kernel appelle la commande init (<span class="inline-path">/sbin/init</span>) et lui passe la main.</li>
                     <li class="fragment">La commande init lit le fichier <span class="inline-path">/etc/inittab</span> qui définit le runlevel du
-                        système, et les scripts système à exécuter
+                        système, et les scripts système à exécuter.
                     </li>
                     <li class="fragment">Ces scripts vont finir la mise en place des parties vitales du système
-                        (systèmes de fichier, SWAP, mémoire virtuelle...)
+                        (systèmes de fichier, SWAP, mémoire virtuelle...).
                     </li>
                     <li class="fragment">Et enfin, init va lancer les scripts présents dans <span class="inline-path">/etc/rc.d</span></li>
                 </ol>
@@ -317,6 +318,11 @@ httpd 0:off 1:off 2:off 3:on 4:off 5:on 6:off
 stop() {          
     echo stop
     # commands to kill application 
+}
+
+status() {
+    echo "running"
+    # commands to see the status of the application
 }</code></pre>
             </section>
             <section>
@@ -339,13 +345,13 @@ esac
 </code></pre>
             </section>
             <section>
-                <h3>Le point de vu de Daniel et Daniel.</h3>
+                <h3>Le point de vue de Daniel et Daniel.</h3>
     <pre style="padding:1ch;" class="fragment"><i> - Mais Daniel, c'est tout ???</i></pre>
     <pre style="padding:1ch;" class="fragment"><i> - Et oui Daniel. C'est tout, on pourrait rajouter de la complexité 
     en gérant les PID files, les utilisateurs 
     et les logs mais le principe de base est là. 
-    Si tu trouves ça simple je te conseil de jetter un oeil
-    au script d'intialisation de Gitlab.</i> </pre>                
+    Si tu trouves ça simple je te conseille de jeter un oeil
+    au script d'initialisation de Gitlab.</i> </pre>
             </section>
             <section>
                 <h3>Exemple : le script d'init de Gitlab (500 lignes)</h3>
@@ -894,22 +900,21 @@ exit
             <section>
                 <h3>Définition :</h3>
                 <ul>
-                    <li>SystemD est un système d’initialisation et un daemon qui a été spécifiquement
-                        conçu pour le noyau Linux comme alternative à System V. Il a été écrit dans le
-                        langage de programmation C.
+                    <li class="fragment">SystemD est un système d’initialisation et un daemon qui a été spécifiquement
+                        conçu pour le noyau Linux comme alternative à System V. Il a été écrit en C.
                     </li>
 
-                    <li>Il a pour but d'offrir un
+                    <li class="fragment">Il a pour but d'offrir un
                         meilleur cadre pour la gestion des dépendances entre services, de permettre le chargement
-                        en parallèle des services au démarrage, et de réduire les appels aux scripts shell."
+                        en parallèle des services au démarrage, et de réduire les appels aux scripts shell.
                     </li>
                 </ul>
             </section>
             <section>
                 <h3>Une naissance mouvementée :</h3>
                 <p class="fragment">
-                    <b>SystemD</b> a été créé en 2010 par Lennart Poettering et Kay Sievers,
-                    et a été à l’origine d’intenses débats au sein de la communauté UNIX.
+                    <b>SystemD</b> a été créé en 2010 par <a style="color: white;" href="https://en.wikipedia.org/wiki/Lennart_Poettering"><i>Lennart Poettering</i></a> et Kay Sievers,
+                    et a été à l’origine d’intenses débats au sein de la communauté Linux.
                 </p>
                 <pre class="fragment" style="padding: 10px; background: #1a6091">
 "I don't actually have any particularly strong opinions on systemd
@@ -922,14 +927,13 @@ binary logs, for example), but those are details, not big issues."
 </pre>
             </section>
             <section>
-                <p>Le principal reproche émis à l'encontre de SystemD est qu'il enfreint la philosiphie Unix, résumé par
-                Douglas Mcllroy :</p>
+                <h3>Le principal reproche émis à l'encontre de SystemD est qu'il enfreint la philosophie Unix ::</h3>
                 <pre class="fragment" style="padding: 10px; background: #1a6091">
-"Write programs that do one thing and do it well.
-Write programs to work together.
-Write programs to handle text streams, because that is
-a universal interface."
-                </pre>
+"Write programs that do one thing and do it well. Write programs
+to work together. Write programs to handle text streams, because
+that isa universal interface."
+
+                                 Douglas McLlroy</pre>
             </section>
             <section>
                 <p>Bien que les projets open source soient habitués aux discussions et débats enflammés, celui-ci a
@@ -969,19 +973,19 @@ a universal interface."
                     <li class="fragment">Le principe <b>KISS</b> est habituellement associé à des systemes qui peuvent
                         paraitre stupide à cause de leur conception simple.
                     </li>
-                    <li class="fragment">Ce principe est une règle de conception qui établi qu'un système est plus
+                    <li class="fragment">Ce principe est une règle de conception qui établie qu'un système est plus
                         performant quand il a un design simple plutôt
                         que complexe.
                     </li>
-                    <li class="fragment">Ce principe a été inventé dans les années 60s par Kelly Johnson, un ingénieur
+                    <li class="fragment">Ce principe a été inventé dans les années 60 par Kelly Johnson, un ingénieur
                     qui travaillait chez Lockheed Martin.</li>
                 </ul>
-            </section>
-            <section>
+                <aside class="notes">
                     <p>Selon Eric Raymond (aka ESR), célèbre hacker américain ayant popularisé le terme "open source", la
                         philosophie de Unix se résume à ce principe.</p>
                     <p>Pour un système d'exploitation de ce type, un shell propose une grande quantité de petits utilitaires
-                    ayant des fonctions simples (ls, grep, cd, find...) avec un moyen simple de les combiner, le pipe (|).</p>
+                        ayant des fonctions simples (ls, grep, cd, find...) avec un moyen simple de les combiner, le pipe (|).</p>
+                </aside>
             </section>
             <section>
                 <pre style="padding: 10px; background: #1a6091;">
@@ -996,11 +1000,13 @@ a universal interface."
             </section>
             <section>
                 <h3>II. Un système orienté Configuration</h3>
-                <p class="">A l'inverse de SysV, SystemD implémente de nombreux outils pour décourager
+                <ul>
+                <li class="fragment">A l'inverse de SysV, SystemD implémente de nombreux outils pour décourager
                 l'utisation de script de lancement.<p>
-                <p>Dans la pratique, un service géré par SystemD sera généralement piloté par un fichier d'une
-                dizaine de lignes.</p>
-                <img src="img/amazing.gif">
+                <li class="fragment">Dans la pratique, un service géré par SystemD sera généralement configuré par un fichier d'une
+                dizaine de lignes.</li>
+                </ul>
+                <img class="fragment" style="height: 5em;" src="img/amazing.gif">
             </section>
             <section>
                 <small>La syntaxe des fichiers de
@@ -1040,41 +1046,45 @@ WantedBy=multi-user.target</code></pre>
             <section>
                 <h3>III. La Parallélisation</h3>
                 <p>
-                    Un des gros avantage de systemD sur init c'est
+                    Un des gros avantage de systemD sur init, c'est
                     sa capacité à lancer des processus en parallèle
-                    via utilisation de sockets et D-bus.
+                    <i>via</i> des sockets et D-bus.
                 </p>
+                 <!--FIXME: Mieux expliquer tout ce bouzin-->
                 <p>
-                    Socket et D-bus sont deux ensembles normalisées
+                    Socket et D-bus sont deux ensembles normalisés
                     de fonctions qui permettent au processus de
                     parager des données et d'échanger des messages
                 </p>
             </section>
             <section>
                 <h3>IV. Contrôle tes logs!</h3>
-                <p>
-                    Dans systemd logs sont associé à un groupe afin de réduire les chances
-                    de corruptions lors d'un piratage, ils sont portables,
+                <ul>
+                <li class="fragment">
+                    Dans systemd, les logs sont associés à un groupe afin de réduire les chances
+                    de corruption lors d'un piratage.</li>
+                <li class="fragment">Ils sont portables,
                     et l'outil comporte une gestion de saturation de l'espace.
-                </p>
-                <p>
+                </li>
+                <li class="fragment">
                     Tout service géré par systemd est automatiquement logué
-                    dans la base de donnée de journald, on accède au logs via la commande journalctl.
-                </p>
+                    dans la base de donnée de journald, à laquelle on accède via la commande journalctl.
+                </li>
+                </ul>
             </section>
             <section>
                 <h3>V. Les Control Groups</h3>
-                <p> Systemd utilise le module cgroup du kernel linux pour organiser les processus.
-                    Il permet de contrôler et de surveiller l'usage des ressources
+                <ul>
+                    <li class="fragment"> Systemd utilise le module cgroup du kernel linux pour organiser les processus.</li>
+                    <li class="fragment">Il permet de contrôler et de surveiller l'usage des ressources
                     physiques du système pour un ensemble de PID.
-                    les cgroups permettent par example de lancer des
-                    des processus avec un accès limité à la mémoire.
-                </p>
-                <p>Les ressources physiques sont allouées à des groupes de contrôle :
+                    <li class="fragment">Par exemple, les cgroups permettent de limiter l'usage mémoire pour un conteneur ou une VM.</li>
+                    <li class="fragment">Les ressources physiques sont allouées à des groupes de contrôle :
                     blkio, cpu, devices, memory...etc.
-                    (cf. <a style="color: deeppink;"
-                            href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/resource_management_guide/ch01#sec-How_Control_Groups_Are_Organized">redhat.com/docummentation</a>)
-                </p>
+                    <small>(cf. <a style="color: deeppink;"
+                                   href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/resource_management_guide/ch01#sec-How_Control_Groups_Are_Organized">Documentation de Red Hat</a>)</small>
+                    </li>
+                </ul>
             </section>
             <section>
                 <p> Pour vous faire une idée sur cgroups :</p>
@@ -1083,31 +1093,33 @@ WantedBy=multi-user.target</code></pre>
                 <img src="img/cgroup_schema.png">
             </section>
             <section>
+
                 <h3>VI. Les Timers</h3>
-                <p>Un timer est un fichier permettant de contrôler les services,
-                    ainsi que les events</p>
-                <video class="fragment" style="height: 11em;" data-autoplay="" loop="loop"
+                <ul>
+                <li class="fragment">Un Timer est un fichier (se terminant par .timer) permettant de contrôler un service comme un fichier de configuration systemd classique</li>
+                <li class="fragment">Il permet de déclencher un service à un moment précis dans le temps</li>
+                </ul>
+                <video style="height: 8em;" class="fragment" style="height: 11em;" data-autoplay="" loop="loop"
                        src="img/hurry.mp4"></video>
             </section>
             <section>
+                <h3>Principe général :</h3>
                 <p>C'est un fichier spécifique à systemd, qui est obligatoirement associé à un service existant.<br>
                     Par défaut, un timer est associé au service ayant le même nom que lui.</p>
                 <p>Ex : foo.timer est associé a foo.service.</p>
             </section>
             <section>
-                <h3>Les timers sont définis en deux catégories :</h3>
+                <h3>Les timers sont divisés en deux catégories :</h3>
                 <ul>
-                    <li>Les timers "monotones" (monotonic timer), qui s'activent après un temps donné.
+                    <li class="fragment">Les timers <i>monotones</i> (monotonic timer), qui s'activent après un temps donné.
                         Ils s'arrêtent si le système est arrêté.</li>
-                    <li>Les timers de type temps réel (Realtime timer), qui s'activent à un instant donné,
-                    comme le font les cronjobs</li>
+                    <li class="fragment">Les timers de type <i>temps-réel</i> (realtime timer), qui s'activent à un instant donné,
+                    comme le font les cronjobs.</li>
                 </ul>
             </section>
             <section>
                 <h3>Exemple d'un timer monotone</h3>
-                <pre><code>/etc/systemd/system/foo.timer
-
-[Unit]
+                <pre><code>[Unit]
 Description=Run foo weekly and on boot
 
 [Timer]
@@ -1121,9 +1133,7 @@ WantedBy=timers.target</code></pre>
             </section>
             <section>
                 <h3>Exemple d'un timer type temps réel.</h3>
-                <pre><code>/etc/systemd/system/foo.timer
-
-[Unit]
+                <pre><code>[Unit]
 Description=Run foo weekly
 
 [Timer]
@@ -1137,11 +1147,10 @@ WantedBy=timers.target</code></pre>
             </section>
             <section>
                 <h3>Les timers en remplacement de CRON</h3>
-                Les timers se posent en alternative solide à CRON.<br>
-                Les bénéfices sont multiples : </p>
+                <p>Les timers se posent en alternative solide à CRON, les bénéfices sont multiples : </p>
                 <ul>
-                    <li>Les jobs peuvent être simplement lancés indépendement de leur timers, facilitant la maintenance.</li>
-                    <li>Chaque job peut être configuré pour fonctionner dans un environnement spécifique.</li>
+                    <li>Les <i>jobs</i> peuvent être simplement lancés indépendement de leur timers, facilitant la maintenance.</li>
+                    <li>Chaque <i>job</i> peut être configuré pour fonctionner dans un environnement spécifique.</li>
                     <li>Ils peuvent être liés à des cgroups.</li>
                     <li>Ils peuvent être liés à d'autres units de systemd.</li>
                     <li>Les jobs sont logués dans le journal de systemd.</li>
@@ -1205,9 +1214,9 @@ Browse your hero collection add more heroes."}%
             <section>
                 <h3>Et systemd dans tout ça ? </h3>
                 <ul>
-                    <li>Lancer une application à la main ce n'est pas pratique ! Et si on ferme le terminal l'application s'arrêtera..</li>
-                    <li class="fragment">Maintenant que notre service est opérationnel on va donc voir comment le lancer avec systemd.</li>
-                    <li class="fragment">Comme on l'a vu dans la présentation systemd gère les processus avec des fichiers de configuration.</li>
+                    <li>Lancer une application à la main ce n'est pas pratique&nbsp! Et si on ferme le terminal l'application s'arrêtera...</li>
+                    <li class="fragment">Maintenant que notre service est opérationnel on va donc voir comment le lancer avec <b>systemd</b>.</li>
+                    <li class="fragment">Comme on l'a vu dans la présentation <b>systemd</b> gère les processus avec des fichiers de configuration.</li>
                 </ul>
             </section>
             <section>
@@ -1227,35 +1236,34 @@ Browse your hero collection add more heroes."}%
                 <ol start="3">
                 <li>
                     Éditer le fichier de configuration :
-                    <pre><code>$ cd systemd && vim tiny-api-1.service</code></pre>
+                    <pre><code>$ cd systemd && vim awesome-api.service</code></pre>
                 </li>
                 <li>
                     Compléter les trous avec les informations récupérées à l'étape précedente :
-                        <pre><code>
-[Service]
+                        <pre><code>[Service]
 ExecStart= // ici on va placer la commande à executer
 StandardOutput=syslog  // on redirige les log dans "The journal"
 SyslogIdentifier= // un identifiant pour rechercher les logs dans le journal
 
 [Install]
-WantedBy=multi-user.target // dépendance à la target multi-user
-                                    </code></pre>
+WantedBy=multi-user.target // dépendance à la target multi-user</code></pre>
                 </li>
                 </ol>
             </section>
              <section>
                 <h3>Vous avez terminé?</h3>
                 <p class="fragment">Voilà à quoi ça ressemble chez nous :</p>
-                <pre class="fragment"><code>
-[Service] 
+                <pre class="fragment"><code>[Service]
 ExecStart=/usr/bin/node /home/okno/public_html/express-api/server.js
 StandardOutput=syslog 
 SyslogIdentifier=awesome-api
     
 [Install] 
-WantedBy=multi-user.target
-                </code></pre>
+WantedBy=multi-user.target</code></pre>
                 <small class="fragment">Au fait je vous ai dis que j'utilisais <b>Arch linux</b>?</small>
+            </section>
+            <section data-background-color="black">
+                <video class="stretch" loop="loop" data-autoplay="" src="img/arch.mp4"></video>
             </section>
             <section>
                 <h3>Copie du fichier de configuration et lancement de la base de données :</h3>
@@ -1277,7 +1285,8 @@ WantedBy=multi-user.target
             </section>
             <section>
                 <h3>Les dépendances</h3>
-                <p>C'est pas mal mais si mongodb n'est pas disponible quand on lance le service voila ce qui arrive: </p>
+                <p class="fragment">C'est pas mal ! </p>
+                    <p class="fragment">Mais si mongodb n'est pas disponible quand on lance le service voila ce qui arrive :
                 <pre class="fragment"><code>$ sudo systemctl stop mongodb.service
 $ sudo systemctl restart awesome-api.service
 $ sudo systemctl status awesome-api.service
@@ -1289,11 +1298,11 @@ Could not connect to the database. Exiting now...
 </code></pre>
             </section>
             <section>
-                <p> Pour règler le problème rien de plus simple. On va modifier la configuration de notre service :</p>
-               <pre class="stretch"><code>
-[Unit]
-Description= My awesome API //une description du service pour le fun
-After= mongodb.service      // ici on ajoute la dépendance à mongo  
+                <h3> Pour règler le problème, rien de plus simple :</h3>
+                <p class="fragment">On va modifier la configuration de notre service :</p>
+               <pre class="fragment"><code>[Unit]
+Description=My Awesome API // Une description du service pour le fun
+Wants=mongodb.service      // Ici on ajoute la dépendance à mongo
 
 [Service] 
 ExecStart=/usr/bin/node /home/okno/public_html/express-api/server.js
@@ -1302,11 +1311,10 @@ StandardOutput=syslog
 SyslogIdentifier=heroes-api
 
 [Install] 
-WantedBy=multi-user.target
-                </code></pre>
+WantedBy=multi-user.target</code></pre>
             </section>
             <section>
-                <h3> Et voilà le travail, on va pouvoir tester :</h3>
+                <h3> Et voilà le travail ! On va pouvoir tester :</h3>
                 <ol>
                 <li class="fragment"> On recharge la configuration :
                     <pre><code>$ sudo systemctl daemon-reload</code></pre>
@@ -1315,7 +1323,7 @@ WantedBy=multi-user.target
                     <pre><code>$ sudo systemctl stop mongodb</code></pre>
                 </li>
                 <li class="fragment">On lance l'application :
-                    <pre><code>$ sudo systemctl start tiny-api.service</code></pre>
+                    <pre><code>$ sudo systemctl start awesome-api.service</code></pre>
                 </li>
                 <li class="fragment">On teste l'API :
                     <pre><code>$ curl -X GET localhost:3000/heroes</code></pre>
@@ -1326,19 +1334,20 @@ WantedBy=multi-user.target
             <section>
                 <h3>Socket d'activation</h3>
                 <p class="fragment">Le socket d'activation va nous permettre de lancer automatiquement le service à chaque fois qu'on fait un appel sur le port 3000. </p>
-                <img class="fragment" src="img/socket_diagram.png" style="background: none; border:0ch; padding: 2ch"> 
+                <img class="fragment" style="opacity: 50%; border: none; padding: 10px" src="img/socket_diagram.png" style="background: none; border:0ch; padding: 2ch">
             </section>
             <section>
                 <ol>
-                    <li class="fragment">
+                    <li>
                         On se place dans le dossier de systemd :
                         <pre><code>$ cd /etc/systemd/system/</code></pre>
                     </li>
                     <li class="fragment">
-                        On crée une nouvelle configuration pour le socket : 
+                        On édite le fichier de configuration pour le socket :
                         <pre><code>$ vim awesome-api.socket</code></pre> 
                     </li>
-                    <li class="fragment"><pre><code>[Socket]
+                    <li class="fragment">Dans lequel on insert les lignes suivantes :
+                        <pre><code>[Socket]
 ListenStream=3000
 
 [Install]
@@ -1346,12 +1355,12 @@ WantedBy=sockets.target</code></pre></li>
                 </ol>
             </section>
             <section>
-                <p>On va éditer le service pour qu'il ne redémarre plus. Il va maintenant être activé sur demande par le socket.</p>
-                <pre class="fragment bash"><code>[Unit]
+                <p>On va éditer le service pour qu'il ne redémarre plus automatiquement :</p>
+                <pre class="fragment"><code>[Unit]
 Description= My awesome API
 Wants= mongodb.service
 
-//on a supprimé la ligne Restart=always ici 
+// On a supprimé la ligne Restart=always
 [Service] 
 ExecStart=/usr/bin/node /home/okno/public_html/express-api/server.js
 StandardOutput=syslog 
@@ -1359,6 +1368,7 @@ SyslogIdentifier=tiny-api-socket
 
 [Install]
 WantedBy=multi-user.target</code></pre>
+                <p class="fragment">Il va maintenant être activé sur demande par le socket.</p>
     </section>
     <section>
         <ol>

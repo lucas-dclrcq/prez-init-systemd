@@ -291,12 +291,12 @@ httpd 0:off 1:off 2:off 3:on 4:off 5:on 6:off
             </section>
             <section>
                 <ol start="4">
-                    <li>Immédiatement après, le kernel appelle la commande init (<span class="inline-path">/sbin/init</span>) et lui passe la main</li>
+                    <li>Immédiatement après, le kernel appelle la commande init (<span class="inline-path">/sbin/init</span>) et lui passe la main.</li>
                     <li class="fragment">La commande init lit le fichier <span class="inline-path">/etc/inittab</span> qui définit le runlevel du
-                        système, et les scripts système à exécuter
+                        système, et les scripts système à exécuter.
                     </li>
                     <li class="fragment">Ces scripts vont finir la mise en place des parties vitales du système
-                        (systèmes de fichier, SWAP, mémoire virtuelle...)
+                        (systèmes de fichier, SWAP, mémoire virtuelle...).
                     </li>
                     <li class="fragment">Et enfin, init va lancer les scripts présents dans <span class="inline-path">/etc/rc.d</span></li>
                 </ol>
@@ -318,6 +318,11 @@ httpd 0:off 1:off 2:off 3:on 4:off 5:on 6:off
 stop() {          
     echo stop
     # commands to kill application 
+}
+
+status() {
+    echo "running"
+    # commands to see the status of the application
 }</code></pre>
             </section>
             <section>

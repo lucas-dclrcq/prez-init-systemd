@@ -900,22 +900,21 @@ exit
             <section>
                 <h3>Définition :</h3>
                 <ul>
-                    <li>SystemD est un système d’initialisation et un daemon qui a été spécifiquement
-                        conçu pour le noyau Linux comme alternative à System V. Il a été écrit dans le
-                        langage de programmation C.
+                    <li class="fragment">SystemD est un système d’initialisation et un daemon qui a été spécifiquement
+                        conçu pour le noyau Linux comme alternative à System V. Il a été écrit en C.
                     </li>
 
-                    <li>Il a pour but d'offrir un
+                    <li class="fragment">Il a pour but d'offrir un
                         meilleur cadre pour la gestion des dépendances entre services, de permettre le chargement
-                        en parallèle des services au démarrage, et de réduire les appels aux scripts shell."
+                        en parallèle des services au démarrage, et de réduire les appels aux scripts shell.
                     </li>
                 </ul>
             </section>
             <section>
                 <h3>Une naissance mouvementée :</h3>
                 <p class="fragment">
-                    <b>SystemD</b> a été créé en 2010 par Lennart Poettering et Kay Sievers,
-                    et a été à l’origine d’intenses débats au sein de la communauté UNIX.
+                    <b>SystemD</b> a été créé en 2010 par <a style="color: white;" href="https://en.wikipedia.org/wiki/Lennart_Poettering"><i>Lennart Poettering</i></a> et Kay Sievers,
+                    et a été à l’origine d’intenses débats au sein de la communauté Linux.
                 </p>
                 <pre class="fragment" style="padding: 10px; background: #1a6091">
 "I don't actually have any particularly strong opinions on systemd
@@ -974,19 +973,19 @@ that isa universal interface."
                     <li class="fragment">Le principe <b>KISS</b> est habituellement associé à des systemes qui peuvent
                         paraitre stupide à cause de leur conception simple.
                     </li>
-                    <li class="fragment">Ce principe est une règle de conception qui établi qu'un système est plus
+                    <li class="fragment">Ce principe est une règle de conception qui établie qu'un système est plus
                         performant quand il a un design simple plutôt
                         que complexe.
                     </li>
-                    <li class="fragment">Ce principe a été inventé dans les années 60s par Kelly Johnson, un ingénieur
+                    <li class="fragment">Ce principe a été inventé dans les années 60 par Kelly Johnson, un ingénieur
                     qui travaillait chez Lockheed Martin.</li>
                 </ul>
-            </section>
-            <section>
+                <aside class="notes">
                     <p>Selon Eric Raymond (aka ESR), célèbre hacker américain ayant popularisé le terme "open source", la
                         philosophie de Unix se résume à ce principe.</p>
                     <p>Pour un système d'exploitation de ce type, un shell propose une grande quantité de petits utilitaires
-                    ayant des fonctions simples (ls, grep, cd, find...) avec un moyen simple de les combiner, le pipe (|).</p>
+                        ayant des fonctions simples (ls, grep, cd, find...) avec un moyen simple de les combiner, le pipe (|).</p>
+                </aside>
             </section>
             <section>
                 <pre style="padding: 10px; background: #1a6091;">

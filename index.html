@@ -1046,41 +1046,45 @@ WantedBy=multi-user.target</code></pre>
             <section>
                 <h3>III. La Parallélisation</h3>
                 <p>
-                    Un des gros avantage de systemD sur init c'est
+                    Un des gros avantage de systemD sur init, c'est
                     sa capacité à lancer des processus en parallèle
-                    via utilisation de sockets et D-bus.
+                    <i>via</i> des sockets et D-bus.
                 </p>
+                 <!--FIXME: Mieux expliquer tout ce bouzin-->
                 <p>
-                    Socket et D-bus sont deux ensembles normalisées
+                    Socket et D-bus sont deux ensembles normalisés
                     de fonctions qui permettent au processus de
                     parager des données et d'échanger des messages
                 </p>
             </section>
             <section>
                 <h3>IV. Contrôle tes logs!</h3>
-                <p>
-                    Dans systemd logs sont associé à un groupe afin de réduire les chances
-                    de corruptions lors d'un piratage, ils sont portables,
+                <ul>
+                <li class="fragment">
+                    Dans systemd, les logs sont associés à un groupe afin de réduire les chances
+                    de corruption lors d'un piratage.</li>
+                <li class="fragment">Ils sont portables,
                     et l'outil comporte une gestion de saturation de l'espace.
-                </p>
-                <p>
+                </li>
+                <li class="fragment">
                     Tout service géré par systemd est automatiquement logué
-                    dans la base de donnée de journald, on accède au logs via la commande journalctl.
-                </p>
+                    dans la base de donnée de journald, à laquelle on accède via la commande journalctl.
+                </li>
+                </ul>
             </section>
             <section>
                 <h3>V. Les Control Groups</h3>
-                <p> Systemd utilise le module cgroup du kernel linux pour organiser les processus.
-                    Il permet de contrôler et de surveiller l'usage des ressources
+                <ul>
+                    <li class="fragment"> Systemd utilise le module cgroup du kernel linux pour organiser les processus.</li>
+                    <li class="fragment">Il permet de contrôler et de surveiller l'usage des ressources
                     physiques du système pour un ensemble de PID.
-                    les cgroups permettent par example de lancer des
-                    des processus avec un accès limité à la mémoire.
-                </p>
-                <p>Les ressources physiques sont allouées à des groupes de contrôle :
+                    <li class="fragment">Par exemple, les cgroups permettent de limiter l'usage mémoire pour un conteneur ou une VM.</li>
+                    <li class="fragment">Les ressources physiques sont allouées à des groupes de contrôle :
                     blkio, cpu, devices, memory...etc.
-                    (cf. <a style="color: deeppink;"
-                            href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/resource_management_guide/ch01#sec-How_Control_Groups_Are_Organized">redhat.com/docummentation</a>)
-                </p>
+                    <small>(cf. <a style="color: deeppink;"
+                                   href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/resource_management_guide/ch01#sec-How_Control_Groups_Are_Organized">Documentation de Red Hat</a>)</small>
+                    </li>
+                </ul>
             </section>
             <section>
                 <p> Pour vous faire une idée sur cgroups :</p>
@@ -1089,31 +1093,33 @@ WantedBy=multi-user.target</code></pre>
                 <img src="img/cgroup_schema.png">
             </section>
             <section>
+
                 <h3>VI. Les Timers</h3>
-                <p>Un timer est un fichier permettant de contrôler les services,
-                    ainsi que les events</p>
-                <video class="fragment" style="height: 11em;" data-autoplay="" loop="loop"
+                <ul>
+                <li class="fragment">Un Timer est un fichier (se terminant par .timer) permettant de contrôler un service comme un fichier de configuration systemd classique</li>
+                <li class="fragment">Il permet de déclencher un service à un moment précis dans le temps</li>
+                </ul>
+                <video style="height: 8em;" class="fragment" style="height: 11em;" data-autoplay="" loop="loop"
                        src="img/hurry.mp4"></video>
             </section>
             <section>
+                <h3>Principe général :</h3>
                 <p>C'est un fichier spécifique à systemd, qui est obligatoirement associé à un service existant.<br>
                     Par défaut, un timer est associé au service ayant le même nom que lui.</p>
                 <p>Ex : foo.timer est associé a foo.service.</p>
             </section>
             <section>
-                <h3>Les timers sont définis en deux catégories :</h3>
+                <h3>Les timers sont divisés en deux catégories :</h3>
                 <ul>
-                    <li>Les timers "monotones" (monotonic timer), qui s'activent après un temps donné.
+                    <li class="fragment">Les timers <i>monotones</i> (monotonic timer), qui s'activent après un temps donné.
                         Ils s'arrêtent si le système est arrêté.</li>
-                    <li>Les timers de type temps réel (Realtime timer), qui s'activent à un instant donné,
-                    comme le font les cronjobs</li>
+                    <li class="fragment">Les timers de type <i>temps-réel</i> (realtime timer), qui s'activent à un instant donné,
+                    comme le font les cronjobs.</li>
                 </ul>
             </section>
             <section>
                 <h3>Exemple d'un timer monotone</h3>
-                <pre><code>/etc/systemd/system/foo.timer
-
-[Unit]
+                <pre><code>[Unit]
 Description=Run foo weekly and on boot
 
 [Timer]
@@ -1127,9 +1133,7 @@ WantedBy=timers.target</code></pre>
             </section>
             <section>
                 <h3>Exemple d'un timer type temps réel.</h3>
-                <pre><code>/etc/systemd/system/foo.timer
-
-[Unit]
+                <pre><code>[Unit]
 Description=Run foo weekly
 
 [Timer]
@@ -1143,11 +1147,10 @@ WantedBy=timers.target</code></pre>
             </section>
             <section>
                 <h3>Les timers en remplacement de CRON</h3>
-                Les timers se posent en alternative solide à CRON.<br>
-                Les bénéfices sont multiples : </p>
+                <p>Les timers se posent en alternative solide à CRON, les bénéfices sont multiples : </p>
                 <ul>
-                    <li>Les jobs peuvent être simplement lancés indépendement de leur timers, facilitant la maintenance.</li>
-                    <li>Chaque job peut être configuré pour fonctionner dans un environnement spécifique.</li>
+                    <li>Les <i>jobs</i> peuvent être simplement lancés indépendement de leur timers, facilitant la maintenance.</li>
+                    <li>Chaque <i>job</i> peut être configuré pour fonctionner dans un environnement spécifique.</li>
                     <li>Ils peuvent être liés à des cgroups.</li>
                     <li>Ils peuvent être liés à d'autres units de systemd.</li>
                     <li>Les jobs sont logués dans le journal de systemd.</li>
@@ -1211,9 +1214,9 @@ Browse your hero collection add more heroes."}%
             <section>
                 <h3>Et systemd dans tout ça ? </h3>
                 <ul>
-                    <li>Lancer une application à la main ce n'est pas pratique ! Et si on ferme le terminal l'application s'arrêtera..</li>
-                    <li class="fragment">Maintenant que notre service est opérationnel on va donc voir comment le lancer avec systemd.</li>
-                    <li class="fragment">Comme on l'a vu dans la présentation systemd gère les processus avec des fichiers de configuration.</li>
+                    <li>Lancer une application à la main ce n'est pas pratique&nbsp! Et si on ferme le terminal l'application s'arrêtera...</li>
+                    <li class="fragment">Maintenant que notre service est opérationnel on va donc voir comment le lancer avec <b>systemd</b>.</li>
+                    <li class="fragment">Comme on l'a vu dans la présentation <b>systemd</b> gère les processus avec des fichiers de configuration.</li>
                 </ul>
             </section>
             <section>
@@ -1233,35 +1236,34 @@ Browse your hero collection add more heroes."}%
                 <ol start="3">
                 <li>
                     Éditer le fichier de configuration :
-                    <pre><code>$ cd systemd && vim tiny-api-1.service</code></pre>
+                    <pre><code>$ cd systemd && vim awesome-api.service</code></pre>
                 </li>
                 <li>
                     Compléter les trous avec les informations récupérées à l'étape précedente :
-                        <pre><code>
-[Service]
+                        <pre><code>[Service]
 ExecStart= // ici on va placer la commande à executer
 StandardOutput=syslog  // on redirige les log dans "The journal"
 SyslogIdentifier= // un identifiant pour rechercher les logs dans le journal
 
 [Install]
-WantedBy=multi-user.target // dépendance à la target multi-user
-                                    </code></pre>
+WantedBy=multi-user.target // dépendance à la target multi-user</code></pre>
                 </li>
                 </ol>
             </section>
              <section>
                 <h3>Vous avez terminé?</h3>
                 <p class="fragment">Voilà à quoi ça ressemble chez nous :</p>
-                <pre class="fragment"><code>
-[Service] 
+                <pre class="fragment"><code>[Service]
 ExecStart=/usr/bin/node /home/okno/public_html/express-api/server.js
 StandardOutput=syslog 
 SyslogIdentifier=awesome-api
     
 [Install] 
-WantedBy=multi-user.target
-                </code></pre>
+WantedBy=multi-user.target</code></pre>
                 <small class="fragment">Au fait je vous ai dis que j'utilisais <b>Arch linux</b>?</small>
+            </section>
+            <section data-background-color="black">
+                <video class="stretch" loop="loop" data-autoplay="" src="img/arch.mp4"></video>
             </section>
             <section>
                 <h3>Copie du fichier de configuration et lancement de la base de données :</h3>
@@ -1283,7 +1285,8 @@ WantedBy=multi-user.target
             </section>
             <section>
                 <h3>Les dépendances</h3>
-                <p>C'est pas mal mais si mongodb n'est pas disponible quand on lance le service voila ce qui arrive: </p>
+                <p class="fragment">C'est pas mal ! </p>
+                    <p class="fragment">Mais si mongodb n'est pas disponible quand on lance le service voila ce qui arrive :
                 <pre class="fragment"><code>$ sudo systemctl stop mongodb.service
 $ sudo systemctl restart awesome-api.service
 $ sudo systemctl status awesome-api.service
@@ -1295,11 +1298,11 @@ Could not connect to the database. Exiting now...
 </code></pre>
             </section>
             <section>
-                <p> Pour règler le problème rien de plus simple. On va modifier la configuration de notre service :</p>
-               <pre class="stretch"><code>
-[Unit]
-Description= My awesome API //une description du service pour le fun
-After= mongodb.service      // ici on ajoute la dépendance à mongo  
+                <h3> Pour règler le problème, rien de plus simple :</h3>
+                <p class="fragment">On va modifier la configuration de notre service :</p>
+               <pre class="fragment"><code>[Unit]
+Description=My Awesome API // Une description du service pour le fun
+Wants=mongodb.service      // Ici on ajoute la dépendance à mongo
 
 [Service] 
 ExecStart=/usr/bin/node /home/okno/public_html/express-api/server.js
@@ -1308,11 +1311,10 @@ StandardOutput=syslog
 SyslogIdentifier=heroes-api
 
 [Install] 
-WantedBy=multi-user.target
-                </code></pre>
+WantedBy=multi-user.target</code></pre>
             </section>
             <section>
-                <h3> Et voilà le travail, on va pouvoir tester :</h3>
+                <h3> Et voilà le travail ! On va pouvoir tester :</h3>
                 <ol>
                 <li class="fragment"> On recharge la configuration :
                     <pre><code>$ sudo systemctl daemon-reload</code></pre>
@@ -1321,7 +1323,7 @@ WantedBy=multi-user.target
                     <pre><code>$ sudo systemctl stop mongodb</code></pre>
                 </li>
                 <li class="fragment">On lance l'application :
-                    <pre><code>$ sudo systemctl start tiny-api.service</code></pre>
+                    <pre><code>$ sudo systemctl start awesome-api.service</code></pre>
                 </li>
                 <li class="fragment">On teste l'API :
                     <pre><code>$ curl -X GET localhost:3000/heroes</code></pre>
@@ -1332,19 +1334,20 @@ WantedBy=multi-user.target
             <section>
                 <h3>Socket d'activation</h3>
                 <p class="fragment">Le socket d'activation va nous permettre de lancer automatiquement le service à chaque fois qu'on fait un appel sur le port 3000. </p>
-                <img class="fragment" src="img/socket_diagram.png" style="background: none; border:0ch; padding: 2ch"> 
+                <img class="fragment" style="opacity: 50%; border: none; padding: 10px" src="img/socket_diagram.png" style="background: none; border:0ch; padding: 2ch">
             </section>
             <section>
                 <ol>
-                    <li class="fragment">
+                    <li>
                         On se place dans le dossier de systemd :
                         <pre><code>$ cd /etc/systemd/system/</code></pre>
                     </li>
                     <li class="fragment">
-                        On crée une nouvelle configuration pour le socket : 
+                        On édite le fichier de configuration pour le socket :
                         <pre><code>$ vim awesome-api.socket</code></pre> 
                     </li>
-                    <li class="fragment"><pre><code>[Socket]
+                    <li class="fragment">Dans lequel on insert les lignes suivantes :
+                        <pre><code>[Socket]
 ListenStream=3000
 
 [Install]
@@ -1352,12 +1355,12 @@ WantedBy=sockets.target</code></pre></li>
                 </ol>
             </section>
             <section>
-                <p>On va éditer le service pour qu'il ne redémarre plus. Il va maintenant être activé sur demande par le socket.</p>
-                <pre class="fragment bash"><code>[Unit]
+                <p>On va éditer le service pour qu'il ne redémarre plus automatiquement :</p>
+                <pre class="fragment"><code>[Unit]
 Description= My awesome API
 Wants= mongodb.service
 
-//on a supprimé la ligne Restart=always ici 
+// On a supprimé la ligne Restart=always
 [Service] 
 ExecStart=/usr/bin/node /home/okno/public_html/express-api/server.js
 StandardOutput=syslog 
@@ -1365,6 +1368,7 @@ SyslogIdentifier=tiny-api-socket
 
 [Install]
 WantedBy=multi-user.target</code></pre>
+                <p class="fragment">Il va maintenant être activé sur demande par le socket.</p>
     </section>
     <section>
         <ol>

@@ -231,13 +231,14 @@
             </section>
             <section>
                 <h3>Comment démarrent nos applications ?</h3>
-                <p class="fragment">Les applications qui sont démarrés par init ont leur scripts placés dans le dossier
+                <ul>
+                <li class="fragment">Les applications démarrées par init ont leur script placé dans le dossier
                     <span class="inline-path">/etc/rc.d</span> Dans
-                    ce dossier il y a un dossier pour chaque runlevel : rc0.d, rc1.d etc..
-                    Comment lancer des applications au démarrage avec init ?</p>
-                <p class="fragment">Si le système démarre par défaut au niveau 3, il faut donc que le script de notre
+                    ce dossier il y a un dossier pour chaque runlevel : rc0.d, rc1.d etc..</li>
+                <li class="fragment">Si le système démarre par défaut au niveau 3, il faut donc que le script de notre
                     application soit
-                    présent dans le dossier rc3.d.</p>
+                    présent dans le dossier rc3.d.</li>
+                </ul>
                 <small class="fragment"><i class="fa fa-info-circle"></i> On peut aussi utiliser un lien symbolique</small>
             </section>
             <section>

@@ -71,7 +71,7 @@
                 <p>
                     Ce processus
                     doit toujours être actif.
-                    Si jamais PID 1 est interrompu on entre alors en Kernel Panic !
+                    Si jamais PID 1 est interrompu on entre alors en kernel Panic !
                 </p>
                 <video class="fragment" data-autoplay="" loop="loop" src="img/bomb.mp4">
                 </video>
@@ -278,20 +278,20 @@ httpd 0:off 1:off 2:off 3:on 4:off 5:on 6:off
             <section>
                 <h3>Pour résumer, voici ce qui se passe quand on démarre Linux :</h3>
                 <ol>
-                    <li class="fragment">Le BIOS ou le bootloader (lilo, grub, etc) charge le kernel du disque vers la
-                        mémoire. Le fichier du Kernel reste dans le dossier <span class="inline-path">/boot</span>, il n'est lu qu'a ce moment la.
+                    <li class="fragment">Le BIOS ou le bootloader (lilo, grub, etc) charge le kernel, du disque vers la
+                        mémoire. Le fichier du kernel reste dans le dossier <span class="inline-path">/boot</span>, il n'est lu qu'à ce moment précis.
                     </li>
-                    <li class="fragment">En mémoire, le code du Kernel s'exécute, et détecte divers éléments : disques,
+                    <li class="fragment">En mémoire, le code du kernel s'exécute, et détecte divers éléments : disques,
                         partitions, etc...
                     </li>
-                    <li class="fragment">Le Kernel monte le système de fichier qui doit obligatoirement contenir
+                    <li class="fragment">Le kernel monte le système de fichier qui doit obligatoirement contenir
                         certains dossiers : <span class="inline-path">/etc</span>, <span class="inline-path">/bin</span>, <span class="inline-path">/lib</span>...
                     </li>
                 </ol>
             </section>
             <section>
                 <ol start="4">
-                    <li>Immédiatement après, le Kernel appelle la commande init (<span class="inline-path">/sbin/init</span>) et lui passe la main</li>
+                    <li>Immédiatement après, le kernel appelle la commande init (<span class="inline-path">/sbin/init</span>) et lui passe la main</li>
                     <li class="fragment">La commande init lit le fichier <span class="inline-path">/etc/inittab</span> qui définit le runlevel du
                         système, et les scripts système à exécuter
                     </li>

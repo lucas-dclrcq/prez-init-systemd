@@ -1,4 +1,4 @@
-<!doctype html>
+/<!doctype html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -1177,14 +1177,14 @@ WantedBy=timers.target</code></pre>
                     <li class="fragment">Installer git, curl, nodejs, npm et mongodb :
                         <pre><code>sudo apt-get install npm nodejs mongodb curl git</code></pre>
                     </li>
-                    <li class="fragment">Cloner le repository git du TP : <pre><code>git clone https://github.com/oknozor/tiny-api</code></pre></li>
+                    <li class="fragment">Cloner le repository git du TP : <pre><code>git clone https://github.com/oknozor/awesome-api</code></pre></li>
                 </ol>
             </section>
             <section>
                 <h3>Lancement de l'application</h3>
                     <ol>
                         <li class="fragment">Aller dans le répertoire du projet
-                            <pre><code>cd tiny-api</code></pre>
+                            <pre><code>cd awesome-api</code></pre>
                         </li>
                         <li class="fragment">Installer les dépendances de l'application :
                             <pre><code>npm install</code></pre></li>
@@ -1364,7 +1364,7 @@ Wants= mongodb.service
 [Service] 
 ExecStart=/usr/bin/node /home/okno/public_html/express-api/server.js
 StandardOutput=syslog 
-SyslogIdentifier=tiny-api-socket
+SyslogIdentifier=awesome-api-socket
 
 [Install]
 WantedBy=multi-user.target</code></pre>

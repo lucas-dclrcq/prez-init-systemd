@@ -934,6 +934,11 @@ binary logs, for example), but those are details, not big issues."
 
                                       Linus Torvalds
 </pre>
+                <aside class="notes">
+                    <b>Thibaut</b>
+
+                    Créateur de SystemD : Lennart Poettering (il a un sale caractère et a parfois refusé de reconnaitres des erreurs (ex: enorme bug pulseaudio)
+                </aside>
             </section>
             <section>
                 <h3>Le principal reproche émis à l'encontre de SystemD est qu'il enfreint la philosophie Unix ::</h3>
@@ -943,6 +948,9 @@ to work together. Write programs to handle text streams, because
 that isa universal interface."
 
                                  Douglas McLlroy</pre>
+                <aside class="notes">
+                    <b>Thibaut</b>
+                </aside>
             </section>
             <section>
                 <p>Bien que les projets open source soient habitués aux discussions et débats enflammés, celui-ci a
@@ -950,12 +958,18 @@ that isa universal interface."
                 <p>Un des évènements les plus marquants de cette véritable guerre est l'intense débat mené entre octobre 2013
                 et février 2014 au sein de la communauté Debian, ayant pour objet le choix de l'init par défaut à implémenter
                 dans la version 8 "Jessie" de Debian.</p>
+                <aside class="notes">
+                    <b>Thibaut</b>
+                </aside>
             </section>
             <section>
                 <p>SystemD sera finalement choisi, ce qui aura pour conséquence le départs de plusieurs contributeurs vétérans ,
                     qui réaliseront un fork de Debian appelé Devuan.</p>
                 <video class="fragment" style="height: 11em;" data-autoplay="" loop="loop"
                        src="img/war.mp4"></video>
+                <aside class="notes">
+                    <b>Thibaut</b>
+                </aside>
             </section>
             <section>
                 <h3>Les particularités de systemd :</h3>
@@ -1110,12 +1124,18 @@ WantedBy=multi-user.target</code></pre>
                 </ul>
                 <video style="height: 8em;" class="fragment" style="height: 11em;" data-autoplay="" loop="loop"
                        src="img/hurry.mp4"></video>
+                <aside class="notes">
+                    <b>Thibaut</b>
+                </aside>
             </section>
             <section>
                 <h3>Principe général :</h3>
                 <p>C'est un fichier spécifique à systemd, qui est obligatoirement associé à un service existant.<br>
                     Par défaut, un timer est associé au service ayant le même nom que lui.</p>
                 <p>Ex : foo.timer est associé a foo.service.</p>
+                <aside class="notes">
+                    <b>Thibaut</b>
+                </aside>
             </section>
             <section>
                 <h3>Les timers sont divisés en deux catégories :</h3>
@@ -1125,6 +1145,9 @@ WantedBy=multi-user.target</code></pre>
                     <li class="fragment">Les timers de type <i>temps-réel</i> (realtime timer), qui s'activent à un instant donné,
                     comme le font les cronjobs.</li>
                 </ul>
+                <aside class="notes">
+                    <b>Thibaut</b>
+                </aside>
             </section>
             <section>
                 <h3>Exemple d'un timer monotone</h3>
@@ -1139,6 +1162,9 @@ OnUnitActiveSec=1w
 WantedBy=timers.target</code></pre>
                 <p>Ici, le timer se lance 15 minutes après le démarrage du système, ainsi que toutes les semaines tant que
                     le système est actif.</p>
+                <aside class="notes">
+                    <b>Thibaut</b>
+                </aside>
             </section>
             <section>
                 <h3>Exemple d'un timer type temps réel.</h3>
@@ -1153,6 +1179,9 @@ Persistent=true
 WantedBy=timers.target</code></pre>
                 <p>Le timer se lance chaque lundi à minuit. Quand il est activé, il déclenche immédiatemment le service
                 si ce dernier a manqué le dernier démarrage (par exemple si le système était éteint).</p>
+                <aside class="notes">
+                    <b>Thibaut</b>
+                </aside>
             </section>
             <section>
                 <h3>Les timers en remplacement de CRON</h3>
@@ -1164,6 +1193,9 @@ WantedBy=timers.target</code></pre>
                     <li>Ils peuvent être liés à d'autres units de systemd.</li>
                     <li>Les jobs sont logués dans le journal de systemd.</li>
                 </ul>
+                <aside class="notes">
+                    <b>Thibaut</b>
+                </aside>
             </section>
             <section>
                 <h3>VII. SystemD Galaxy</h3>

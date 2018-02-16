@@ -1067,6 +1067,59 @@ WantedBy=multi-user.target</code></pre>
                 <small>Exemple : le fichier de configuration de Gitlab (à comparer aux 500 lignes du script ini)</small>
             </section>
             <section>
+                <h4>Les unités systemd :</h4>
+            <div style="width:100%; display:block;">
+                <div style="width: 50%;">
+                    <ol>
+                    <li>service</li>
+                    <li>socket</li>
+                    <li>target</li>
+                    <li>device</li>
+                    <li>mount</li>
+                    </ol>
+                </div>
+                <div style="width: 50%; ">
+                <ol start="6">
+                    <li>automount</li>
+                    <li>timer</li>
+                    <li>swap</li>
+                    <li>path</li>
+                    <li>slice</li>
+                    <li>scope</li>
+                </ol>
+            </div>
+        </div>
+        <aside class="notes">
+            <p>
+                    1. Service units, which start and control daemons and the processes they consist of. For details, see systemd.service(5).
+
+                    2. Socket units, which encapsulate local IPC or network sockets in the system, useful for socket-based activation. For details about socket units, see systemd.socket(5), for
+                       details on socket-based activation and other forms of activation, see daemon(7).
+            
+                    3. Target units are useful to group units, or provide well-known synchronization points during boot-up, see systemd.target(5).
+            
+                    4. Device units expose kernel devices in systemd and may be used to implement device-based activation. For details, see systemd.device(5).
+            
+                    5. Mount units control mount points in the file system, for details see systemd.mount(5).
+            
+                    6. Automount units provide automount capabilities, for on-demand mounting of file systems as well as parallelized boot-up. See systemd.automount(5).
+            
+                    7. Timer units are useful for triggering activation of other units based on timers. You may find details in systemd.timer(5).
+            
+                    8. Swap units are very similar to mount units and encapsulate memory swap partitions or files of the operating system. They are described in systemd.swap(5).
+            
+                    9. Path units may be used to activate other services when file system objects change or are modified. See systemd.path(5).
+            
+                   10. Slice units may be used to group units which manage system processes (such as service and scope units) in a hierarchical tree for resource management purposes. See
+                       systemd.slice(5).
+            
+                   11. Scope units are similar to service units, but manage foreign processes instead of starting them as well. See systemd.scope(5).
+            
+                   Units are named as their configuration files. Some units have special semantics. A detailed list is available in systemd.special(7).
+            </p>
+        </aside>
+            </section>
+            <section>
                 <h3>III. La Parallélisation</h3>
                 <p>
                     Un des gros avantage de systemD sur init, c'est
@@ -1074,11 +1127,42 @@ WantedBy=multi-user.target</code></pre>
                     <i>via</i> des sockets et D-bus.
                 </p>
                  <!--FIXME: Mieux expliquer tout ce bouzin-->
-                <p>
-                    Socket et D-bus sont deux ensembles normalisés
-                    de fonctions qui permettent au processus de
-                    parager des données et d'échanger des messages
-                </p>
+                <aside class="notes">
+                    <h4>Socket</h4>
+                    <ul>
+                        <li>
+                            Berkley Unix Socket
+                        </li>
+                        <li>
+                            Socket et D-bus sont deux ensembles normalisés
+                            de fonctions qui permettent au processus de
+                            parager des données et d'échanger des messages
+                         </li>
+                         <li>
+                             Dans le model OSI entre la couche réseau et application. 
+                         </li>
+                         <li>
+                             mode connecté (TCP) conversation (pas besoin d'adresse)
+                         </li>
+                         <li>
+                             mode no connecté (udp) courrier 
+                         </li>
+                    </ul>
+                    <h4>D-bus</h4>
+                    <ul>
+                        <li>
+                            redhat/freedesktop.org
+                        </li>
+                        <li>
+                            idem socket (IPC)
+                        </li>
+                        libdbus + message daemon
+                        <li>
+                            mais uniquement en local, permet la communication entre les application desktop
+                        </li>
+                        <li>partage d'objet, GObject, C++, QObject</li>
+                    </ul>
+                </aside>
             </section>
             <section>
                 <h3>IV. Contrôle tes logs!</h3>
@@ -1098,16 +1182,36 @@ WantedBy=multi-user.target</code></pre>
             <section>
                 <h3>V. Les Control Groups</h3>
                 <ul>
-                    <li class="fragment"> Systemd utilise le module cgroup du kernel linux pour organiser les processus.</li>
+                    <li class="fragment"> Systemd utilise le module cgroup du kernel linux pour organiser les processus.</li> 
                     <li class="fragment">Il permet de contrôler et de surveiller l'usage des ressources
-                    physiques du système pour un ensemble de PID.
-                    <li class="fragment">Par exemple, les cgroups permettent de limiter l'usage mémoire pour un conteneur ou une VM.</li>
-                    <li class="fragment">Les ressources physiques sont allouées à des groupes de contrôle :
-                    blkio, cpu, devices, memory...etc.
-                    <small>(cf. <a style="color: deeppink;"
-                                   href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/resource_management_guide/ch01#sec-How_Control_Groups_Are_Organized">Documentation de Red Hat</a>)</small>
+                    physiques du système pour un ensemble de PID. 
+                    <li class="fragment">Par exemple, les cgroups permettent de limiter l'usage mémoire pour un conteneur ou une VM.</li> 
+                    <li class="fragment">Les ressources physiques sont allouées à des groupes de contrôle : blkio, cpu, devices, memory...etc. 
+                        <small>(cf. <a style="color: deeppink;" href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/resource_management_guide/ch01#sec-How_Control_Groups_Are_Organized">
+                            Documentation de Red Hat</a>)</small>
                     </li>
                 </ul>
+                
+                <aside class="notes">
+                    Initié par des ingénieurs de Google (Paul Menage et Rohit Seth) en 2006 sous le nom « conteneur de processus».
+                    <ul>
+                        <li>
+                            Priorisation 
+                        </li>
+                       <li>
+                            Initié par des ingénieurs de Google (d'abord Paul Menage et Rohit Seth) en 2006 sous le nom « conteneur de processus».
+                       </li> 
+                       <li>
+                            Isolation
+                       </li>
+                       <li>
+                            Contrôle : figer les groupes ou créer un point de sauvegarde et redémarrer
+                       </li>
+                    </ul>
+                    <p>Un groupe  contrôle = groupe de processus qui sont liés par le même critère. 
+                        ,organisés hiérarchiquement, chaque groupe hérite des limites de son groupe parent. 
+                        Le noyau fournit l'accès à plusieurs contrôleurs (sous-systèmes) à travers l'interface cgroup
+                    </p>
             </section>
             <section>
                 <p> Pour vous faire une idée sur cgroups :</p>
@@ -1218,14 +1322,14 @@ WantedBy=timers.target</code></pre>
                     <li class="fragment">Installer git, curl, nodejs, npm et mongodb :
                         <pre><code>sudo apt-get install npm nodejs mongodb curl git</code></pre>
                     </li>
-                    <li class="fragment">Cloner le repository git du TP : <pre><code>git clone https://github.com/oknozor/tiny-api</code></pre></li>
+                    <li class="fragment">Cloner le repository git du TP : <pre><code>git clone https://github.com/oknozor/awesome-api</code></pre></li>
                 </ol>
             </section>
             <section>
                 <h3>Lancement de l'application</h3>
                     <ol>
                         <li class="fragment">Aller dans le répertoire du projet
-                            <pre><code>cd tiny-api</code></pre>
+                            <pre><code>cd awesome-api</code></pre>
                         </li>
                         <li class="fragment">Installer les dépendances de l'application :
                             <pre><code>npm install</code></pre></li>
@@ -1405,7 +1509,7 @@ Wants= mongodb.service
 [Service] 
 ExecStart=/usr/bin/node /home/okno/public_html/express-api/server.js
 StandardOutput=syslog 
-SyslogIdentifier=tiny-api-socket
+SyslogIdentifier=awesome-api-socket
 
 [Install]
 WantedBy=multi-user.target</code></pre>

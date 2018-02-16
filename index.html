@@ -1067,28 +1067,18 @@ WantedBy=multi-user.target</code></pre>
                 <small>Exemple : le fichier de configuration de Gitlab (à comparer aux 500 lignes du script ini)</small>
             </section>
             <section>
-                <h4>Les unités systemd :</h4>
-            <div style="width:100%; display:block;">
-                <div style="width: 50%;">
-                    <ol>
-                    <li>service</li>
-                    <li>socket</li>
-                    <li>target</li>
-                    <li>device</li>
-                    <li>mount</li>
-                    </ol>
-                </div>
-                <div style="width: 50%; ">
-                <ol start="6">
-                    <li>automount</li>
-                    <li>timer</li>
-                    <li>swap</li>
-                    <li>path</li>
-                    <li>slice</li>
-                    <li>scope</li>
-                </ol>
-            </div>
-        </div>
+                <h4>Les différentes unités de configuration de systemd :</h4>
+                    <p class="fragment inline-path" style="position: absolute; margin-top: 10%; margin-left: 10%;">service</p>
+                    <p class="fragment inline-path" style="position: absolute; margin-top: 20%; margin-left: 30%;">socket</p>
+                    <p class="fragment inline-path" style="position: absolute; margin-top: 30%; margin-left: 50%;">target</p>
+                    <p class="fragment inline-path" style="position: absolute; margin-top: 35%; margin-left: 10%;">device</p>
+                    <p class="fragment inline-path" style="position: absolute; margin-top: 50%; margin-left: 20%;">mount</p>
+                    <p class="fragment inline-path" style="position: absolute; margin-top: 10%; margin-left: 60%;">automount</p>
+                    <p class="fragment inline-path" style="position: absolute; margin-top: 25%; margin-left: 80%;">timer</p>
+                    <p class="fragment inline-path" style="position: absolute; margin-top: 40%; margin-left: 45%;">swap</p>
+                    <p class="fragment inline-path" style="position: absolute; margin-top: 50%; margin-left: 60%;">path</>
+                    <p class="fragment inline-path" style="position: absolute; margin-top: 10%; margin-left: 90%;">slice</p>
+                    <p class="fragment inline-path" style="position: absolute; margin-top: 40%; margin-left: 90%;">scope</p>
         <aside class="notes">
             <p>
                     1. Service units, which start and control daemons and the processes they consist of. For details, see systemd.service(5).

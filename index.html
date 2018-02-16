@@ -1159,9 +1159,14 @@ WantedBy=multi-user.target</code></pre>
             <section>
                 <h3>V. Les Control Groups</h3>
                 <ul>
-                    <li class="fragment"> Systemd utilise le module cgroup du kernel linux pour organiser les processus.</li> <li class="fragment">Il permet de contrôler et de surveiller l'usage des ressources
-                    physiques du système pour un ensemble de PID. <li class="fragment">Par exemple, les cgroups permettent de limiter l'usage mémoire pour un conteneur ou une VM.</li> <li class="fragment">Les ressources physiques sont allouées à des groupes de contrôle : blkio, cpu, devices, memory...etc. <small>(cf. <a style="color: deeppink;" href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/resource_management_guide/ch01#sec-How_Control_Groups_Are_Organized">Documentation de Red Hat</a>)</small>
-                                                          </li>
+                    <li class="fragment"> Systemd utilise le module cgroup du kernel linux pour organiser les processus.</li> 
+                    <li class="fragment">Il permet de contrôler et de surveiller l'usage des ressources
+                    physiques du système pour un ensemble de PID. 
+                    <li class="fragment">Par exemple, les cgroups permettent de limiter l'usage mémoire pour un conteneur ou une VM.</li> 
+                    <li class="fragment">Les ressources physiques sont allouées à des groupes de contrôle : blkio, cpu, devices, memory...etc. 
+                        <small>(cf. <a style="color: deeppink;" href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/resource_management_guide/ch01#sec-How_Control_Groups_Are_Organized">
+                            Documentation de Red Hat</a>)</small>
+                    </li>
                 </ul>
                 
                 <aside class="notes">

@@ -941,7 +941,7 @@ binary logs, for example), but those are details, not big issues."
                 </aside>
             </section>
             <section>
-                <h3>Le principal reproche émis à l'encontre de SystemD est qu'il enfreint la philosophie Unix ::</h3>
+                <h3>Le principal reproche émis à l'encontre de SystemD est qu'il enfreint la philosophie Unix :</h3>
                 <pre class="fragment" style="padding: 10px; background: #1a6091">
 "Write programs that do one thing and do it well. Write programs
 to work together. Write programs to handle text streams, because
@@ -1159,7 +1159,7 @@ WantedBy=multi-user.target</code></pre>
                 <ul>
                 <li class="fragment">
                     Dans systemd, les logs sont associés à un groupe afin de réduire les chances
-                    de corruption lors d'un piratage.</li>
+                    de corruption lors d'un pilogsratage.</li>
                 <li class="fragment">Ils sont portables,
                     et l'outil comporte une gestion de saturation de l'espace.
                 </li>
@@ -1167,6 +1167,7 @@ WantedBy=multi-user.target</code></pre>
                     Tout service géré par systemd est automatiquement logué
                     dans la base de donnée de journald, à laquelle on accède via la commande journalctl.
                 </li>
+                    <li>Démo !</li>
                 </ul>
             </section>
             <section>
@@ -1293,8 +1294,32 @@ WantedBy=timers.target</code></pre>
             </section>
             <section>
                 <h3>VII. SystemD Galaxy</h3>
-                <p>systemd-bood, udev, networkd, logind, timedated</p>
-                <p>TODO</p>
+                <ul>
+                    <li class="fragment">journald</li>
+                    <li class="fragment">logind</li>
+                    <li class="fragment">systemd-logind</li>
+                    <li class="fragment">networkd</li>
+                    <li class="fragment">systemd-timedated</li>
+                    <li class="fragment">udev</li>
+                    <li class="fragment">systemd-boot</li>
+                </ul>
+                <aside class="notes">
+                    systemd-journald is a daemon responsible for event logging, with append-only binary files serving as its logfiles. The system administrator may choose whether to log system events with systemd-journald, syslog-ng or rsyslog. The potential for corruption of the binary format has led to much heated debate.[22]
+                    logind
+                    systemd-logind is a daemon that manages user logins and seats in various ways. It is an integrated login manager that offers multiseat improvements[23] and replaces ConsoleKit, which is no longer maintained.[24] For X11 display managers the switch to logind requires a minimal amount of porting.[25] It was integrated in systemd version 30.
+                    networkd
+                    networkd is a daemon to handle the configuration of the network interfaces; in version 209, when it was first integrated, support was limited to statically assigned addresses and basic support for bridging configuration.[26][27][28][29][30] In July 2014, systemd version 215 was released, adding new features such as a DHCP server for IPv4 hosts, and VXLAN support.[31][32]
+                    tmpfiles
+                    systemd-tmpfiles is a utility that takes care of creation and clean-up of temporary files and directories. It is normally run once at startup and then in specified intervals.
+                    timedated
+                    systemd-timedated is a daemon that can be used to control time-related settings, such as the system time, system time zone, or selection between UTC and local time zone system clock. It is accessible through D-Bus.[33] It was integrated in systemd version 30.
+                    udevd
+                    udev is a device manager for the Linux kernel, which handles the /dev directory and all user space actions when adding/removing devices, including firmware loading. In April 2012, the source tree for udev was merged into the systemd source tree.[34][35]
+                    libudev
+                    It is the standard library for utilizing udev, which allows third-party applications to query udev resources.
+                    systemd-boot
+                    systemd-boot is a boot manager, formerly known as gummiboot. Kay Sievers merged it into systemd with rev 220.
+                </aside>
             </section>
             <section>
                 <h3>Et maintenant...</h3>

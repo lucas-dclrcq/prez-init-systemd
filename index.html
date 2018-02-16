@@ -879,6 +879,9 @@ exit
                         développeur entrainera une phase de compréhension plus ou moins longue.
                     </dd>
                 </dl>
+                <aside class="notes">
+                    Parler aussi du fait que les logs ne sont pas centralisés.
+                </aside>
             </section>
             <section>
                 <h3>Autre problème majeur d'Init :</h3>
@@ -1167,8 +1170,46 @@ WantedBy=multi-user.target</code></pre>
                     Tout service géré par systemd est automatiquement logué
                     dans la base de donnée de journald, à laquelle on accède via la commande journalctl.
                 </li>
-                    <li>Démo !</li>
+                    <li class="fragment">Démo !</li>
                 </ul>
+                <aside class="notes">
+                    <pre><code>
+                        journalctl
+
+// Logs depuis le boot
+journalctl -b
+
+// Lister les boots
+journalctl --list-boots
+
+// Depuis une certaine date
+journalctl --since "2015-01-10 17:15:00"
+
+// Depuis hier
+journalctl --since yesterday
+
+// Depuis 9h jusqu'il y a une heure
+journalctl --since 09:00 --until "1 hour ago"
+
+// Mettre continuellement à jour les message
+journalctl -f
+
+// Filtrer par unit
+journalctl -u postgresql
+
+// Filtrer par processus impliqué
+journalctl /usr/bin/bash
+
+// Messages du kernel
+journalctl -k
+
+// Taille des logs sur le boot
+journalctl --disk-usage
+
+// Nettoyer les logs vieux de plus d'un an
+sudo journalctl --vacuum-time=1years
+                    </code></pre>
+                </aside>
             </section>
             <section>
                 <h3>V. Les Control Groups</h3>
@@ -1293,7 +1334,7 @@ WantedBy=timers.target</code></pre>
                 </aside>
             </section>
             <section>
-                <h3>VII. SystemD Galaxy</h3>
+                <h3>VII. La galaxie SystemD</h3>
                 <ul>
                     <li class="fragment">journald</li>
                     <li class="fragment">logind</li>

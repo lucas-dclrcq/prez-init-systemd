@@ -1051,11 +1051,42 @@ WantedBy=multi-user.target</code></pre>
                     <i>via</i> des sockets et D-bus.
                 </p>
                  <!--FIXME: Mieux expliquer tout ce bouzin-->
-                <p>
-                    Socket et D-bus sont deux ensembles normalisés
-                    de fonctions qui permettent au processus de
-                    parager des données et d'échanger des messages
-                </p>
+                <aside class="notes">
+                    <h4>Socket</h4>
+                    <ul>
+                        <li>
+                            Berkley Unix Socket
+                        </li>
+                        <li>
+                            Socket et D-bus sont deux ensembles normalisés
+                            de fonctions qui permettent au processus de
+                            parager des données et d'échanger des messages
+                         </li>
+                         <li>
+                             Dans le model OSI entre la couche réseau et application. 
+                         </li>
+                         <li>
+                             mode connecté (TCP) conversation (pas besoin d'adresse)
+                         </li>
+                         <li>
+                             mode no connecté (udp) courrier 
+                         </li>
+                    </ul>
+                    <h4>D-bus</h4>
+                    <ul>
+                        <li>
+                            redhat/freedesktop.org
+                        </li>
+                        <li>
+                            idem socket (IPC)
+                        </li>
+                        libdbus + message daemon
+                        <li>
+                            mais uniquement en local, permet la communication entre les application desktop
+                        </li>
+                        <li>partage d'objet, GObject, C++, QObject</li>
+                    </ul>
+                </aside>
             </section>
             <section>
                 <h3>IV. Contrôle tes logs!</h3>
@@ -1080,7 +1111,7 @@ WantedBy=multi-user.target</code></pre>
                                                           </li>
                 </ul>
                 
-                <aside class="note">
+                <aside class="notes">
                     Initié par des ingénieurs de Google (Paul Menage et Rohit Seth) en 2006 sous le nom « conteneur de processus».
                     <ul>
                         <li>

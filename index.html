@@ -1189,6 +1189,11 @@ WantedBy=multi-user.target</code></pre>
                         ,organisés hiérarchiquement, chaque groupe hérite des limites de son groupe parent. 
                         Le noyau fournit l'accès à plusieurs contrôleurs (sous-systèmes) à travers l'interface cgroup
                     </p>
+            </section>
+            <section>
+                <p> Pour vous faire une idée sur cgroups :</p>
+                <pre><code>$ systemd-cgls</code></pre>
+                <pre><code>$ ps xawf -eo pid,user,cgroup,args</code></pre>
 
             </section>
             <section><code>$ ps xawf -eo pid,user,cgroup,args</code></pre>

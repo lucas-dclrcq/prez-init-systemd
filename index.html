@@ -112,7 +112,12 @@
                 </ul>
             </section>
             <section>
-                <h3 style="color: red;">SLIDE DE TRANSITION VERS SYSVINIT</h3>
+                <h3>Il existe de nombreux systèmes d'initialisation, nous allons vous présenter
+                    les deux principaux :</h3>
+                <ol>
+                    <li class="fragment">SysVinit, le plus ancien et répandu</li>
+                    <li class="fragment">SystemD, le plus moderne et controversé.</li>
+                </ol>
             </section>
         </section>
         <section data-background-color="#783f04">
@@ -886,7 +891,8 @@ exit
                 </small>
             </section>
             <section>
-                <h3 style="color: red;">SLIDE DE TRANSITION VERS SYSTEMD</h3>
+                <h3>Trop de problèmes ?</h3>
+                <img class="fragment" src="img/solution.png">
             </section>
         </section>
         <section data-background-color="#3d85c6">
@@ -1194,10 +1200,7 @@ WantedBy=multi-user.target</code></pre>
                 <p> Pour vous faire une idée sur cgroups :</p>
                 <pre><code>$ systemd-cgls</code></pre>
                 <pre><code>$ ps xawf -eo pid,user,cgroup,args</code></pre>
-
-            </section>
-            <section><code>$ ps xawf -eo pid,user,cgroup,args</code></pre>
-                <img src="img/cgroup_schema.png">
+                <img style="height: 10em;" src="img/cgroup_schema.png">
             </section>
             <section>
 

@@ -1075,21 +1075,34 @@ WantedBy=multi-user.target</code></pre>
             <section>
                 <h3>V. Les Control Groups</h3>
                 <ul>
-                    <li class="fragment"> Systemd utilise le module cgroup du kernel linux pour organiser les processus.</li>
-                    <li class="fragment">Il permet de contrôler et de surveiller l'usage des ressources
-                    physiques du système pour un ensemble de PID.
-                    <li class="fragment">Par exemple, les cgroups permettent de limiter l'usage mémoire pour un conteneur ou une VM.</li>
-                    <li class="fragment">Les ressources physiques sont allouées à des groupes de contrôle :
-                    blkio, cpu, devices, memory...etc.
-                    <small>(cf. <a style="color: deeppink;"
-                                   href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/resource_management_guide/ch01#sec-How_Control_Groups_Are_Organized">Documentation de Red Hat</a>)</small>
-                    </li>
+                    <li class="fragment"> Systemd utilise le module cgroup du kernel linux pour organiser les processus.</li> <li class="fragment">Il permet de contrôler et de surveiller l'usage des ressources
+                    physiques du système pour un ensemble de PID. <li class="fragment">Par exemple, les cgroups permettent de limiter l'usage mémoire pour un conteneur ou une VM.</li> <li class="fragment">Les ressources physiques sont allouées à des groupes de contrôle : blkio, cpu, devices, memory...etc. <small>(cf. <a style="color: deeppink;" href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/resource_management_guide/ch01#sec-How_Control_Groups_Are_Organized">Documentation de Red Hat</a>)</small>
+                                                          </li>
                 </ul>
+                
+                <aside class="note">
+                    Initié par des ingénieurs de Google (Paul Menage et Rohit Seth) en 2006 sous le nom « conteneur de processus».
+                    <ul>
+                        <li>
+                            Priorisation 
+                        </li>
+                       <li>
+                            Initié par des ingénieurs de Google (d'abord Paul Menage et Rohit Seth) en 2006 sous le nom « conteneur de processus».
+                       </li> 
+                       <li>
+                            Isolation
+                       </li>
+                       <li>
+                            Contrôle : figer les groupes ou créer un point de sauvegarde et redémarrer
+                       </li>
+                    </ul>
+                    <p>Un groupe  contrôle = groupe de processus qui sont liés par le même critère. 
+                        ,organisés hiérarchiquement, chaque groupe hérite des limites de son groupe parent. 
+                        Le noyau fournit l'accès à plusieurs contrôleurs (sous-systèmes) à travers l'interface cgroup
+                    </p>
+
             </section>
-            <section>
-                <p> Pour vous faire une idée sur cgroups :</p>
-                <pre><code>$ systemd-cgls</code></pre>
-                <pre><code>$ ps xawf -eo pid,user,cgroup,args</code></pre>
+            <section><code>$ ps xawf -eo pid,user,cgroup,args</code></pre>
                 <img src="img/cgroup_schema.png">
             </section>
             <section>

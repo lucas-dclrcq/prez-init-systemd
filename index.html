@@ -30,6 +30,9 @@
             <h2>La petite histoire des systèmes d'initialisation</h2>
             <h4>Par</h4>
             <h5 style="font-size: 0.8em;">Paul Delafosse, Thibaut Strecker et Lucas Declercq</h5>
+            <aside class="notes">
+                <b>Thibaut</b>
+            </aside>
         </section>
         <section data-background-color="#a64d79">
             <section class="concave">
@@ -876,6 +879,9 @@ exit
                         développeur entrainera une phase de compréhension plus ou moins longue.
                     </dd>
                 </dl>
+                <aside class="notes">
+                    Parler aussi du fait que les logs ne sont pas centralisés.
+                </aside>
             </section>
             <section>
                 <h3>Autre problème majeur d'Init :</h3>
@@ -931,15 +937,23 @@ binary logs, for example), but those are details, not big issues."
 
                                       Linus Torvalds
 </pre>
+                <aside class="notes">
+                    <b>Thibaut</b>
+
+                    Créateur de SystemD : Lennart Poettering (il a un sale caractère et a parfois refusé de reconnaitres des erreurs (ex: enorme bug pulseaudio)
+                </aside>
             </section>
             <section>
-                <h3>Le principal reproche émis à l'encontre de SystemD est qu'il enfreint la philosophie Unix ::</h3>
+                <h3>Le principal reproche émis à l'encontre de SystemD est qu'il enfreint la philosophie Unix :</h3>
                 <pre class="fragment" style="padding: 10px; background: #1a6091">
 "Write programs that do one thing and do it well. Write programs
 to work together. Write programs to handle text streams, because
 that is a universal interface."
 
                                  Douglas McLlroy</pre>
+                <aside class="notes">
+                    <b>Thibaut</b>
+                </aside>
             </section>
             <section>
                 <p>Bien que les projets open source soient habitués aux discussions et débats enflammés, celui-ci a
@@ -947,12 +961,18 @@ that is a universal interface."
                 <p>Un des évènements les plus marquants de cette véritable guerre est l'intense débat mené entre octobre 2013
                 et février 2014 au sein de la communauté Debian, ayant pour objet le choix de l'init par défaut à implémenter
                 dans la version 8 "Jessie" de Debian.</p>
+                <aside class="notes">
+                    <b>Thibaut</b>
+                </aside>
             </section>
             <section>
                 <p>SystemD sera finalement choisi, ce qui aura pour conséquence le départs de plusieurs contributeurs vétérans ,
                     qui réaliseront un fork de Debian appelé Devuan.</p>
                 <video class="fragment" style="height: 11em;" data-autoplay="" loop="loop"
                        src="img/war.mp4"></video>
+                <aside class="notes">
+                    <b>Thibaut</b>
+                </aside>
             </section>
             <section>
                 <h3>Les particularités de systemd :</h3>
@@ -970,7 +990,7 @@ that is a universal interface."
                 <h3>I. Le principe KISS</h3>
                 <i>"Keep It Simple Stupid"</i>
                 <div style="width: 100%; align-content: center">
-                    <img src="images/retarded.gif">
+                    <img src="img/retarded.gif">
                 </div>
             </section>
             <section>
@@ -1050,28 +1070,18 @@ WantedBy=multi-user.target</code></pre>
                 <small>Exemple : le fichier de configuration de Gitlab (à comparer aux 500 lignes du script ini)</small>
             </section>
             <section>
-                <h4>Les unités systemd :</h4>
-            <div style="width:100%; display:block;">
-                <div style="width: 50%;">
-                    <ol>
-                    <li>service</li>
-                    <li>socket</li>
-                    <li>target</li>
-                    <li>device</li>
-                    <li>mount</li>
-                    </ol>
-                </div>
-                <div style="width: 50%; ">
-                <ol start="6">
-                    <li>automount</li>
-                    <li>timer</li>
-                    <li>swap</li>
-                    <li>path</li>
-                    <li>slice</li>
-                    <li>scope</li>
-                </ol>
-            </div>
-        </div>
+                <h4>Les différentes unités de configuration de systemd :</h4>
+                    <p class="fragment inline-path" style="position: absolute; margin-top: 10%; margin-left: 10%;">service</p>
+                    <p class="fragment inline-path" style="position: absolute; margin-top: 20%; margin-left: 30%;">socket</p>
+                    <p class="fragment inline-path" style="position: absolute; margin-top: 30%; margin-left: 50%;">target</p>
+                    <p class="fragment inline-path" style="position: absolute; margin-top: 35%; margin-left: 10%;">device</p>
+                    <p class="fragment inline-path" style="position: absolute; margin-top: 50%; margin-left: 20%;">mount</p>
+                    <p class="fragment inline-path" style="position: absolute; margin-top: 10%; margin-left: 60%;">automount</p>
+                    <p class="fragment inline-path" style="position: absolute; margin-top: 25%; margin-left: 80%;">timer</p>
+                    <p class="fragment inline-path" style="position: absolute; margin-top: 40%; margin-left: 45%;">swap</p>
+                    <p class="fragment inline-path" style="position: absolute; margin-top: 50%; margin-left: 60%;">path</>
+                    <p class="fragment inline-path" style="position: absolute; margin-top: 10%; margin-left: 90%;">slice</p>
+                    <p class="fragment inline-path" style="position: absolute; margin-top: 40%; margin-left: 90%;">scope</p>
         <aside class="notes">
             <p>
                     1. Service units, which start and control daemons and the processes they consist of. For details, see systemd.service(5).
@@ -1152,7 +1162,7 @@ WantedBy=multi-user.target</code></pre>
                 <ul>
                 <li class="fragment">
                     Dans systemd, les logs sont associés à un groupe afin de réduire les chances
-                    de corruption lors d'un piratage.</li>
+                    de corruption lors d'un pilogsratage.</li>
                 <li class="fragment">Ils sont portables,
                     et l'outil comporte une gestion de saturation de l'espace.
                 </li>
@@ -1160,7 +1170,46 @@ WantedBy=multi-user.target</code></pre>
                     Tout service géré par systemd est automatiquement logué
                     dans la base de donnée de journald, à laquelle on accède via la commande journalctl.
                 </li>
+                    <li class="fragment">Démo !</li>
                 </ul>
+                <aside class="notes">
+                    <pre><code>
+                        journalctl
+
+// Logs depuis le boot
+journalctl -b
+
+// Lister les boots
+journalctl --list-boots
+
+// Depuis une certaine date
+journalctl --since "2015-01-10 17:15:00"
+
+// Depuis hier
+journalctl --since yesterday
+
+// Depuis 9h jusqu'il y a une heure
+journalctl --since 09:00 --until "1 hour ago"
+
+// Mettre continuellement à jour les message
+journalctl -f
+
+// Filtrer par unit
+journalctl -u postgresql
+
+// Filtrer par processus impliqué
+journalctl /usr/bin/bash
+
+// Messages du kernel
+journalctl -k
+
+// Taille des logs sur le boot
+journalctl --disk-usage
+
+// Nettoyer les logs vieux de plus d'un an
+sudo journalctl --vacuum-time=1years
+                    </code></pre>
+                </aside>
             </section>
             <section>
                 <h3>V. Les Control Groups</h3>
@@ -1211,12 +1260,18 @@ WantedBy=multi-user.target</code></pre>
                 </ul>
                 <video style="height: 8em;" class="fragment" style="height: 11em;" data-autoplay="" loop="loop"
                        src="img/hurry.mp4"></video>
+                <aside class="notes">
+                    <b>Thibaut</b>
+                </aside>
             </section>
             <section>
                 <h3>Principe général :</h3>
                 <p>C'est un fichier spécifique à systemd, qui est obligatoirement associé à un service existant.<br>
                     Par défaut, un timer est associé au service ayant le même nom que lui.</p>
                 <p>Ex : foo.timer est associé a foo.service.</p>
+                <aside class="notes">
+                    <b>Thibaut</b>
+                </aside>
             </section>
             <section>
                 <h3>Les timers sont divisés en deux catégories :</h3>
@@ -1226,6 +1281,9 @@ WantedBy=multi-user.target</code></pre>
                     <li class="fragment">Les timers de type <i>temps-réel</i> (realtime timer), qui s'activent à un instant donné,
                     comme le font les cronjobs.</li>
                 </ul>
+                <aside class="notes">
+                    <b>Thibaut</b>
+                </aside>
             </section>
             <section>
                 <h3>Exemple d'un timer monotone</h3>
@@ -1240,6 +1298,9 @@ OnUnitActiveSec=1w
 WantedBy=timers.target</code></pre>
                 <p>Ici, le timer se lance 15 minutes après le démarrage du système, ainsi que toutes les semaines tant que
                     le système est actif.</p>
+                <aside class="notes">
+                    <b>Thibaut</b>
+                </aside>
             </section>
             <section>
                 <h3>Exemple d'un timer type temps réel.</h3>
@@ -1254,6 +1315,9 @@ Persistent=true
 WantedBy=timers.target</code></pre>
                 <p>Le timer se lance chaque lundi à minuit. Quand il est activé, il déclenche immédiatemment le service
                 si ce dernier a manqué le dernier démarrage (par exemple si le système était éteint).</p>
+                <aside class="notes">
+                    <b>Thibaut</b>
+                </aside>
             </section>
             <section>
                 <h3>Les timers en remplacement de CRON</h3>
@@ -1265,11 +1329,38 @@ WantedBy=timers.target</code></pre>
                     <li>Ils peuvent être liés à d'autres units de systemd.</li>
                     <li>Les jobs sont logués dans le journal de systemd.</li>
                 </ul>
+                <aside class="notes">
+                    <b>Thibaut</b>
+                </aside>
             </section>
             <section>
-                <h3>VII. SystemD Galaxy</h3>
-                <p>systemd-bood, udev, networkd, logind, timedated</p>
-                <p>TODO</p>
+                <h3>VII. La galaxie SystemD</h3>
+                <ul>
+                    <li class="fragment">journald</li>
+                    <li class="fragment">logind</li>
+                    <li class="fragment">systemd-logind</li>
+                    <li class="fragment">networkd</li>
+                    <li class="fragment">systemd-timedated</li>
+                    <li class="fragment">udev</li>
+                    <li class="fragment">systemd-boot</li>
+                </ul>
+                <aside class="notes">
+                    systemd-journald is a daemon responsible for event logging, with append-only binary files serving as its logfiles. The system administrator may choose whether to log system events with systemd-journald, syslog-ng or rsyslog. The potential for corruption of the binary format has led to much heated debate.[22]
+                    logind
+                    systemd-logind is a daemon that manages user logins and seats in various ways. It is an integrated login manager that offers multiseat improvements[23] and replaces ConsoleKit, which is no longer maintained.[24] For X11 display managers the switch to logind requires a minimal amount of porting.[25] It was integrated in systemd version 30.
+                    networkd
+                    networkd is a daemon to handle the configuration of the network interfaces; in version 209, when it was first integrated, support was limited to statically assigned addresses and basic support for bridging configuration.[26][27][28][29][30] In July 2014, systemd version 215 was released, adding new features such as a DHCP server for IPv4 hosts, and VXLAN support.[31][32]
+                    tmpfiles
+                    systemd-tmpfiles is a utility that takes care of creation and clean-up of temporary files and directories. It is normally run once at startup and then in specified intervals.
+                    timedated
+                    systemd-timedated is a daemon that can be used to control time-related settings, such as the system time, system time zone, or selection between UTC and local time zone system clock. It is accessible through D-Bus.[33] It was integrated in systemd version 30.
+                    udevd
+                    udev is a device manager for the Linux kernel, which handles the /dev directory and all user space actions when adding/removing devices, including firmware loading. In April 2012, the source tree for udev was merged into the systemd source tree.[34][35]
+                    libudev
+                    It is the standard library for utilizing udev, which allows third-party applications to query udev resources.
+                    systemd-boot
+                    systemd-boot is a boot manager, formerly known as gummiboot. Kay Sievers merged it into systemd with rev 220.
+                </aside>
             </section>
             <section>
                 <h3>Et maintenant...</h3>
